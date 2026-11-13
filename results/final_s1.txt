@@ -1,0 +1,15 @@
+# FINAL S1 results -- 2026-09-07T05:02Z -- 12 checkpoints, 4 families
+
+model                 size  cube_lifting    cube_stack    spill_wipe    total
+qwen3-0.6b            0.6B          0/30          0/30          0/30     0/90
+qwen25-coder-1.5b     1.5B          0/30          0/30          0/30     0/90
+qwen3-1.7b            1.7B          0/30          0/30          0/30     0/90
+qwen25-coder-3b       3.0B         17/30          0/30          0/30    17/90
+qwen3-4b              4.0B         30/30         26/30          0/30    56/90
+qwen3vl-4b            4.0B          0/30         13/30          0/30    13/90
+gemma3-4b             4.0B          0/30          6/30          0/30     6/90
+qwen35-4b             4.0B          0/30         11/30          0/30    11/90
+qwen25-coder-7b       7.0B          0/30          0/30         29/30    29/90
+qwen3-8b              8.0B          0/30         25/30          0/30    25/90
+gemma3-12b           12.0B         27/30          0/30          0/30    27/90
+qwen3-14b            14.0B         30/30         30/30          0/30    60/90

@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+.env
+*.token
+hf_token.txt
+*.jsonl
+outputs/
+.DS_Store

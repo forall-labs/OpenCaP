@@ -1,0 +1,1506 @@
+[
+  {
+    "pid": "1969e3eebd73",
+    "task": "cube_lifting",
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "spurious_move",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.2,
+    "truncated": false,
+    "evidence": {
+      "spurious_move": "move to the object's own pose before acting",
+      "missing_action": "repair adds: position[2] += 0.2 goto_pose(position, quaternion)"
+    }
+  },
+  {
+    "pid": "b7fa7bcdd8d0",
+    "task": "cube_lifting",
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.5,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach absent -> ['0.1']",
+      "missing_action": "repair adds: import numpy as np goto_pose(position + np.array([0.0, 0.0, "
+    }
+  },
+  {
+    "pid": "a734cf837029",
+    "task": "cube_lifting",
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "spurious_move",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.28,
+    "truncated": false,
+    "evidence": {
+      "spurious_move": "move to the object's own pose before acting",
+      "missing_action": "repair adds: goto_pose(position_grasp, quaternion_grasp, z_approach=0.1) "
+    }
+  },
+  {
+    "pid": "29b073a0e4f3",
+    "task": "cube_lifting",
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "api_rebound",
+      "call_signature",
+      "approach_param",
+      "unbound_name"
+    ],
+    "families": [
+      "INTERFACE",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "distance": 0.8,
+    "truncated": false,
+    "evidence": {
+      "api_rebound": "rebinds provided API: sample_grasp_pose",
+      "call_signature": "duplicate position= alongside a positional arg",
+      "approach_param": "z_approach ['0.0'] -> ['0.1']",
+      "unbound_name": "used before binding: lift_red_cube"
+    }
+  },
+  {
+    "pid": "43095d10c293",
+    "task": "cube_lifting",
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "spurious_move",
+      "approach_param"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.2593,
+    "truncated": false,
+    "evidence": {
+      "spurious_move": "move to the object's own pose before acting",
+      "approach_param": "z_approach ['0.0'] -> ['0.1']"
+    }
+  },
+  {
+    "pid": "53322897bc04",
+    "task": "cube_lifting",
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "spurious_move",
+      "missing_action",
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.1489,
+    "truncated": false,
+    "evidence": {
+      "spurious_move": "move to the object's own pose before acting",
+      "missing_action": "repair adds: goto_pose(gripper_position, gripper_quaternion, z_approach=0",
+      "approach_param": "z_approach ['0.0'] -> absent"
+    }
+  },
+  {
+    "pid": "a86bb6608456",
+    "task": "cube_lifting",
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "spurious_move",
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.1282,
+    "truncated": false,
+    "evidence": {
+      "spurious_move": "move to the object's own pose before acting",
+      "approach_param": "z_approach ['0.0'] -> ['0.1']",
+      "missing_action": "repair adds: goto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_"
+    }
+  },
+  {
+    "pid": "ffb459024b50",
+    "task": "cube_lifting",
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "never_invoked",
+      "spurious_move",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "distance": 0.3571,
+    "truncated": false,
+    "evidence": {
+      "never_invoked": "defines pick_up_red_cube and never calls it",
+      "spurious_move": "move to the object's own pose before acting",
+      "missing_action": "repair adds: goto_pose(grasp_pose[0] + np.array([0.0, 0.0, 0.1]), grasp_p"
+    }
+  },
+  {
+    "pid": "afc6b311aed3",
+    "task": "cube_lifting",
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.3333,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach ['0.1'] -> absent",
+      "missing_action": "repair adds: import numpy as np goto_pose(position + np.array([0.0, 0.0, "
+    }
+  },
+  {
+    "pid": "4b1984c7e64d",
+    "task": "cube_lifting",
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "gripper_order",
+      "missing_action",
+      "call_signature",
+      "approach_param",
+      "wrong_task"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "distance": 0.4667,
+    "truncated": false,
+    "evidence": {
+      "gripper_order": "gripper sequence ['close', 'open'] -> ['open', 'close']",
+      "missing_action": "repair adds: open_gripper()",
+      "call_signature": "duplicate position= alongside a positional arg",
+      "approach_param": "z_approach ['0.2', '0.1', '0.2'] -> absent",
+      "wrong_task": "solves pick-and-place on a lifting task"
+    }
+  },
+  {
+    "pid": "d95f866f69e8",
+    "task": "cube_lifting",
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "distance": 0.2,
+    "truncated": false,
+    "evidence": {
+      "missing_action": "repair adds: grasp_position[2] += 0.2 goto_pose(grasp_position, grasp_qua"
+    }
+  },
+  {
+    "pid": "b722ec980ef2",
+    "task": "cube_lifting",
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "wrong_target"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "distance": 0.0952,
+    "truncated": false,
+    "evidence": {
+      "wrong_target": "lift_position read from position -> grasp_position"
+    }
+  },
+  {
+    "pid": "5c33ddefc93f",
+    "task": "cube_lifting",
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "unbound_name"
+    ],
+    "families": [
+      "INTERFACE"
+    ],
+    "distance": 0.5,
+    "truncated": false,
+    "evidence": {
+      "unbound_name": "used before binding: position, quaternion_wxyz"
+    }
+  },
+  {
+    "pid": "d664c03db81d",
+    "task": "cube_lifting",
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 19,
+    "tags": [
+      "object_name"
+    ],
+    "families": [
+      "INTERFACE"
+    ],
+    "distance": 0.2308,
+    "truncated": false,
+    "evidence": {
+      "object_name": "underscored object string, e.g. 'red_cube'"
+    }
+  },
+  {
+    "pid": "fa2f9b908fc4",
+    "task": "cube_lifting",
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 3,
+    "tags": [
+      "missing_action",
+      "wrong_target",
+      "call_signature"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "distance": 0.2308,
+    "truncated": false,
+    "evidence": {
+      "missing_action": "repair adds: open_gripper()",
+      "wrong_target": "lifted_position read from red_cube_position -> grasp_position",
+      "call_signature": "duplicate position= alongside a positional arg"
+    }
+  },
+  {
+    "pid": "616993ccfad3",
+    "task": "cube_stack",
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "syntax",
+      "approach_param",
+      "wrong_formula",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "SYNTAX",
+      "TRAJECTORY"
+    ],
+    "distance": 0.7566,
+    "truncated": true,
+    "evidence": {
+      "syntax": "original does not parse",
+      "approach_param": "z_approach ['0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1', '0.1'",
+      "wrong_formula": "placement height arithmetic",
+      "missing_coverage": "repair raises loop nesting -1 -> 0 (area coverage)"
+    }
+  },
+  {
+    "pid": "dc702b55fff8",
+    "task": "cube_stack",
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "never_invoked",
+      "object_name",
+      "wrong_target",
+      "wrong_formula",
+      "missing_action",
+      "stale_read",
+      "approach_param",
+      "unbound_name"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "distance": 0.6154,
+    "truncated": false,
+    "evidence": {
+      "never_invoked": "defines pick_and_stack_red_on_green and never calls it",
+      "object_name": "underscored object string, e.g. 'red_cube'",
+      "wrong_target": "place_z read from green_center_z -> green_pose",
+      "wrong_formula": "placement height arithmetic",
+      "missing_action": "repair adds: open_gripper()",
+      "stale_read": "target pose re-read after the lift",
+      "approach_param": "z_approach ['0.2', '0.1', '0.2'] -> absent",
+      "unbound_name": "used before binding: green_center_z, red_extent"
+    }
+  },
+  {
+    "pid": "0e0d6365d8ae",
+    "task": "cube_stack",
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.2667,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach ['0.1', '0.2'] -> absent"
+    }
+  },
+  {
+    "pid": "90b045d2103b",
+    "task": "cube_stack",
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "syntax",
+      "object_name",
+      "approach_param",
+      "wrong_target",
+      "missing_coverage"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "SYNTAX",
+      "TRAJECTORY"
+    ],
+    "distance": 0.9864,
+    "truncated": true,
+    "evidence": {
+      "syntax": "original does not parse",
+      "object_name": "underscored object string, e.g. 'red_cube'",
+      "approach_param": "z_approach absent -> ['0.1', '0.1']",
+      "wrong_target": "placement used the red cube's coordinates",
+      "missing_coverage": "repair raises loop nesting -1 -> 0 (area coverage)"
+    }
+  },
+  {
+    "pid": "88c506d29d99",
+    "task": "cube_stack",
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "stale_read",
+      "approach_param",
+      "wrong_target",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.6757,
+    "truncated": false,
+    "evidence": {
+      "stale_read": "target pose re-read after the lift",
+      "approach_param": "z_approach ['0.1', '0.1', '0.1', '0.1'] -> ['0.1']",
+      "wrong_target": "placement used the red cube's coordinates",
+      "missing_action": "repair adds: goto_pose(place_pose + np.array([0.0, 0.0, 0.1]), red_grasp_"
+    }
+  },
+  {
+    "pid": "9fec67c20d20",
+    "task": "cube_stack",
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "gripper_order",
+      "object_name",
+      "wrong_formula",
+      "stale_read",
+      "spurious_move"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "distance": 0.5319,
+    "truncated": false,
+    "evidence": {
+      "gripper_order": "gripper sequence ['open', 'close'] -> ['close', 'open']",
+      "object_name": "underscored object string, e.g. 'red_cube'",
+      "wrong_formula": "placement height arithmetic",
+      "stale_read": "target pose re-read after the lift",
+      "spurious_move": "move to the object's own pose before acting"
+    }
+  },
+  {
+    "pid": "d5fcf1e81967",
+    "task": "cube_stack",
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "spurious_move"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.2308,
+    "truncated": false,
+    "evidence": {
+      "spurious_move": "move to the object's own pose before acting"
+    }
+  },
+  {
+    "pid": "06788121c5ac",
+    "task": "cube_stack",
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "api_rebound",
+      "gripper_order",
+      "approach_param",
+      "wrong_formula",
+      "unbound_name"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "distance": 0.8667,
+    "truncated": false,
+    "evidence": {
+      "api_rebound": "rebinds provided API: sample_grasp_pose",
+      "gripper_order": "gripper sequence ['open', 'close'] -> ['close', 'open']",
+      "approach_param": "z_approach absent -> ['0.1', '0.1']",
+      "wrong_formula": "placement height arithmetic",
+      "unbound_name": "used before binding: green_extent, red_extent"
+    }
+  },
+  {
+    "pid": "016f6392e871",
+    "task": "cube_stack",
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 23,
+    "tags": [
+      "approach_param"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.1343,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach ['0.1'] -> absent"
+    }
+  },
+  {
+    "pid": "718915ea2b1a",
+    "task": "cube_stack",
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 23,
+    "tags": [
+      "stale_read",
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.125,
+    "truncated": false,
+    "evidence": {
+      "stale_read": "target pose re-read after the lift",
+      "approach_param": "z_approach ['0.1'] -> absent"
+    }
+  },
+  {
+    "pid": "49b442823ed4",
+    "task": "cube_stack",
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 18,
+    "tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.4419,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach ['0.0', '0.0'] -> absent",
+      "missing_action": "repair adds: goto_pose(place_pos + np.array([0.0, 0.0, 0.1]), red_grasp_q"
+    }
+  },
+  {
+    "pid": "c0c896f94222",
+    "task": "cube_stack",
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 10,
+    "tags": [
+      "approach_param",
+      "wrong_target"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.3333,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach ['0.1', '0.1'] -> absent",
+      "wrong_target": "placement used the red cube's coordinates"
+    }
+  },
+  {
+    "pid": "e7356f7f0021",
+    "task": "cube_stack",
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 5,
+    "tags": [
+      "post_release_retreat"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.0455,
+    "truncated": false,
+    "evidence": {
+      "post_release_retreat": "trailing move after releasing"
+    }
+  },
+  {
+    "pid": "65ceca4e9cdb",
+    "task": "cube_stack",
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 1,
+    "tags": [
+      "stale_read"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "distance": 0.2105,
+    "truncated": false,
+    "evidence": {
+      "stale_read": "target pose re-read after the lift"
+    }
+  },
+  {
+    "pid": "81ee85d0f933",
+    "task": "cube_stack",
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 1,
+    "tags": [],
+    "families": [],
+    "distance": 0.04,
+    "truncated": false,
+    "evidence": {}
+  },
+  {
+    "pid": "c05383192094",
+    "task": "nut_assembly",
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "wrong_target",
+      "call_signature",
+      "approach_param",
+      "post_release_retreat",
+      "unbound_name"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.5429,
+    "truncated": false,
+    "evidence": {
+      "wrong_target": "fixed_rigid_transform read from get_fixed_rigid_transform -> R",
+      "call_signature": "duplicate position= alongside a positional arg",
+      "approach_param": "z_approach ['0.0'] -> ['0.05', '0.05']",
+      "post_release_retreat": "trailing move after releasing",
+      "unbound_name": "used before binding: get_fixed_rigid_transform"
+    }
+  },
+  {
+    "pid": "b296d8967481",
+    "task": "nut_assembly",
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param",
+      "post_release_retreat"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.4667,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach absent -> ['0.05', '0.05']",
+      "post_release_retreat": "trailing move after releasing"
+    }
+  },
+  {
+    "pid": "354e3ade0228",
+    "task": "nut_assembly",
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "api_rebound",
+      "object_name",
+      "wrong_target",
+      "approach_param"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "distance": 0.1316,
+    "truncated": true,
+    "evidence": {
+      "api_rebound": "rebinds provided API: sample_grasp_pose",
+      "object_name": "underscored object string, e.g. 'red_cube'",
+      "wrong_target": "object_names read from brown_square_nut -> brown",
+      "approach_param": "z_approach absent -> ['0.05', '0.05']"
+    }
+  },
+  {
+    "pid": "e19d3ded68a0",
+    "task": "nut_assembly",
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "never_invoked",
+      "call_signature",
+      "approach_param"
+    ],
+    "families": [
+      "INTERFACE",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "distance": 0.6848,
+    "truncated": true,
+    "evidence": {
+      "never_invoked": "defines main and never calls it",
+      "call_signature": "duplicate position= alongside a positional arg",
+      "approach_param": "z_approach ['0.0'] -> ['0.05', '0.05']"
+    }
+  },
+  {
+    "pid": "0fa31bc12c81",
+    "task": "nut_assembly",
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "wrong_target",
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.3455,
+    "truncated": false,
+    "evidence": {
+      "wrong_target": "rigid_transform read from np -> Rotation",
+      "approach_param": "z_approach absent -> ['0.05']",
+      "missing_action": "repair adds: goto_home_joint_position()     block_pose = get_object_pose("
+    }
+  },
+  {
+    "pid": "d99d119f5f06",
+    "task": "nut_assembly",
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.1045,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach ['0.1'] -> ['0.05']"
+    }
+  },
+  {
+    "pid": "8c045a27c831",
+    "task": "nut_assembly",
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "frame_convention"
+    ],
+    "families": [
+      "FRAME"
+    ],
+    "distance": 0.0299,
+    "truncated": false,
+    "evidence": {
+      "frame_convention": "frame algebra attempted and corrected: quaternion reorders 0 -> 0, frame rotations 3 -> 6"
+    }
+  },
+  {
+    "pid": "2959a48311b6",
+    "task": "nut_assembly",
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.1111,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach ['0.1'] -> ['0.05']"
+    }
+  },
+  {
+    "pid": "0feeed1b6e4a",
+    "task": "nut_assembly",
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "distance": 0.1935,
+    "truncated": false,
+    "evidence": {
+      "missing_action": "repair adds: open_gripper()"
+    }
+  },
+  {
+    "pid": "c5ddb94e26f2",
+    "task": "nut_assembly",
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 30,
+    "tags": [],
+    "families": [],
+    "distance": 0.0741,
+    "truncated": false,
+    "evidence": {}
+  },
+  {
+    "pid": "8342c9b02e4a",
+    "task": "nut_assembly",
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.25,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach absent -> ['0.05']"
+    }
+  },
+  {
+    "pid": "7a333ab97785",
+    "task": "nut_assembly",
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.0909,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach ['0.1'] -> ['0.05']"
+    }
+  },
+  {
+    "pid": "3bd536fcbb88",
+    "task": "nut_assembly",
+    "models": [
+      "qwen35-27b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "frame_convention"
+    ],
+    "families": [
+      "FRAME"
+    ],
+    "distance": 0.0693,
+    "truncated": false,
+    "evidence": {
+      "frame_convention": "frame algebra attempted and corrected: quaternion reorders 1 -> 4, frame rotations 9 -> 9"
+    }
+  },
+  {
+    "pid": "dcf251c02bbf",
+    "task": "nut_assembly",
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.2075,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach absent -> ['0.05']"
+    }
+  },
+  {
+    "pid": "acb91dfbfdf3",
+    "task": "nut_assembly",
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "frame_convention"
+    ],
+    "families": [
+      "FRAME"
+    ],
+    "distance": 0.0488,
+    "truncated": false,
+    "evidence": {
+      "frame_convention": "frame algebra attempted and corrected: quaternion reorders 0 -> 0, frame rotations 3 -> 5"
+    }
+  },
+  {
+    "pid": "b6a608c42e2c",
+    "task": "nut_assembly",
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.2973,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach absent -> ['0.05']"
+    }
+  },
+  {
+    "pid": "692ff5246487",
+    "task": "nut_assembly",
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.1923,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach absent -> ['0.05']",
+      "missing_action": "repair adds: goto_home_joint_position() goto_pose(peg_pose[0] + offset, p"
+    }
+  },
+  {
+    "pid": "72b308ae20c1",
+    "task": "nut_assembly",
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param",
+      "spurious_move",
+      "call_signature",
+      "missing_action",
+      "post_release_retreat"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.4324,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach absent -> ['0.05']",
+      "spurious_move": "move to the object's own pose before acting",
+      "call_signature": "duplicate position= alongside a positional arg",
+      "missing_action": "repair adds: transformed_handle_position = block_position + R.from_quat(b",
+      "post_release_retreat": "trailing move after releasing"
+    }
+  },
+  {
+    "pid": "203ec1356c6e",
+    "task": "nut_assembly",
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "approach_param",
+      "post_release_retreat"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "distance": 0.5,
+    "truncated": false,
+    "evidence": {
+      "approach_param": "z_approach ['0.1'] -> ['0.05']",
+      "post_release_retreat": "trailing move after releasing"
+    }
+  },
+  {
+    "pid": "57234b798b89",
+    "task": "nut_assembly",
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 29,
+    "tags": [
+      "missing_action",
+      "frame_convention"
+    ],
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "distance": 0.1781,
+    "truncated": false,
+    "evidence": {
+      "missing_action": "repair adds: open_gripper()",
+      "frame_convention": "frame algebra attempted and corrected: quaternion reorders 0 -> 4, frame rotations 9 -> 9"
+    }
+  },
+  {
+    "pid": "8a7b8a9113ba",
+    "task": "nut_assembly",
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 28,
+    "tags": [],
+    "families": [],
+    "distance": 0.1304,
+    "truncated": false,
+    "evidence": {}
+  },
+  {
+    "pid": "7993b2d06474",
+    "task": "spill_wipe",
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "never_invoked",
+      "call_signature",
+      "missing_coverage"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "distance": 0.7143,
+    "truncated": false,
+    "evidence": {
+      "never_invoked": "defines wipe_up_spill and never calls it",
+      "call_signature": "duplicate position= alongside a positional arg",
+      "missing_coverage": "repair raises loop nesting 0 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "9c02bbf8000b",
+    "task": "spill_wipe",
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "wrong_target",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "distance": 0.5897,
+    "truncated": false,
+    "evidence": {
+      "wrong_target": "min_x read from np -> spill_pose",
+      "missing_coverage": "repair raises loop nesting 0 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "143db90b314a",
+    "task": "spill_wipe",
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "syntax",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "SYNTAX"
+    ],
+    "distance": 1.0,
+    "truncated": true,
+    "evidence": {
+      "syntax": "original does not parse",
+      "missing_coverage": "repair raises loop nesting -1 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "596af49dbfc0",
+    "task": "spill_wipe",
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "call_signature",
+      "missing_coverage"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "distance": 0.3191,
+    "truncated": false,
+    "evidence": {
+      "call_signature": "duplicate position= alongside a positional arg",
+      "missing_coverage": "repair raises loop nesting 0 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "28da0e2b6638",
+    "task": "spill_wipe",
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [],
+    "families": [],
+    "distance": 0.4167,
+    "truncated": false,
+    "evidence": {}
+  },
+  {
+    "pid": "c3db4fcecebf",
+    "task": "spill_wipe",
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "call_signature",
+      "missing_coverage"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "distance": 0.5273,
+    "truncated": false,
+    "evidence": {
+      "call_signature": "duplicate position= alongside a positional arg",
+      "missing_coverage": "repair raises loop nesting 1 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "9aa8b5eb8b62",
+    "task": "spill_wipe",
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "wrong_target",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "distance": 0.6111,
+    "truncated": false,
+    "evidence": {
+      "wrong_target": "object_name read from spill -> brown",
+      "missing_coverage": "repair raises loop nesting 0 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "6a1443eea0cc",
+    "task": "spill_wipe",
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "distance": 0.4222,
+    "truncated": false,
+    "evidence": {
+      "missing_coverage": "repair raises loop nesting 1 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "b21323ef80f7",
+    "task": "spill_wipe",
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "distance": 0.0452,
+    "truncated": true,
+    "evidence": {
+      "missing_coverage": "repair raises loop nesting 0 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "eabe08645dd3",
+    "task": "spill_wipe",
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "distance": 0.2889,
+    "truncated": false,
+    "evidence": {
+      "missing_coverage": "repair raises loop nesting 1 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "202d7235339e",
+    "task": "spill_wipe",
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "spurious_move",
+      "missing_action",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.0635,
+    "truncated": true,
+    "evidence": {
+      "spurious_move": "move to the object's own pose before acting",
+      "missing_action": "repair adds: position, quaternion_wxyz, bbox_extent = get_object_pose('br",
+      "missing_coverage": "repair raises loop nesting 0 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "6455261487f0",
+    "task": "spill_wipe",
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "spurious_move",
+      "missing_action",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "distance": 0.0547,
+    "truncated": true,
+    "evidence": {
+      "spurious_move": "move to the object's own pose before acting",
+      "missing_action": "repair adds: spill_position, spill_quaternion, spill_extent = get_object_",
+      "missing_coverage": "repair raises loop nesting 0 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "bca76f283040",
+    "task": "spill_wipe",
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "never_invoked",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "distance": 0.4583,
+    "truncated": false,
+    "evidence": {
+      "never_invoked": "defines wipe_spill and never calls it",
+      "missing_coverage": "repair raises loop nesting 1 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "6a98c7c543d8",
+    "task": "spill_wipe",
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "tags": [
+      "call_signature",
+      "missing_coverage"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "distance": 0.2973,
+    "truncated": false,
+    "evidence": {
+      "call_signature": "duplicate position= alongside a positional arg",
+      "missing_coverage": "repair raises loop nesting 0 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "182bce0f3411",
+    "task": "spill_wipe",
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "tags": [],
+    "families": [],
+    "distance": 0.5238,
+    "truncated": false,
+    "evidence": {}
+  },
+  {
+    "pid": "885695a8c1ba",
+    "task": "spill_wipe",
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 23,
+    "tags": [],
+    "families": [],
+    "distance": 0.0789,
+    "truncated": false,
+    "evidence": {}
+  },
+  {
+    "pid": "41168a8604cf",
+    "task": "spill_wipe",
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 9,
+    "tags": [
+      "call_signature",
+      "missing_coverage"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "distance": 0.4615,
+    "truncated": false,
+    "evidence": {
+      "call_signature": "duplicate position= alongside a positional arg",
+      "missing_coverage": "repair raises loop nesting 1 -> 2 (area coverage)"
+    }
+  },
+  {
+    "pid": "d7d45f9310bc",
+    "task": "spill_wipe",
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 8,
+    "tags": [
+      "wrong_target"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "distance": 0.2143,
+    "truncated": false,
+    "evidence": {
+      "wrong_target": "step_size read from cm -> small"
+    }
+  },
+  {
+    "pid": "66b818dc7474",
+    "task": "spill_wipe",
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 1,
+    "tags": [],
+    "families": [],
+    "distance": 0.1,
+    "truncated": false,
+    "evidence": {}
+  }
+]

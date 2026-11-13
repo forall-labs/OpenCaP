@@ -1,0 +1,11 @@
+{
+  "5f1385711e87": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\n\n# Sample the grasp pose for the red cube\nred_grasp_pose = sample_grasp_pose('red cube')\n\n# Get the pose of the green cube\ngreen_pose = get_object_pose('green cube', return_bbox_extent=True)\n\n# Calculate the placement position\ngreen_center_z = green_pose[0][2]\ngreen_extent = green_pose[2]\nred_extent = get_object_pose('red cube', return_bbox_extent=True)[2]\nplace_z = green_center_z + green_extent[2]/2 + red_extent[2]/2\n\n# Open the gripper before approaching\nopen_gripper()\n\n# Approach the red cube for grasping\ngoto_pose(red_grasp_pose[0], red_grasp_pose[1], z_approach=0.1)\n\n# Grasp the red cube\nclose_gripper()\n\n# Lift the red cube to a safe height\nlift_pos = red_grasp_pose[0] + np.array([0, 0, 0.2])\ngoto_pose(lift_pos, red_grasp_pose[1])\n\n# Place the red cube on top of the green cube\nplace_pos = np.array([green_pose[0][0], green_pose[0][1], place_z])\ngoto_pose(place_pos, red_grasp_pose[1], z_approach=0.1)\n\n# Open the gripper\nopen_gripper()",
+      "result": "29/30",
+      "hypothesis": "duplicate position= kwarg raises TypeError; also wrong gripper ordering",
+      "outcome": "0/30 -> 29/30. Residual is trial 13 at reward 0.05 -- the SAME scene and value as coder-7b, qwen35-4b and coder-1.5b, all four having cached the green cube's pose before the lift."
+    }
+  ]
+}

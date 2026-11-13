@@ -1,0 +1,11 @@
+{
+  "6226282550fa": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\n\n# Get the poses and extents of the red and green cubes\nred_pose, red_quaternion, red_extent = get_object_pose(\"red cube\", return_bbox_extent=True)\ngreen_pose, green_quaternion, green_extent = get_object_pose(\"green cube\", return_bbox_extent=True)\n\n# Sample a grasp pose for the red cube\nred_grasp_pose, red_grasp_quaternion = sample_grasp_pose(\"red cube\")\n\n# Approach the red cube for grasping\ngoto_pose(red_grasp_pose, red_grasp_quaternion, z_approach=0.1)\n\n# Close the gripper to grasp the red cube\nclose_gripper()\n\n# Lift the red cube to a safe height\nred_grasp_pose[2] += 0.2\ngoto_pose(red_grasp_pose, red_grasp_quaternion)\n\n# Calculate the placement position for the red cube\nplace_z = green_pose[2] + green_extent[2]/2 + red_extent[2]/2\nred_place_pose = np.array([green_pose[0], green_pose[1], place_z])\nred_place_quaternion = red_grasp_quaternion  # Reuse the grasp quaternion for placement\n\n# Approach the placement position for placing\ngoto_pose(red_place_pose, red_place_quaternion, z_approach=0.1)\n\n# Open the gripper to release the red cube\nopen_gripper()",
+      "result": "29/30",
+      "hypothesis": "one wrong line: placement takes X,Y from the red cube instead of the green",
+      "outcome": "29/30 -- the substitution is right and recovers the task. One residual: trial 13 at reward 0.050 vs 1.000 elsewhere, a hard failure not a near-threshold flip, and the 30/30 reference clears that scene."
+    }
+  ]
+}

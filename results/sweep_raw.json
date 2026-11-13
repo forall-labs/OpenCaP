@@ -1,0 +1,62 @@
+[
+  {
+    "pid": "sweep_column_0",
+    "ok": true,
+    "cross_check": "27/30 agree",
+    "wall": 711.4,
+    "successes": 27,
+    "n": 30,
+    "run_dir": "/content/sweeptest/oracle/sweep_column_0",
+    "order": "column"
+  },
+  {
+    "pid": "sweep_column_1",
+    "ok": true,
+    "cross_check": "29/30 agree",
+    "wall": 708.6,
+    "successes": 29,
+    "n": 30,
+    "run_dir": "/content/sweeptest/oracle/sweep_column_1",
+    "order": "column"
+  },
+  {
+    "pid": "sweep_column_2",
+    "ok": true,
+    "cross_check": "30/30 agree",
+    "wall": 715.6,
+    "successes": 30,
+    "n": 30,
+    "run_dir": "/content/sweeptest/oracle/sweep_column_2",
+    "order": "column"
+  },
+  {
+    "pid": "sweep_row_0",
+    "ok": true,
+    "cross_check": "23/30 agree",
+    "wall": 677.2,
+    "successes": 23,
+    "n": 30,
+    "run_dir": "/content/sweeptest/oracle/sweep_row_0",
+    "order": "row"
+  },
+  {
+    "pid": "sweep_row_1",
+    "ok": true,
+    "cross_check": "22/30 agree",
+    "wall": 673.9,
+    "successes": 22,
+    "n": 30,
+    "run_dir": "/content/sweeptest/oracle/sweep_row_1",
+    "order": "row"
+  },
+  {
+    "pid": "sweep_row_2",
+    "ok": true,
+    "cross_check": "29/30 agree",
+    "wall": 670.4,
+    "successes": 29,
+    "n": 30,
+    "run_dir": "/content/sweeptest/oracle/sweep_row_2",
+    "order": "row"
+  }
+]

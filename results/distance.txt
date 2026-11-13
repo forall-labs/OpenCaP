@@ -1,0 +1,38 @@
+task         model                  sz   n  cause             DIST   +   -   ~
+----------------------------------------------------------------------------------
+cube_lifting gemma3-12b            12B   3  incomplete       0.000   0   0   0 *
+cube_lifting qwen3-1.7b           1.7B  30  incomplete,marg  0.143   4   0   0
+cube_lifting qwen3-8b               8B  30  incomplete       0.176   3   0   0
+cube_lifting gemma3-4b              4B  30  incomplete       0.238   3   0   1
+cube_lifting qwen35-4b              4B  30  incomplete       0.250   0   0   6
+cube_lifting qwen25-coder-3b        3B  13  incomplete       0.357   0   0   6
+cube_lifting qwen25-coder-7b        7B  30  no_op            0.419   0   0   9
+cube_lifting qwen3-0.6b           0.6B  30  bad_value        0.462   0   0   8
+cube_lifting qwen25-coder-1.5b    1.5B  30  incomplete       0.484   5   0   6
+cube_lifting qwen3vl-4b             4B  30  undefined_name   0.846   0   0   6
+cube_stack   qwen3-4b               4B   4  no_op            0.000   0   0   0 *
+cube_stack   qwen3-8b               8B   5  no_op            0.000   0   0   0 *
+cube_stack   qwen25-coder-7b        7B  30  no_op            0.091   0   2   1
+cube_stack   qwen35-4b              4B  19  marginal,no_op   0.132   0   1   4
+cube_stack   qwen3vl-4b             4B  17  marginal,no_op   0.156   0   2   3
+cube_stack   gemma3-12b            12B   2  undefined_name   0.395   0  22   4
+cube_stack   gemma3-4b              4B  24  marginal,no_op   0.447   0   0  12
+cube_stack   qwen3-1.7b           1.7B  30  bad_index        0.542   9   7   5
+cube_stack   qwen25-coder-1.5b    1.5B  30  undefined_name   0.547   7   4  11
+cube_stack   qwen25-coder-3b        3B  30  wrong_signature  0.560  10  12   3
+cube_stack   qwen3-0.6b           0.6B  30  wrong_signature  0.730   0   0  18
+spill_wipe   qwen25-coder-7b        7B   1  incomplete       0.000   0   0   0 *
+spill_wipe   gemma3-4b              4B  30  never_invoked    0.022   1   0   0
+spill_wipe   qwen3-14b             14B  30  incomplete,marg  0.212   0   0   4
+spill_wipe   qwen3vl-4b             4B  30  incomplete,marg  0.238   1   0   2
+spill_wipe   qwen3-8b               8B  30  incomplete,marg  0.289   0   0  11
+spill_wipe   qwen25-coder-3b        3B  30  bad_value        0.378   0   2  11
+spill_wipe   qwen3-4b               4B  30  incomplete,marg  0.429   0   0  10
+spill_wipe   qwen35-4b              4B  30  no_op            0.481   0   3   8
+spill_wipe   qwen3-0.6b           0.6B  30  marginal,no_op   0.500   0   0   8
+spill_wipe   qwen3-1.7b           1.7B  30  no_op            0.636   0   0  13
+spill_wipe   qwen25-coder-1.5b    1.5B  30  bad_value        0.833   0   0  19
+
+* = no defect found (4 programs); the cell's majority passed. Distance is 0 by finding, not by repair.
+
+STATUS: UNVERIFIED. No repair has been re-executed yet. These are judgements about what each program needs, not measurements of what recovers it.

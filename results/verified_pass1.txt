@@ -1,0 +1,45 @@
+==============================================================================
+MEASURED distance to a working program (repair verified at ceiling)
+==============================================================================
+task         model                  sz   DIST   +   -   ~   verified
+cube_lifting gemma3-4b              4B  0.238   3   0   1   30/30
+cube_lifting qwen35-4b              4B  0.250   0   0   6   30/30
+cube_lifting qwen25-coder-3b        3B  0.357   0   0   6   30/30
+cube_lifting qwen25-coder-7b        7B  0.419   0   0   9   30/30
+cube_lifting qwen3-0.6b           0.6B  0.462   0   0   8   30/30
+cube_lifting qwen3-8b               8B  0.467   3   1   2   30/30
+cube_lifting qwen25-coder-1.5b    1.5B  0.484   5   0   6   30/30
+cube_lifting qwen3vl-4b             4B  0.846   0   0   6   30/30
+cube_stack   qwen3vl-4b             4B  0.156   0   2   3   30/30
+cube_stack   gemma3-12b            12B  0.395   0  22   4   30/30
+cube_stack   gemma3-4b              4B  0.447   0   0  12   30/30
+cube_stack   qwen3-1.7b           1.7B  0.542   9   7   5   30/30
+
+------------------------------------------------------------------------------
+STILL ITERATING -- repair recovered some scenes but not the ceiling.
+These distances are LOWER BOUNDS, not measurements.
+cube_lifting qwen3-1.7b           1.7B  0.583   4   4   3   21/30  (need 30)
+cube_stack   qwen35-4b              4B  0.214   0   1   8   29/30  (need 30)
+cube_stack   qwen25-coder-7b        7B  0.261   0   2   6   29/30  (need 30)
+cube_stack   qwen25-coder-3b        3B  0.593  14  12   3   29/30  (need 30)
+cube_stack   qwen25-coder-1.5b    1.5B  0.679  11   4  14   29/30  (need 30)
+cube_stack   qwen3-0.6b           0.6B  0.750  12   0  13   29/30  (need 30)
+spill_wipe   qwen3-14b             14B  0.257   0   0   6   23/30  (need 29)
+spill_wipe   qwen3-8b               8B  0.348   0   0  11   23/30  (need 29)
+spill_wipe   qwen25-coder-3b        3B  0.391   0   2  11   22/30  (need 29)
+spill_wipe   qwen3-4b               4B  0.429   0   0  10   26/30  (need 29)
+spill_wipe   gemma3-4b              4B  0.488   1   0  11   6/30  (need 29)
+spill_wipe   qwen3-0.6b           0.6B  0.500   0   0   8   26/30  (need 29)
+spill_wipe   qwen3vl-4b             4B  0.500   0   0   5   26/30  (need 29)
+spill_wipe   qwen3-1.7b           1.7B  0.636   0   0  13   25/30  (need 29)
+spill_wipe   qwen35-4b              4B  0.688   0   3  15   21/30  (need 29)
+spill_wipe   qwen25-coder-1.5b    1.5B  0.833   0   0  19   17/30  (need 29)
+
+------------------------------------------------------------------------------
+NO DEFECT FOUND -- cell majority passed; tail is scene-limited.
+cube_lifting gemma3-12b            3 failing episodes of 30
+cube_stack   qwen3-4b              4 failing episodes of 30
+cube_stack   qwen3-8b              5 failing episodes of 30
+spill_wipe   qwen25-coder-7b       1 failing episodes of 30
+
+12/28 repairs verified at ceiling; 16 iterating; 0 unrun; 4 no-defect.

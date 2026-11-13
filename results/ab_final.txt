@@ -1,0 +1,33 @@
+# A/B numpy-preimport experiment -- final, 2026-09-06T20:17Z
+# 9 cells x 30 states x 2 arms = 540 episodes, S1, temperature 0, prefix caching off
+
+model      tier task               off      on   delta  p(McNemar)  flip  dominant failure (off)
+----------------------------------------------------------------------------------------------------
+qwen3-14b  S1   cube_lifting    30/30   30/30   +0.000      1.0000     0  -
+qwen3-14b  S1   cube_stack      30/30   30/30   +0.000      1.0000     0  -
+qwen3-14b  S1   spill_wipe       0/30    0/30   +0.000      1.0000     0  no_op (17)
+qwen3-4b   S1   cube_lifting     0/30   30/30   +1.000      0.0000    30  missing_import (30)
+qwen3-4b   S1   cube_stack      28/30   26/30   -0.067      0.5000     2  no_op (2)
+qwen3-4b   S1   spill_wipe       0/30    0/30   +0.000      1.0000     0  marginal (19)
+qwen3-8b   S1   cube_lifting     0/30    0/30   +0.000      1.0000     0  incomplete (30)
+qwen3-8b   S1   cube_stack      25/30   25/30   +0.000      1.0000     2  no_op (5)
+qwen3-8b   S1   spill_wipe       0/30    0/30   +0.000      1.0000     0  marginal (17)
+----------------------------------------------------------------------------------------------------
+overall  off 113/270 = 0.419 0.419 [0.361, 0.478]
+         on  141/270 = 0.522 0.522 [0.463, 0.581]
+         artifact share of measured failure: 17.8% of off-arm failures recovered by one import, over 9 paired cell(s)
+
+panel: 3 cells x 3 models x 2 arms = 540 episodes; stderr coverage 100.0%
+cells: S1/cube_lifting, S1/cube_stack, S1/spill_wipe
+
+                            4b                8b               14b
+                  off       on      off       on      off       on
+------------------------------------------------------------------
+success        31.1%    62.2%    27.8%    27.8%    66.7%    66.7% 
+execution      33.3%     0.0%     0.0%     0.0%     0.0%     0.0% 
+semantic       35.6%    37.8%    72.2%    72.2%    33.3%    33.3% 
+
+what the two arms separate, per scale:
+  qwen3-4b     scaffold-removable execution:  33.3%   success gained: +31.1%   execution left after repair:  0.0%
+  qwen3-8b     scaffold-removable execution:   0.0%   success gained:  +0.0%   execution left after repair:  0.0%
+  qwen3-14b    scaffold-removable execution:   0.0%   success gained:  +0.0%   execution left after repair:  0.0%

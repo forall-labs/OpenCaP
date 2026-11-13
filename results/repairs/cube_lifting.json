@@ -1,0 +1,320 @@
+{
+  "003de971e81e": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [27, 28, 27].",
+    "tier": "S4"
+  },
+  "0216e05f6f39": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Open after approach; re-reads the cube and 'lifts' to it with z_approach=0.05; closes only at the end.",
+    "tier": "S1"
+  },
+  "069c772b2d20": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Same shape as qwen3vl-4b: both API results discarded, `position` undefined.",
+    "tier": "S1"
+  },
+  "06f35515ae4e": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Addendum: re-read the cube after grasping, then 'lifted' to the re-read pose -- which is the cube in the closed gripper at table height. No lift.",
+    "tier": "S1"
+  },
+  "0d11262812ce": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red_cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Hallucinated franka_api import; main() defined, never called.",
+    "tier": "S1"
+  },
+  "126b2e1a4430": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [29, 27, 26].",
+    "tier": "S4"
+  },
+  "1969e3eebd73": {
+    "code": "import numpy as np\n\nposition, quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(position, quaternion, z_approach=0.1)\nclose_gripper()\nlift_position = position.copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, quaternion)",
+    "level": "L3_edit",
+    "note": "Grasps correctly and never lifts. ITERATION 2: adding the lift alone reached 25/30 -- the 5 residual failures grasp (reward ~0.51) but miss the lift threshold. The model's own preamble moves the gripper to the CUBE's pose using the CUBE's orientation before opening, which is an arbitrary gripper pose beside the object; the 30/30 reference has no such move. Removed it and open the gripper before approaching.",
+    "tier": "S1"
+  },
+  "1d3e790057ae": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red_cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Opens a non-existent robot_config.json at line 5 and dies; rest is commentary.",
+    "tier": "S1"
+  },
+  "1d66ee3f44bd": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [27, 24, 25].",
+    "tier": "S4"
+  },
+  "234bd2f3a017": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Repeats sample/goto/close until the token cap; unclosed paren. qwen35-9b, 30/30 -> 0/30 under the addendum.",
+    "tier": "S1"
+  },
+  "259827df5682": {
+    "code": "import numpy as np\n\ndef pick_up_red_cube():\n    # Get the pose of the red cube\n    red_cube_pose = get_object_pose('red cube')\n\n    # Sample a grasp pose for the red cube\n    grasp_pose = sample_grasp_pose('red cube')\n\n    # Open the gripper\n    open_gripper()\n\n    # Go to the grasp pose\n    goto_pose(grasp_pose[0], grasp_pose[1], z_approach=0.05)\n\n    # Close the gripper\n    close_gripper()\n\n    # Lift the red cube\n    lift = grasp_pose[0].copy()\n    lift[2] += 0.2\n    goto_pose(lift, grasp_pose[1])\n\npick_up_red_cube()",
+    "level": "L3_edit",
+    "note": "Function never called; gripper opened after approaching instead of before; closes on the object pose rather than the grasp pose; no lift.",
+    "tier": "S1"
+  },
+  "298739c89a01": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: degenerate_repetition,frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 1 draw(s)); scores [30].",
+    "tier": "S4"
+  },
+  "29b073a0e4f3": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red_cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "Rebound sample_grasp_pose to its own result, unpacked get_object_pose's 3-tuple into two names (ValueError), used zero placeholders for the pose, and called an undefined lift_red_cube().",
+    "tier": "S1"
+  },
+  "2fe48cf9e9b6": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Calls get_object_pose and sample_grasp_pose and discards both results, then uses undefined `position`.",
+    "tier": "S1"
+  },
+  "3bf9b1ee4d1c": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: degenerate_repetition,frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [27, 28, 25].",
+    "tier": "S4"
+  },
+  "3e958e6b91ee": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [23, 27, 28].",
+    "tier": "S4"
+  },
+  "3ed8f0c8d208": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.2]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Re-read the cube after grasping and lifted from the re-read pose (fine), then 'end with the action the task asks for' became open_gripper -- it lifted and dropped it.",
+    "tier": "S1"
+  },
+  "43095d10c293": {
+    "code": "import numpy as np\n\n# Get the pose of the red cube\nred_cube_pose = get_object_pose(\"red cube\")\nposition, quaternion_wxyz, bbox_extent = red_cube_pose\n\n# Sample a grasp pose for the red cube\ngrasp_pose = sample_grasp_pose(\"red cube\")\nposition_grasp, quaternion_grasp = grasp_pose\n\n# Open the gripper BEFORE approaching\nopen_gripper()\n\n# Move to the grasp pose, approaching from above\ngoto_pose(position_grasp, quaternion_grasp, z_approach=0.1)\n\n# Close the gripper on the cube\nclose_gripper()\n\n# Lift the red cube\ngoto_pose(position_grasp + np.array([0.0, 0.0, 0.1]), quaternion_grasp)\n",
+    "level": "L3_edit",
+    "note": "open_gripper fired after the approach and close_gripper was never called, so nothing was ever held; final move went to the cube's own pose with z_approach=0.0 instead of lifting.",
+    "tier": "S1"
+  },
+  "4793076ef262": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [26, 23, 26].",
+    "tier": "S4"
+  },
+  "4b1984c7e64d": {
+    "code": "import numpy as np\n\n# Sample a grasp pose for the red cube\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\n\n# Open the gripper, then move to the grasp position from above\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\n\n# Close the gripper to pick up the red cube\nclose_gripper()\n\n# Lift the red cube to a safe height and hold it there\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.2]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "Solved a pick-and-place instead of a lift: after grasping it carried the cube to a hard-coded (0.5, 0.5, 0.5) and released it, which the reward penalises at -19. Never opened the gripper before the grasp either.",
+    "tier": "S1"
+  },
+  "53322897bc04": {
+    "code": "import numpy as np\n\n# Sample grasp pose for the red cube\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red_cube\")\n\n# Open the gripper before approaching\nopen_gripper()\n\n# Approach the grasp pose from above, then descend onto it\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\n\n# Close the gripper on the cube\nclose_gripper()\n\n# Lift the cube\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "Called sample_grasp_pose twice and discarded the first; opened and closed the gripper in place before moving; final move went to the cube's pose with z_approach=0.0 and never lifted.",
+    "tier": "S1"
+  },
+  "545263179f09": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [27, 29, 28].",
+    "tier": "S4"
+  },
+  "56c9372211fc": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,never_invoked,pixel_as_world,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [27, 29, 27].",
+    "tier": "S4"
+  },
+  "5c33ddefc93f": {
+    "code": "position, quaternion_wxyz, _ = get_object_pose(\"red cube\")\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\nlift_position = grasp_position.copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, grasp_quaternion)",
+    "level": "L3_edit",
+    "note": "Calls both pose functions and discards the return values, then uses names that were never bound. Also opens the gripper at the end, dropping the cube.",
+    "tier": "S1"
+  },
+  "604a4e8919a3": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Open after approach; grasp at the cube's own pose with z_approach=0.0; every 'lift' is another approach to the cube pose. Never closes.",
+    "tier": "S1"
+  },
+  "620009e0637c": {
+    "code": "import numpy as np\n\n# Sample grasp pose for the red cube\ngrasp = sample_grasp_pose(\"red cube\")\n\n# Open the gripper\nopen_gripper()\n\n# Get the position and grasp pose of the red cube\nobject_pose, grasp_quaternion_wxyz, _ = get_object_pose(\"red cube\")\n\n# Use the sample grasp pose for the red cube\nposition, grasp_quaternion_wxyz = grasp\n\n# Goto the position using the sample grasp pose\ngoto_pose(position, grasp_quaternion_wxyz, z_approach=0.05)\nclose_gripper()\nlift_position = position.copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, grasp_quaternion_wxyz)",
+    "level": "L3_edit",
+    "note": "Shadows sample_grasp_pose with its own result, unpacks a 3-tuple into 2 names, uses the wrong object string, and never lifts. Four independent defects.",
+    "tier": "S1"
+  },
+  "6a405d55730c": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[ab-off-h200] numpy-off arm, one failing scene of a near-ceiling program; approach from above added.",
+    "tier": "S1"
+  },
+  "7835efddc630": {
+    "code": "import numpy as np\n\n# Step 1: Get the grasp pose for the red cube\ngrasp_pos, grasp_quat = sample_grasp_pose(\"red cube\")\n\n# Step 2: Move to the grasp pose with a small z_approach to avoid collision\ngoto_pose(grasp_pos, grasp_quat, z_approach=0.1)\n\n# Step 3: Close the gripper to pick up the red cube\nclose_gripper()\n\n# Step 4: Lift the red cube by moving upward in Z-axis\nlift_pos = grasp_pos + np.array([0, 0, 0.2])  # Lift 20 cm upward\ngoto_pose(lift_pos, grasp_quat)\n",
+    "level": "L3_edit",
+    "note": "[ab-off-h200] numpy-off arm. The program is correct and uses np.array for the lift; without the preimport it dies at the lift line with NameError. Repair is the one missing line.",
+    "tier": "S1"
+  },
+  "7c3e32891c68": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [25, 28, 25].",
+    "tier": "S4"
+  },
+  "846a4edcad10": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [28, 27, 26].",
+    "tier": "S4"
+  },
+  "85820d975a6f": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,pixel_as_world,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [27, 28, 27].",
+    "tier": "S4"
+  },
+  "8aba578bc895": {
+    "code": "import numpy as np\n\n# Get the pose of the red cube\ncube_position, cube_quaternion, cube_bbox_extent = get_object_pose(\"red cube\")\n\n# Sample a grasp pose for the red cube\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\n\n# Move the robot to the grasp position\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\n\n# Close the gripper to pick up the cube\nclose_gripper()\n\n# Lift the cube straight up\nlift_position = grasp_position.copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, grasp_quaternion)",
+    "level": "L3_edit",
+    "note": "Solves the WRONG TASK: a full pick-and-place to a hardcoded (0.5,0.5,0.5), which is out of reach and collides -- hence reward -19.5. The grasp half is correct; the place half must go.",
+    "tier": "S1"
+  },
+  "a43a0721c1e8": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [27, 28, 27].",
+    "tier": "S4"
+  },
+  "a734cf837029": {
+    "code": "# Grasp the red cube using the sample grasp pose\nposition_grasp, quaternion_grasp = sample_grasp_pose(\"red cube\")\n\n# Open the gripper\nopen_gripper()\n\n# Move to the grasp position\ngoto_pose(position_grasp, quaternion_grasp, z_approach=0.1)\n\n# Close the gripper\nclose_gripper()\n\n# Lift the cube\nlift_position = position_grasp.copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, quaternion_grasp)",
+    "level": "L3_edit",
+    "note": "Grasps and never lifts. ITERATION 1 added the lift and reached 21/30. The residual is the SAME defect qwen3-8b had: a pre-move to the cube's own pose using the cube's own orientation before opening the gripper -- here with no z_approach at all, so it drives into the object rather than approaching from above, which is why it scores worse than 8B's 25/30. ITERATION 2 removes it.",
+    "tier": "S1"
+  },
+  "a86bb6608456": {
+    "code": "import numpy as np\n\n# Define the object name for the red cube\nobject_name = \"red_cube\"\n\n# Get the current pose of the red cube\ncube_pose = get_object_pose(object_name)\ncube_position = cube_pose[0]\ncube_quaternion = cube_pose[1]\ncube_bbox = cube_pose[2]\n\n# Sample a grasp pose for the red cube\ngrasp_pose = sample_grasp_pose(object_name)\ngrasp_position = grasp_pose[0]\ngrasp_quaternion = grasp_pose[1]\n\n# Open the gripper to prepare for picking up the object\nopen_gripper()\n\n# Approach the grasp pose from above, then descend onto it\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\n\n# Close the gripper to hold the object\nclose_gripper()\n\n# Lift the cube\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "Hallucinated `from franka_api import ...` kills the program at line 2 (the environment still returns ~0.49 for the untouched state); the approach also used z_approach=0.0 and there was no lift.",
+    "tier": "S1"
+  },
+  "af0ee159e1c2": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red_cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Passed return_bbox_extent to sample_grasp_pose (TypeError); unpacked a 3-tuple into 2; called undefined lift_object().",
+    "tier": "S1"
+  },
+  "afc6b311aed3": {
+    "code": "import numpy as np\n\nposition, quaternion = sample_grasp_pose(\"red cube\")\ngoto_pose(position, quaternion, z_approach=0.1)\nopen_gripper()\ngoto_pose(position, quaternion)\nclose_gripper()\ngoto_pose(position + np.array([0.0, 0.0, 0.1]), quaternion)\n",
+    "level": "L3_edit",
+    "note": "Second goto_pose repeated z_approach=0.1 instead of descending to the grasp pose, so the gripper closed 10cm above the cube; no lift at all.",
+    "tier": "S1"
+  },
+  "b1a0689ebf52": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,pixel_as_world,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [27, 27, 27].",
+    "tier": "S4"
+  },
+  "b722ec980ef2": {
+    "code": "import numpy as np\n\n# Get the pose of the red cube\nred_cube_pose = get_object_pose(\"red cube\")\nposition = red_cube_pose[0]\nquaternion = red_cube_pose[1]\n\n# Sample a grasp pose for the red cube\ngrasp_pose = sample_grasp_pose(\"red cube\")\ngrasp_position = grasp_pose[0]\ngrasp_quaternion = grasp_pose[1]\n\n# Open the gripper\nopen_gripper()\n\n# Move to the grasp position with approach\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\n\n# Close the gripper to grasp the object\nclose_gripper()\n\n# Move upward to lift the object\nlift_position = grasp_position.copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, grasp_quaternion)",
+    "level": "L3_edit",
+    "note": "Lifts to the cube's ORIGINAL position (no height gain) with a hardcoded orientation, then re-closes an already-closed gripper. The lift target is the defect.",
+    "tier": "S1"
+  },
+  "b7fa7bcdd8d0": {
+    "code": "import numpy as np\n\n# Get the grasp pose for the red cube\nposition, quaternion_wxyz = sample_grasp_pose(\"red cube\")\n\n# Open the gripper, then move to the grasp pose from above\nopen_gripper()\ngoto_pose(position, quaternion_wxyz, z_approach=0.1)\n\n# Close the gripper to grasp the red cube\nclose_gripper()\n\n# Lift the red cube\ngoto_pose(position + np.array([0.0, 0.0, 0.1]), quaternion_wxyz)\n",
+    "level": "L3_edit",
+    "note": "Three lines: goto grasp pose, close, stop. No gripper open, no approach from above, no lift. This is qwen3-4b's H200 program; the same prompt on Colab produced the full program that scored 30/30.",
+    "tier": "S1"
+  },
+  "d091027928f6": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Four lines; the 'lift' is a second approach (z_approach=0.1) to the grasp pose, which descends back onto it. qwen3-4b under the addendum.",
+    "tier": "S1"
+  },
+  "d664c03db81d": {
+    "code": "import numpy as np\n\n# Sample the grasp pose for the red cube\nred_cube_grasp_pose = sample_grasp_pose(\"red cube\")\n\n# Get the pose of the red cube\nred_cube_pose = get_object_pose(\"red cube\")\n\n# Open the gripper\nopen_gripper()\n\n# Go to the grasp pose with an approach of 0.1 meters\ngoto_pose(red_cube_grasp_pose[0], red_cube_grasp_pose[1], z_approach=0.1)\n\n# Close the gripper\nclose_gripper()\n\n# Lift the cube above its original pose\nlift_position = red_cube_grasp_pose[0].copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, red_cube_grasp_pose[1])",
+    "level": "L3_edit",
+    "note": "Returns to the cube's ORIGINAL pose after grasping instead of lifting, so the cube goes back down. Wrong object string too. Succeeded on 17/30 scenes anyway.",
+    "tier": "S1"
+  },
+  "d7a40bf9acf1": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [26, 26, 28].",
+    "tier": "S4"
+  },
+  "d9369df00ccb": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Addendum: 'do not pass z_approach when lifting' -> the lift became goto_pose(grasp_position, grasp_quaternion): the same pose. qwen3-14b, 30/30 -> 0/30 under the addendum.",
+    "tier": "S1"
+  },
+  "d95f866f69e8": {
+    "code": "import numpy as np\n\nred_cube_pose = get_object_pose(\"red cube\")\nred_cube_position = red_cube_pose[0]\nred_cube_quaternion_wxyz = red_cube_pose[1]\n\ngrasp_pose = sample_grasp_pose(\"red cube\")\ngrasp_position = grasp_pose[0]\ngrasp_quaternion_wxyz = grasp_pose[1]\n\ngoto_pose(grasp_position, grasp_quaternion_wxyz, z_approach=0.05)\nclose_gripper()\nlift_position = grasp_position.copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, grasp_quaternion_wxyz)",
+    "level": "L3_edit",
+    "note": "Approaches the object pose instead of the sampled grasp pose, and never lifts.",
+    "tier": "S1"
+  },
+  "dd7085404bfc": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Addendum: 'do not pass z_approach when lifting' -> lift target set to the cube's own pre-grasp position. No lift; no gripper open either.",
+    "tier": "S1"
+  },
+  "e009dfad75c4": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [29, 28, 27].",
+    "tier": "S4"
+  },
+  "e2f8f6d6e990": {
+    "code": "import numpy as np\n\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red_cube\")\nopen_gripper()\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\ngoto_pose(grasp_position + np.array([0.0, 0.0, 0.1]), grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "[promptfix-h200] Defined pick_up_red_cube, never called; body grasps then releases at the cube's pose.",
+    "tier": "S1"
+  },
+  "e9789142dc06": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: frame_no_world_transform,missing_coverage,wrong_orientation. Accepted on the measured bar (no scene fails in all 3 draw(s)); scores [26, 26, 28].",
+    "tier": "S4"
+  },
+  "ef40b4163e91": {
+    "code": null,
+    "level": "L4_scene_limited",
+    "note": "NO DEFECT FOUND. Gets pose, samples grasp, approaches, closes, lifts 0.2m -- the reference structure. This program passed 27 of 30 scenes; these 3 are scene-specific failures, not a code error. Left unchanged deliberately: repairing it would fabricate a distance.",
+    "tier": "S1"
+  },
+  "fa2f9b908fc4": {
+    "code": "import numpy as np\n\n# Get the pose of the red cube\nred_cube_position, red_cube_quaternion, _ = get_object_pose(\"red cube\")\n\n# Sample a grasp pose for the red cube\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\n\n# Open the gripper before grasping\nopen_gripper()\n\n# Move to the grasp pose with a z-approach\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.05)\n\n# Close the gripper\nclose_gripper()\n\n# Move to a lifted pose, holding the grasp orientation\nlifted_position = grasp_position + np.array([0.0, 0.0, 0.2])\ngoto_pose(lifted_position, grasp_quaternion)\n",
+    "level": "L3_edit",
+    "note": "Never opened the gripper before grasping, and lifted using the CUBE's pose and orientation rather than the grasp pose, so the lift dragged the arm off the grasp.",
+    "tier": "S1"
+  },
+  "fafa1ac500c5": {
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\nobs = get_observation()\ncam = obs[\"robot0_robotview\"]\nrgb, depth = cam[\"images\"][\"rgb\"], cam[\"images\"][\"depth\"]\nK, E = cam[\"intrinsics\"], cam[\"pose_mat\"]\npr = point_prompt_molmo(rgb, \"red cube\")\npc = pr.get(\"red cube\", (None, None))\nif pc is None or tuple(pc) == (None, None):\n    raise RuntimeError(\"molmo could not find the red cube\")\nres = segment_sam3_point_prompt(rgb, pc)\nif not res:\n    raise RuntimeError(\"sam3 returned no mask\")\nmask = max(res, key=lambda d: d[\"score\"])[\"mask\"]\nposes, scores = plan_grasp(depth, K, mask)\nif len(poses) == 0:\n    raise RuntimeError(\"no grasp candidates\")\nT = E @ poses[int(np.argmax(scores))]\ngp = T[:3, 3]\ngq = np.roll(Rotation.from_matrix(T[:3, :3]).as_quat(), 1)   # xyzw -> wxyz\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.10]), gq))\nopen_gripper()\nmove_to_joints(solve_ik(gp, gq))\nclose_gripper()\nmove_to_joints(solve_ik(gp + np.array([0.0, 0.0, 0.15]), gq))\n",
+    "level": "L3_edit",
+    "note": "TEMPLATE repair, NOT minimised -- do not compute distance from this without a minimisation pass. Original tags: degenerate_repetition,frame_no_world_transform,missing_coverage,never_invoked,wrong_orientation. Accepted on the measured bar (no scene fails in all 1 draw(s)); scores [30].",
+    "tier": "S4"
+  },
+  "ffb459024b50": {
+    "code": "import numpy as np\n\ndef pick_up_red_cube():\n    # Sample a grasp pose for the red cube\n    grasp_pose = sample_grasp_pose('red_cube')\n\n    # Open the gripper, then go to the grasp pose from above\n    open_gripper()\n    goto_pose(grasp_pose[0], grasp_pose[1], z_approach=0.1)\n\n    # Close the gripper, then lift the cube\n    close_gripper()\n    goto_pose(grasp_pose[0] + np.array([0.0, 0.0, 0.1]), grasp_pose[1])\n\npick_up_red_cube()\n",
+    "level": "L3_edit",
+    "note": "Defined pick_up_red_cube and never called it; inside, opened the gripper after approaching and never lifted.",
+    "tier": "S1"
+  }
+}

@@ -1,0 +1,61 @@
+id,task,tags,notes
+P01,cube_lifting,wrong_formula;missing_action,
+P02,cube_stack,approach_param;post_release_retreat;call_signature,
+P03,cube_stack,call_signature;wrong_target;spurious_move;approach_param;missing_action;never_invoked,Main routine substantially rewritten. Counted removal of the main guard as an execution fix; ignored shared-kit mask filtering.
+P04,spill_wipe,unbound_name;wrong_target;wrong_formula;frame_convention;missing_coverage,Near-total rewrite into an opaque wipe helper. Grasp targets spill rather than sponge; pixel coordinates become motion coordinates; two center lines do not cover the area. Coverage is less certain because helper is collapsed.
+P05,nut_assembly,object_name;wrong_formula;spurious_move;approach_param;missing_action;never_invoked,
+P06,cube_stack,mock_shadowing;frame_convention;call_signature;wrong_target;approach_param;missing_action;gripper_order;never_invoked,Substantial rewrite. Grasp matrix was read as a dict; motion used placeholder object pose; lift and placement were absent. Counted main-guard removal as execution fix.
+P07,spill_wipe,call_signature;missing_coverage,"Box-return interpretation replaced with mask bounds; considered wrong_target. Sampling change is closest to coverage, though original already iterated."
+P08,spill_wipe,syntax,"Applied brief instruction to tag truncated programs and move on; visible cutoff is in a comment, so literal Python parse failure is uncertain."
+P09,cube_lifting,call_signature;frame_convention;wrong_target;missing_action,
+P10,cube_stack,call_signature;frame_convention;wrong_formula;approach_param;missing_action;never_invoked,Substantial rewrite. Matrix slicing and extent/height arithmetic grouped as wrong_formula; added post-grasp lift counted as missing_action.
+P11,cube_stack,mock_shadowing;missing_action,Near-total rewrite. Original consists of mocks and unused helper definitions; no pick-and-stack action sequence. Did not separately tag defects inside discarded mock data.
+P12,cube_stack,missing_action;wrong_formula;approach_param,Added actual grasp descent after standoff. Placement helper appears to fix grasp-relative placement height/offset; exact formula is hidden.
+P13,spill_wipe,missing_coverage;approach_param,Integer grid replaced by metric sweep; treated list-to-array changes as incidental rather than an independent signature fault.
+P14,cube_lifting,gripper_order;wrong_target,Used gripper_order for omitted opening before grasp; missing_action was the alternative.
+P15,spill_wipe,mock_shadowing;wrong_target;wrong_formula;frame_convention;missing_coverage,Near-total rewrite. Grasping the spill and omitting a sweep could alternatively be wrong_task; used separate target and coverage causes.
+P16,spill_wipe,object_name;missing_coverage;approach_param;call_signature,Tuple-to-array conversion appears to correct argument type; uncertain whether this is required or incidental.
+P17,spill_wipe,object_name;call_signature;wrong_formula;missing_coverage;approach_param;never_invoked,
+P18,cube_lifting,gripper_order;approach_param;wrong_target,Gripper sequence lacked closure; lift targeted object pose instead of an elevated grasp pose.
+P19,nut_assembly,object_name;wrong_formula;wrong_target;spurious_move;approach_param;call_signature;missing_action;never_invoked,Near-total rewrite removes repeated unrelated moves. Euler conversion passes a quaternion as the degrees argument. Final release and main invocation added. Ending comment looks unfinished but no visible syntax break.
+P20,cube_lifting,call_signature;syntax,"Return dict treated as coordinates. Ending is visibly cut off in a comment; applied brief truncation rule and did not reconstruct missing ending, although literal parse failure is uncertain."
+P21,cube_lifting,call_signature;frame_convention;wrong_formula,
+P22,spill_wipe,missing_coverage;approach_param,Coverage includes finer grid and rim margin. No exact tag for serpentine traversal; treated as part of sweep correction.
+P23,cube_stack,call_signature;frame_convention;wrong_formula;wrong_target;approach_param;post_release_retreat;never_invoked,Near-total rewrite. Lift and placement ignored their computed targets; tagged wrong_target rather than missing_action. Replaced trailing grasp-position move with upward retreat.
+P24,nut_assembly,frame_convention;wrong_formula;missing_action,"Added home move may provide transit clearance, but surrounding grasp sequence is not visible enough to name another cause confidently."
+P25,spill_wipe,missing_coverage;approach_param,"Original orientation value is not visible, so replacing it with a literal is not independently classified."
+P26,cube_lifting,wrong_formula,
+P27,spill_wipe,call_signature;frame_convention;missing_coverage,Most of motion logic replaced. Wrong Molmo return key; pixel center used as metric position; only one wipe point.
+P28,cube_lifting,call_signature;wrong_target;approach_param;missing_action,Constant pose replaced by planned grasp. Transform belongs to selecting that grasp; no existing camera-frame target was used.
+P29,cube_lifting,gripper_order;approach_param;wrong_target;never_invoked,
+P30,spill_wipe,wrong_formula;missing_coverage,OBB extents used directly as world-axis bounds; considered frame_convention but chose wrong_formula for bound construction. Denser grid and second pass address coverage.
+P31,nut_assembly,approach_param;wrong_target;wrong_formula,Replaced nut-center destination with peg destination and added independent handle-offset calculation. Could also describe absent insertion recipe as missing_action; avoided double counting it.
+P32,spill_wipe,call_signature;missing_coverage;approach_param,Extent vector incorrectly unpacked as four bounds; chose return-value misunderstanding over wrong_formula for that single cause.
+P33,spill_wipe,frame_convention,
+P34,cube_stack,api_rebound;call_signature;unbound_name;wrong_target;gripper_order;missing_action,"Near-total rewrite. Undefined extents and unpacking goto_pose/get_object_pose returns are independent faults. No original green-pose read, so no stale_read."
+P35,cube_lifting,wrong_formula;missing_action,Grouped nonexistent/incorrect np.quaternion construction with the matrix-to-quaternion error rather than adding unbound_name or call_signature for the same expression.
+P36,spill_wipe,frame_convention;missing_coverage,
+P37,cube_lifting,spurious_move;missing_action,
+P38,nut_assembly,object_name;approach_param;gripper_order;wrong_target,Insertion pointed back at nut pose and release preceded insertion. Offset calculation treated as part of correcting insertion target.
+P39,nut_assembly,unbound_name;wrong_formula;wrong_target;call_signature;approach_param;missing_action;gripper_order,Added missing pickup; removed release-before-final-insertion ordering. Transform helper assumed to be unavailable. Full pose and rigid transform were supplied where position and quaternion were needed.
+P40,cube_lifting,wrong_formula,
+P41,spill_wipe,wrong_target;frame_convention;wrong_formula;missing_coverage,Near-total replacement. Spill grasp and fixed orientation are inappropriate targets; OBB center-plus-extent bounds ignore orientation; camera-frame sweep points and two-line coverage are separate faults.
+P42,spill_wipe,missing_coverage;approach_param;spurious_move,"Removed final move back across spill; no release is shown, so used spurious_move rather than post_release_retreat. Coverage includes boundary margin and avoiding skipped far edge."
+P43,spill_wipe,call_signature;object_name;wrong_target;missing_coverage,Near-total rewrite. Molmo dict treated as four bounds and IK given seven-element vectors; perception ignored in favor of zeros.
+P44,cube_lifting,call_signature;missing_action;never_invoked,
+P45,cube_stack,mock_shadowing;call_signature;wrong_formula;frame_convention;wrong_target;approach_param;gripper_order;spurious_move;never_invoked,Substantial rewrite. Bounds/center arithmetic wrong independently of pixel units. Extra pre-release move removed; placement descent and clearance corrected.
+P46,cube_stack,mock_shadowing;wrong_target;call_signature;never_invoked;syntax,"Near-total rewrite; ends mid-comment, tagged syntax under truncation instruction without reconstructing ending. Float slice indices use call_signature as closest type-error tag. Perception replaced by fabricated constant mask; main was uncalled."
+P47,spill_wipe,wrong_formula;missing_coverage;approach_param,
+P48,nut_assembly,frame_convention;approach_param,"Offset must be rotated from grasp orientation to block orientation; considered wrong_formula, chose frame_convention. Grasp previously stopped above handle."
+P49,spill_wipe,missing_coverage,
+P50,spill_wipe,call_signature;frame_convention,"Most logic replaced by shared helper. Original has an area grid, so no independently visible missing_coverage cause."
+P51,nut_assembly,wrong_target;approach_param,Treated added offset as part of correcting destination from nut center to insertion pose.
+P52,nut_assembly,wrong_target;approach_param,Block center replaced by handle-adjusted target; wrong_formula is an alternative. Added home motions interpreted as clearance for grasp/carry.
+P53,spill_wipe,object_name;wrong_formula;missing_coverage;approach_param;wrong_target,Bounds used position components instead of extents; wipe orientation changed from object orientation to gripper orientation.
+P54,nut_assembly,wrong_target;approach_param;post_release_retreat;gripper_order,Removed trailing close after release as gripper_order; removed trailing return motion as post_release_retreat. Offset construction included in correction of insertion target.
+P55,spill_wipe,missing_coverage,Existing approach replaced by grid-start approach; hidden original height values do not establish an independent clearance fault.
+P56,cube_lifting,call_signature;wrong_formula;missing_action,
+P57,cube_stack,wrong_formula;frame_convention;wrong_target,"Point reconstruction, quaternion slicing, and double-added placement height grouped under wrong_formula. Motion used object surface rather than planned grasp."
+P58,cube_stack,mock_shadowing;object_name;call_signature;wrong_target;approach_param;missing_action;never_invoked,Near-total rewrite. Main-guard removal treated as execution fix. Constant target ignored grasp; no lift or placement existed.
+P59,cube_stack,call_signature;wrong_target;stale_read;spurious_move;approach_param,Green pose read moved after grasp/lift. Removed fixed lateral waypoint. Lift now uses elevated grasp pose without approach standoff; target and approach errors overlap somewhat.
+P60,nut_assembly,approach_param;wrong_target,Insertion was directed at nut pose rather than peg; handle-offset construction included in correcting that target.

@@ -1,0 +1,188 @@
+<title>Reduced-API Defect Shift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (~68ch) for prose; charts and tables may use the full 860px measure, each in its own overflow box. */
+:root {
+  --bg: #f4f6f8;          /* cool lab-white */
+  --panel: #ffffff;
+  --fg: #1c2733;          /* ink with a blue bias */
+  --muted: #5d6b79;
+  --rule: #d5dde5;
+  --s1: #8a99a8;          /* S1: the full API, drawn quietly */
+  --s34: #0f6a7f;         /* S3/S4: the reduced API, the subject */
+  --s4: #3d9bb0;
+  --flag: #a4471f;        /* retractions only */
+  --display: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11171d; --panel: #18212a; --fg: #e3e9ef; --muted: #98a6b3; --rule: #2a3642;
+    --s1: #75879a; --s34: #4cb3c9; --s4: #8ad0df; --flag: #e08a62; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11171d; --panel: #18212a; --fg: #e3e9ef; --muted: #98a6b3; --rule: #2a3642;
+  --s1: #75879a; --s34: #4cb3c9; --s4: #8ad0df; --flag: #e08a62; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font: 16px/1.6 var(--body); }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 72px; display: grid; gap: 40px; }
+.prose { max-width: 68ch; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.8rem); letter-spacing: -0.01em; }
+h2 { font-size: 1.55rem; }
+h3 { font-size: 1.12rem; }
+p { margin: 0; }
+section { display: grid; gap: 14px; }
+.eyebrow { font: 500 0.78rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 1.12rem; color: var(--fg); }
+.meta { font: 0.85rem/1.5 var(--mono); color: var(--muted); }
+code { font: 0.88em var(--mono); background: color-mix(in srgb, var(--rule) 45%, transparent); padding: 0.05em 0.3em; border-radius: 3px; }
+.key { display: flex; flex-wrap: wrap; gap: 18px; font: 0.85rem var(--mono); color: var(--muted); }
+.key span::before { content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 7px; vertical-align: -1px; border-radius: 2px; background: var(--c); }
+.findings { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.finding { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 4px 24px; padding-block: 16px; border-bottom: 1px solid var(--rule); }
+.finding .num { font: 600 1.6rem/1.1 var(--display); color: var(--s34); font-variant-numeric: tabular-nums; }
+.finding .num small { display: block; font: 0.8rem var(--mono); color: var(--muted); margin-top: 4px; }
+.finding.retracted .num { color: var(--flag); }
+@media (max-width: 560px) { .finding { grid-template-columns: minmax(0, 1fr); } }
+.fig { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 18px 12px; display: grid; gap: 10px; min-width: 0; }
+.scroll { overflow-x: auto; }
+.chart { width: 100%; min-width: 520px; height: auto; display: block; }
+.chart .grid { stroke: var(--rule); stroke-width: 1; }
+.chart .axis { fill: var(--muted); font: 12px var(--mono); }
+.chart .lbl { fill: var(--fg); font: 600 13px var(--display); }
+.chart .val { fill: var(--muted); font: 11px var(--mono); }
+.chart .bar.s1 { fill: var(--s1); }
+.chart .bar.s34 { fill: var(--s34); }
+.chart .ci { stroke: var(--fg); stroke-width: 1.4; opacity: 0.55; }
+.chart .line { fill: none; stroke-width: 2; }
+.chart .line.s1 { stroke: var(--s1); } .chart .line.s3 { stroke: var(--s34); } .chart .line.s4 { stroke: var(--s4); stroke-dasharray: 5 4; }
+.chart .dot.s1 { fill: var(--s1); } .chart .dot.s3 { fill: var(--s34); } .chart .dot.s4 { fill: var(--s4); }
+.caption { font-size: 0.88rem; color: var(--muted); max-width: 68ch; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+thead th { font: 500 0.75rem var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+tbody th { font-weight: 600; }
+.ci-t { color: var(--muted); font: 0.8rem var(--mono); }
+td.note { color: var(--muted); font-size: 0.85rem; }
+ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+.flag { color: var(--flag); font-weight: 600; }
+</style>
+
+<div class="wrap">
+  <header class="prose" style="display:grid; gap:14px">
+    <p class="eyebrow">Phase 9 · repair &amp; tagging pass · 4 Oct 2026</p>
+    <h1>Reduced-API Defect Shift</h1>
+    <p class="lede">With the perception-level APIs (S3, S4), every failed program from the 21-model ladder was repaired, verified, and tagged with the same defect taxonomy as S1. The tiers differ in two defect families, and the larger models lose most of the advantage they have at S1.</p>
+    <p class="meta">169/169 S3/S4 programs · 70 S1 programs · hand tags on both sides · repo commit 010a3e2</p>
+  </header>
+
+  <section>
+    <h2>Findings</h2>
+    <div class="findings">
+      <div class="finding"><div class="num">4% → 47%<small>FRAME, S1 → S3/S4</small></div>
+        <p>About half of reduced-API programs get coordinate frames wrong: camera values used as world, wxyz/xyzw mix-ups, a 4×4 applied to a 3-vector. At S1 the API returns world poses and this almost never happens. Holds on all four tasks and with unverified records removed (48%). Fisher p ≈ 1e-11.</p></div>
+      <div class="finding"><div class="num">26% → 60%<small>INTERFACE, S1 → S3/S4</small></div>
+        <p>Reduced-API programs misread what calls return and take far more often: <code>plan_grasp</code> given a two-object label map, masks unpacked from the wrong key, prompts that segment the wrong region. Holds on every task (verified only: 52%). p ≈ 3e-6.</p></div>
+      <div class="finding"><div class="num">1.54 → 3.3<small>defects per program, ≥12B</small></div>
+        <p>At S1, defects per failed program fall with scale, from 4.17 (≤2B) to 1.54 (≥12B). At S3/S4 they sit between 3.2 and 4.6 in every size band. The large models' failed programs carry about twice the S1 count (verified only: 3.03). Mann-Whitney p = 0.0002.</p></div>
+      <div class="finding retracted"><div class="num">94% = 95%<small>SEMANTIC: no difference</small></div>
+        <p><span class="flag">Retracted:</span> an earlier version reported SEMANTIC rising from 61% to 94%. That gap came from comparing an automated S1 tagger with hand tags. Hand-tagged on both sides, S1 is already at 94%.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Defect families</h2>
+    <div class="fig">
+      <div class="key"><span style="--c: var(--s1)">S1, full API (n=70)</span><span style="--c: var(--s34)">S3/S4, reduced API (n=154)</span><span>whiskers: Wilson 95%</span></div>
+      <div class="scroll">{{FAM_SVG}}</div>
+    </div>
+    <p class="caption">Share of failed programs with at least one tag in each family. Truncation-only records are excluded. TRAJECTORY falls because S1's <code>goto_pose(z_approach=…)</code> argument, the source of most S1 TRAJECTORY tags, does not exist in the reduced API. That reflects the API surface, not model behaviour.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Family</th><th>S1</th><th>S3/S4</th><th>verified only</th><th>Fisher p</th><th>what it covers</th></tr></thead>
+        <tbody>{{FAM_ROWS}}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>By model size</h2>
+    <div class="fig">
+      <div class="key"><span style="--c: var(--s1)">S1</span><span style="--c: var(--s34)">S3</span><span style="--c: var(--s4)">S4 (dashed)</span></div>
+      <div class="scroll">{{BAND_SVG}}</div>
+    </div>
+    <p class="caption">Mean defect tags per failed program. Each program counts once per model that produced it. The S1 gradient survives the switch to hand tags (it was 3.21 → 1.15 with the automated tagger). At S3/S4 the gradient is mostly gone.</p>
+  </section>
+
+  <section>
+    <h2>Per model</h2>
+    <p class="prose">The shift is not driven by a few models. For every model of 3B and up (15 of 15), failing programs carry more defects at S3/S4 than at S1 (sign test p ≈ 3e-5). The five models that don't rise are exactly the five ≤2B models, which are already at 3–5 defects per program at S1. FRAME defects appear for 19 of 21 models at S3/S4, against 3 of 21 at S1.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Model</th><th>Size</th><th>defects / program S1</th><th>defects / program S3/S4</th><th>FRAME S1</th><th>FRAME S3/S4</th></tr></thead>
+        <tbody>{{MODEL_ROWS}}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Per task</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Task</th><th>FRAME S1</th><th>FRAME S3/S4</th><th>INTERFACE S1</th><th>INTERFACE S3/S4</th></tr></thead>
+        <tbody>{{TASK_ROWS}}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="prose">
+    <h2>How the programs were judged</h2>
+    <p>Each failed program got a minimal repair: keep the model's code and fix only what is broken. The repair is verified in simulation. Tags name one cause per distinct fix, in the S1 taxonomy.</p>
+    <h3>The bar</h3>
+    <p>A repair is accepted when no scene fails in all k draws. k is measured per task as the smallest number of draws at which the reference program is rejected at most 5% of the time:</p>
+    <ul>
+      <li><code>spill_wipe</code> 1 (deterministic)</li>
+      <li><code>cube_lifting</code> 5</li>
+      <li><code>cube_stack</code> 12 when the program segments by point prompt (reference v7pg, 66.9%), and 16 by text prompt (v7pg_text, 60.2%, which loses scene 28 in 73% of draws).</li>
+      <li><code>nut_assembly</code> 8</li>
+    </ul>
+    <h3>Coverage</h3>
+    <ul>
+      <li>114 verified minimal repairs and 2 programs that pass as written.</li>
+      <li>36 nut programs tagged against a shared reference. The reference fails 2 scenes, so these are not accepted.</li>
+      <li>2 repairs rejected on the bar: one scene failed in every draw, with no model-attributable cause.</li>
+      <li>15 programs that end mid-token, tagged <code>syntax</code> only.</li>
+    </ul>
+    <h3>Not counted as defects</h3>
+    <p>Workarounds for the environment are recorded per program but never counted as tags:</p>
+    <ul>
+      <li>subtracting the green cube's pixels from the grasp mask;</li>
+      <li>one fixed IK solve to reset the solver's seed, which otherwise carries over between trials;</li>
+      <li>shared wipe and placement kits.</li>
+    </ul>
+  </section>
+
+  <section class="prose">
+    <h2>Checked on the way</h2>
+    <ul>
+      <li><strong>Tagger confound:</strong> on the same 70 S1 programs, hand tagging finds 2.77 tags per program and the automated tagger 2.06. All S1 programs were re-tagged by hand, and every number here compares hand with hand. Both S1 counts are reported: the scale gradient is 4.17 → 1.54 by hand and 3.21 → 1.15 automated.</li>
+      <li><strong>Token cap:</strong> raised from 2048 to 8192 tokens. qwen3vl-8b's truncation is a repetition loop at any cap. gemma3-12b completes at 2,132 tokens and still crashes at line 27. Of 50 truncated programs, 35 already have other diagnosed defects. qwen3vl-32b, the last large-model candidate, also loops at 8192 tokens. The cap explains no ≥12B failure.</li>
+      <li><strong>Privileged state:</strong> the observation exposes object poses. A scan of all 5,040 S3/S4 episodes found no program reading them.</li>
+      <li><strong>nut_assembly scenes 14 and 21:</strong> a grasp 5 mm closer to the ring fixes scene 21 (reference v8, 87/90). Scene 14 fails on an IK solution at a joint limit that the program cannot steer around.</li>
+    </ul>
+  </section>
+
+  <section class="prose">
+    <h2>Limits</h2>
+    <ul>
+      <li>One rater tagged both sides. In a same-rater blind re-tag of 60 programs, agreement is κ 0.89 overall. It is lowest for FRAME (0.67), and the re-tag found fewer causes per S3/S4 program (2.93 against 3.43 filed), so the defect-count gap is the least robust finding. A second human rater has not been run yet; the packet is in <code>artifacts/second_rater/</code>.</li>
+      <li>The nut S3/S4 records rest on a reference that fails 1 of 30 scenes (v8, 87/90). They are excluded in the verified-only figures, and the findings hold.</li>
+      <li>These are failed programs only. Defect counts describe what goes wrong when a program fails, not how often programs fail.</li>
+    </ul>
+    <p class="meta">Data: results/tags_reduced.json · results/tags_s1_hand.json · results/reduced_verify.json. Reproduce: python3 scripts/cross_tier_report.py --no-truncated [--by-band | --by-task | --verified-only].</p>
+  </section>
+</div>

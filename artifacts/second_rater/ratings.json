@@ -1,0 +1,29 @@
+{
+  "_note": "Who produced each set of tags. The register reads this so a rating is reported by the model that made it, not by a filename stem. Add an entry when a new answers_*.csv lands.",
+  "filed": {
+    "who": "Claude Opus 5 (high reasoning), agent session",
+    "what": "results/tags_s1_hand.json and results/tags_reduced.json -- the 70 S1 and 169 S3/S4 programs",
+    "date": "2026-10-04",
+    "blind": false,
+    "note": "The tagged_by field on those records says 'hand (CLI session)'. 'hand' there distinguishes a reading pass from the automated classify_edits tagger; it does NOT mean a person. This rater knew the research question."
+  },
+  "retag_session2.json": {
+    "who": "Claude Opus 5 (high reasoning), agent session",
+    "what": "same-rater blind re-tag of the 60-item packet",
+    "date": "2026-10-04",
+    "blind": true,
+    "note": "Same rater, same day. An UPPER BOUND on reliability, not inter-rater agreement."
+  },
+  "answers_codex.csv": {
+    "who": "GPT-6 Astra (high reasoning), via the codex CLI",
+    "what": "independent rating of the 60-item packet",
+    "date": "2026-10-13",
+    "blind": true,
+    "isolated": true,
+    "isolation": "~/rater-task: RATER_TASK.md, taxonomy_full.md and packet.md copied out of the repo; no git parent; nothing else reachable",
+    "contamination_reported": false,
+    "items_returned": 60,
+    "tags_outside_taxonomy": 0,
+    "note": "A different model family from the rater that produced the filed tags, and blind to the research question, which the filed rater was not. An independent rating by the same KIND of rater; not a human inter-rater figure."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "76ea4de88b0d": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\n\n# Get the pose and extent of the brown spill\nspill_pose, spill_quat, bbox_extent = get_object_pose('brown spill', return_bbox_extent=True)\n\n# Extract the center of the spill for the wiping motion\nspill_center = spill_pose\n\n# Define the downward-facing orientation (0, 0, 1, 0) wxyz\ndownward_quat = np.array([0.0, 0.0, 1.0, 0.0])\n\n# Cover the spill area at the table surface (z=0.0)\nmin_x = spill_center[0] - bbox_extent[0] / 2\nmax_x = spill_center[0] + bbox_extent[0] / 2\nmin_y = spill_center[1] - bbox_extent[1] / 2\nmax_y = spill_center[1] + bbox_extent[1] / 2\n\nfor y in np.linspace(min_y, max_y, 10):\n    for x in np.linspace(min_x, max_x, 10):\n        goto_pose(np.array([x, y, 0.0]), downward_quat)",
+      "result": "21/30",
+      "hypothesis": "moves to the spill centre once and stops; needs a nested raster over the measured extent",
+      "outcome": "0/30 -> 21/30. Joins the 21-26/30 band that every spill_wipe repair lands in, against a 29 reference. Too consistent for the 8.9% noise alone -- testing whether taking position from the bbox-variant call (as all my repairs do) offsets the wipe area vs the reference's two-call pattern."
+    }
+  ]
+}

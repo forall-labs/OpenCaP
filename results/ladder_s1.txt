@@ -1,0 +1,35 @@
+# Five-rung S1 profile, repaired scaffold -- 2026-09-06T21:05Z
+panel: 3 cells x 5 models x 2 arms = 900 episodes; stderr coverage 100.0%
+cells: S1/cube_lifting, S1/cube_stack, S1/spill_wipe
+
+                          0.6b              1.7b                4b                8b               14b
+                  off       on      off       on      off       on      off       on      off       on
+------------------------------------------------------------------------------------------------------
+success         0.0%     0.0%     0.0%     0.0%    31.1%    62.2%    27.8%    27.8%    66.7%    66.7% 
+execution      66.7%    66.7%    33.3%    33.3%    33.3%     0.0%     0.0%     0.0%     0.0%     0.0% 
+semantic       33.3%    33.3%    66.7%    66.7%    35.6%    37.8%    72.2%    72.2%    33.3%    33.3% 
+
+what the two arms separate, per scale:
+  qwen3-0.6b   scaffold-removable execution:   0.0%   success gained:  +0.0%   execution left after repair: 66.7%
+  qwen3-1.7b   scaffold-removable execution:   0.0%   success gained:  +0.0%   execution left after repair: 33.3%
+  qwen3-4b     scaffold-removable execution:  33.3%   success gained: +31.1%   execution left after repair:  0.0%
+  qwen3-8b     scaffold-removable execution:   0.0%   success gained:  +0.0%   execution left after repair:  0.0%
+  qwen3-14b    scaffold-removable execution:   0.0%   success gained:  +0.0%   execution left after repair:  0.0%
+
+
+===== arm: hf:savoji/capx-ab-on =====
+stderr coverage: 450/450 = 100.0%
+balanced panel: 3 (tier, task) cells per model -- S1/cube_lifting, S1/cube_stack, S1/spill_wipe
+cause                  0.6b      1.7b        4b        8b       14b
+-------------------------------------------------------------------
+bad_index                 0        30         0         0         0
+bad_value                30         0         0         0         0
+incomplete                0        29         6        46         2
+marginal                 14         1        18        14        11
+no_op                    16        30        10         5        17
+success                   0         0        56        25        60
+wrong_signature          30         0         0         0         0
+-------------------------------------------------------------------
+success               0.0%      0.0%     62.2%     27.8%     66.7% 
+execution            66.7%     33.3%      0.0%      0.0%      0.0% 
+semantic             33.3%     66.7%     37.8%     72.2%     33.3% 

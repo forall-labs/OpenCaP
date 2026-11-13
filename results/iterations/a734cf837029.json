@@ -1,0 +1,11 @@
+{
+  "a734cf837029": [
+    {
+      "iter": 1,
+      "code": "# Get the pose of the red cube\nposition, quaternion_wxyz, bbox_extent = get_object_pose(\"red cube\")\n\n# Open the gripper\nopen_gripper()\n\n# Move to the pose of the red cube\ngoto_pose(position, quaternion_wxyz)\n\n# Grasp the red cube using the sample grasp pose\nposition_grasp, quaternion_grasp = sample_grasp_pose(\"red cube\")\n\n# Move to the grasp position\ngoto_pose(position_grasp, quaternion_grasp)\n\n# Close the gripper\nclose_gripper()\n\n# Lift the cube\nlift_position = position_grasp.copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, quaternion_grasp)",
+      "result": "21/30",
+      "hypothesis": "grasps correctly; only the terminal lift is missing",
+      "outcome": "21/30. Same spurious pre-move as qwen3-8b -- goto_pose to the cube pose with the CUBE orientation before opening -- but with NO z_approach, so it drives straight into the object. 8B had z_approach=0.1 and scored 25/30."
+    }
+  ]
+}

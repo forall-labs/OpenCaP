@@ -1,0 +1,4 @@
+# Harness noise floor -- 2026-09-06T22:15Z
+# Paired arms on the 14 cells where the preimport is a no-op = independent re-runs
+# 4/420 states flip = 0.95%; 12/14 cells perfectly reproducible
+# treatment cell (4B/cube_lifting) = 30/30 flips, 15x the worst per-cell noise

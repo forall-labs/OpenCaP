@@ -1,0 +1,1115 @@
+{
+  "06b68fa31277": {
+    "lines": 85,
+    "model": "qwen3-32b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "12e2fa52a622": {
+    "lines": 25,
+    "model": "qwen3-0.6b",
+    "parses": true,
+    "pathological": false,
+    "score": 6,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "1615f484e1d4": {
+    "lines": 207,
+    "model": "qwen35-0.8b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "1aaf84e17e73": {
+    "lines": 64,
+    "model": "qwen25-coder-7b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "1affa03d175d": {
+    "lines": 94,
+    "model": "qwen3vl-32b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "never_invoked",
+      "pixel_as_world"
+    ],
+    "tier": "S4"
+  },
+  "1b1194586306": {
+    "lines": 60,
+    "model": "qwen25-coder-1.5b",
+    "oversized": false,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "1ed3022e60f1": {
+    "lines": 88,
+    "model": "qwen35-9b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "26e50e0c9e58": {
+    "lines": 63,
+    "model": "qwen3-32b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "pixel_as_world"
+    ],
+    "tier": "S4"
+  },
+  "2d86062c6393": {
+    "lines": 114,
+    "model": "qwen25-coder-3b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "2fe557f71884": {
+    "lines": 109,
+    "model": "qwen3vl-8b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "3051de8b17ec": {
+    "lines": 170,
+    "model": "qwen35-2b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "329213a9ebde": {
+    "lines": 37,
+    "model": "qwen25-coder-7b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "33f3600bd8db": {
+    "lines": 76,
+    "model": "qwen3vl-8b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "3899b4e35180": {
+    "lines": 413,
+    "model": "qwen35-0.8b",
+    "parses": false,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "3bc7d7a9acff": {
+    "lines": 97,
+    "model": "gemma3-4b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "4049723417fb": {
+    "lines": 44,
+    "model": "qwen3-1.7b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "423138dfac40": {
+    "lines": 64,
+    "model": "qwen3vl-2b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world"
+    ],
+    "tier": "S4"
+  },
+  "46fd1f9f36c0": {
+    "lines": 112,
+    "model": "qwen35-4b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "never_invoked",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "48503330011d": {
+    "lines": 71,
+    "model": "qwen3-4b",
+    "oversized": false,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "50ea8330051b": {
+    "lines": 268,
+    "model": "qwen35-0.8b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "515afb587a0a": {
+    "lines": 144,
+    "model": "qwen35-4b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "54fed28afbcb": {
+    "lines": 58,
+    "model": "qwen3-8b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "5bb2ec5b64cb": {
+    "lines": 63,
+    "model": "qwen3-14b",
+    "oversized": false,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "5f7407b7669f": {
+    "lines": 37,
+    "model": "qwen3-4b",
+    "parses": true,
+    "pathological": false,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "622e7caca7a0": {
+    "lines": 63,
+    "model": "qwen35-27b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "646c510c58bc": {
+    "lines": 43,
+    "model": "qwen3-8b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "662fcee57f3d": {
+    "lines": 56,
+    "model": "gemma3-12b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "697325f29774": {
+    "lines": 210,
+    "model": "qwen3vl-4b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "6a6e6b62fdc8": {
+    "lines": 58,
+    "model": "gemma3-12b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "never_invoked",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "6ae1d8fb0961": {
+    "lines": 163,
+    "model": "qwen3vl-4b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "6f8eb7df619f": {
+    "lines": 28,
+    "model": "qwen3-1.7b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "7190a3def551": {
+    "lines": 245,
+    "model": "qwen35-27b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "never_invoked"
+    ],
+    "tier": "S4"
+  },
+  "7287ddc54038": {
+    "lines": 86,
+    "model": "qwen35-4b",
+    "parses": true,
+    "pathological": false,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "never_invoked",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "7f5b4f9f686c": {
+    "lines": 48,
+    "model": "qwen3-8b",
+    "oversized": false,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "80af6268d659": {
+    "lines": 93,
+    "model": "qwen3-32b",
+    "oversized": false,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "missing_coverage",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "81892841f288": {
+    "lines": 43,
+    "model": "qwen35-4b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "852086a88201": {
+    "lines": 105,
+    "model": "qwen35-2b",
+    "parses": false,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "863aab6689bb": {
+    "lines": 35,
+    "model": "qwen3-4b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "8af439b9b192": {
+    "lines": 144,
+    "model": "qwen35-9b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "never_invoked",
+      "pixel_as_world"
+    ],
+    "tier": "S4"
+  },
+  "8c20bcd8b218": {
+    "lines": 51,
+    "model": "qwen3vl-8b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "8fac3edf34a8": {
+    "lines": 199,
+    "model": "qwen3vl-2b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "90a54316910a": {
+    "lines": 47,
+    "model": "qwen3vl-2b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "96864245c131": {
+    "lines": 63,
+    "model": "qwen3-4b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform"
+    ],
+    "tier": "S4"
+  },
+  "9bccb5454081": {
+    "lines": 70,
+    "model": "gemma3-27b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "9fdb40c8141e": {
+    "lines": 53,
+    "model": "qwen3-14b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform"
+    ],
+    "tier": "S3"
+  },
+  "a01b0d01f411": {
+    "lines": 62,
+    "model": "qwen3-32b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "a392507f8786": {
+    "lines": 167,
+    "model": "qwen35-27b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "missing_coverage",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "a55678162d56": {
+    "lines": 54,
+    "model": "qwen35-9b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "never_invoked",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "a957393564f8": {
+    "lines": 56,
+    "model": "qwen25-coder-7b",
+    "oversized": false,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "acc92b102fcb": {
+    "lines": 86,
+    "model": "qwen35-27b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [],
+    "tier": "S3"
+  },
+  "b15741bf1679": {
+    "lines": 18,
+    "model": "qwen3-0.6b",
+    "oversized": false,
+    "parses": false,
+    "tag_only": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "truncated",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "b72a1f1d7dbc": {
+    "lines": 28,
+    "model": "qwen25-coder-1.5b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked"
+    ],
+    "tier": "S4"
+  },
+  "b73fb6998209": {
+    "lines": 37,
+    "model": "qwen3-0.6b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "b97e2b344a8c": {
+    "lines": 42,
+    "model": "qwen3-14b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world"
+    ],
+    "tier": "S4"
+  },
+  "b9a6c83ddbc4": {
+    "lines": 143,
+    "model": "gemma3-12b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "bbe65f6b9b74": {
+    "lines": 44,
+    "model": "qwen25-coder-3b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage"
+    ],
+    "tier": "S4"
+  },
+  "bd4e1cc0f940": {
+    "lines": 31,
+    "model": "qwen25-coder-1.5b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "c1fbfd045ada": {
+    "lines": 40,
+    "model": "qwen3-14b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "c587df23051b": {
+    "lines": 60,
+    "model": "qwen35-2b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "c72fac2e18a4": {
+    "lines": 130,
+    "model": "qwen35-0.8b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "c75ef325c52b": {
+    "lines": 170,
+    "model": "qwen3vl-2b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "c9e843714e73": {
+    "lines": 199,
+    "model": "qwen25-coder-3b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "c9fcfe669821": {
+    "lines": 50,
+    "model": "qwen25-coder-3b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "ca11e1541c25": {
+    "lines": 51,
+    "model": "gemma3-4b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "pixel_as_world"
+    ],
+    "tier": "S4"
+  },
+  "cc162eaaef02": {
+    "lines": 122,
+    "model": "qwen35-27b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "never_invoked"
+    ],
+    "tier": "S4"
+  },
+  "cda172f00f81": {
+    "lines": 113,
+    "model": "gemma3-4b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "ce4636e75057": {
+    "lines": 85,
+    "model": "qwen35-2b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "ce924ec02d95": {
+    "lines": 66,
+    "model": "qwen3vl-32b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "d4ebb1df7a93": {
+    "lines": 40,
+    "model": "gemma3-4b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "d6a3ee48742f": {
+    "lines": 119,
+    "model": "qwen35-9b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "d79708c148a5": {
+    "lines": 93,
+    "model": "qwen3vl-8b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "d8ef6f1031d6": {
+    "lines": 89,
+    "model": "qwen3vl-32b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform"
+    ],
+    "tier": "S3"
+  },
+  "da8f1cfc64d3": {
+    "lines": 107,
+    "model": "qwen3-1.7b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "dc5e3f03c332": {
+    "lines": 175,
+    "model": "qwen3vl-4b",
+    "parses": false,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "e4a5155486d6": {
+    "lines": 37,
+    "model": "qwen3-8b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "e99032108cea": {
+    "lines": 132,
+    "model": "qwen3-0.6b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "ec1b40f975df": {
+    "lines": 45,
+    "model": "qwen25-coder-1.5b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "ee3706141f00": {
+    "lines": 86,
+    "model": "gemma3-27b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "efba88f0525f": {
+    "lines": 67,
+    "model": "gemma3-27b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "f0492209f7af": {
+    "lines": 104,
+    "model": "gemma3-12b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "never_invoked",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "f6c26e2e1a4c": {
+    "lines": 60,
+    "model": "gemma3-27b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "f7026e3d3ab2": {
+    "lines": 120,
+    "model": "qwen3vl-32b",
+    "oversized": true,
+    "parses": true,
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "f8f3f968f262": {
+    "lines": 38,
+    "model": "qwen3-1.7b",
+    "parses": true,
+    "pathological": false,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "f9a22ee2b2bd": {
+    "lines": 34,
+    "model": "qwen25-coder-7b",
+    "parses": true,
+    "pathological": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "fb608632462b": {
+    "lines": 5,
+    "model": "qwen3vl-4b",
+    "parses": true,
+    "pathological": false,
+    "saved": true,
+    "score": 30,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  }
+}

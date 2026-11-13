@@ -1,0 +1,5739 @@
+{
+  "003de971e81e": {
+    "degenerate": false,
+    "distance": 0.0682,
+    "evidence": {
+      "gripper_order": "gripper sequence [close, open] -> [open, close]: released after the lift",
+      "wrong_formula": "9 flattened matrix entries passed as the quaternion"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 59,
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "003de971e81e",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "gripper_order",
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "05b3b9f8b441": {
+    "degenerate": false,
+    "distance": 0.8333,
+    "evidence": {
+      "approach_param": "the grasp and placement 'approaches' sit 0.1 m BELOW their targets",
+      "call_signature": "plan_grasp given np.zeros_like(depth) as the segmentation -- an empty mask; the OBB given single points",
+      "frame_convention": "cube points kept in camera frame and used as world coordinates",
+      "wrong_formula": "deprojection inv(intrinsics) @ [x, y, d, 1] -- a 3x3 against a 4-vector (the grid's matmul error); placement from the prompt's S1 formula (prompted)",
+      "wrong_target": "the planned grasp is computed and never used: motion goes to the OBB centre with an identity quaternion"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 103,
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "05b3b9f8b441",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK. Scene 28 failed 12/12 draws (v7pg fails it 20%); with the reset [21,20,22,22,20], accepted"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "call_signature",
+      "frame_convention",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": false
+  },
+  "0611424d0cd6": {
+    "degenerate": false,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-token inside a ~1900-character literal array (line 11)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 11,
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "0611424d0cd6",
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": true
+  },
+  "06b68fa31277": {
+    "degenerate": false,
+    "distance": 0.7838,
+    "evidence": {
+      "frame_convention": "the spill points stay in camera frame (pose_mat applied only to the grasp) (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "two 10-point lines crossing at the grasp point: a plus sign, not an area (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "spurious_move": "plans a GRASP on the flat spill with plan_grasp and moves to it before wiping (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_formula": "bounds = OBB centre +/- own-axis extent/2, in camera frame (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_target": "orientation [0, 0, 0, 1] -- a 180 deg yaw, not the downward (0,0,1,0) the prompt specifies (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 85,
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "06b68fa31277",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage",
+      "spurious_move",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "0a293a28fae7": {
+    "degenerate": false,
+    "distance": 0.9757,
+    "evidence": {
+      "missing_action": "the transit is 'move to a dummy position' (all-zero joints): no insertion",
+      "mock_shadowing": "redefines solve_ik, move_to_joints and both gripper calls as placeholder stubs",
+      "unbound_name": "get_object_pose (a prompted phantom -- the prompt's S1 'object center pose' queries) and get_rigid_transform are its own placeholders returning dummy matrices",
+      "wrong_formula": "a 3x3 applied to the first 3 ROWS of a 4x4 as 'position'; rows [3:] as the orientation"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 83,
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "0a293a28fae7",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "mock_shadowing",
+      "unbound_name",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "0b8bbf0e65f5": {
+    "degenerate": false,
+    "distance": 0.8211,
+    "evidence": {
+      "call_signature": "depth read from cam['depth'], not cam['images']['depth']; the OBB given a single point; plan_grasp given stacked pixel-index arrays as the segmentation",
+      "frame_convention": "cube centres are pixel indices with z = 0, used as world coordinates",
+      "missing_action": "no lift after the grasp: carries the cube straight from the table to the placement",
+      "never_invoked": "defines pick_and_stack and never calls it",
+      "wrong_formula": "rows of the 4x4 grasp read as position [:3] and quaternion [3:]; placement from the prompt's S1 formula (prompted)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 70,
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "0b8bbf0e65f5",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_action",
+      "never_invoked",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": false
+  },
+  "0c60ac0a3d53": {
+    "degenerate": true,
+    "distance": 0.7941,
+    "evidence": {
+      "call_signature": "reads obs['robot0_robotview']['segmentation'], which the observation does not carry, and indexes it as an instance-ID map",
+      "frame_convention": "np.argwhere pixel indices used as 3D points for the OBB and the cube centres",
+      "missing_action": "lift, transit and place all re-send the grasp pose: lift_z and place_z are computed and never used",
+      "never_invoked": "defines stack_cubes and never calls it",
+      "spurious_move": "the whole pick-and-place is wrapped in a 3-iteration loop",
+      "wrong_formula": "rows of the 4x4 grasp read as position [:3] and quaternion [3:7]; placement from the prompt's S1 formula (prompted)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 72,
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "0c60ac0a3d53",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK; scene 28 failed 12/12 draws without it (red-minus-green mask already applied)"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_action",
+      "never_invoked",
+      "spurious_move",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": false
+  },
+  "0ce25e116c56": {
+    "degenerate": false,
+    "distance": 0.9713,
+    "evidence": {
+      "gripper_order": "opens at the 'grasp' and closes at the insertion point: [open, close] -> [close, open]",
+      "missing_action": "no perception at all and no insertion",
+      "wrong_formula": "a ragged array of (3x3, 3-vector) used as a 'transform' and matrix-multiplied (the grid's ValueError)",
+      "wrong_target": "the handle and the nut centre are both taken to be the CAMERA's pose_mat; the insertion point an example constant [0, 0, 0.5]"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 37,
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "0ce25e116c56",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "gripper_order",
+      "missing_action",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "126b2e1a4430": {
+    "degenerate": false,
+    "distance": 0.234,
+    "evidence": {
+      "call_signature": "depth from cam['depth']; SAM3's list indexed ['mask']",
+      "missing_action": "never lifts: repair adds the lift move",
+      "wrong_target": "target pose is a constant, not the planned grasp"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 29,
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "126b2e1a4430",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "12e2fa52a622": {
+    "degenerate": false,
+    "distance": 0.9608,
+    "evidence": {
+      "call_signature": "molmo's dict indexed [0]..[3] as box corners (the grid's KeyError 0); solve_ik given 7-vectors of zeros as position and quaternion",
+      "missing_coverage": "one move: no sweep",
+      "object_name": "segments 'spill' rather than the task's 'brown spill'",
+      "wrong_target": "SAM3's point prompt at the image corner (0, 0); all perception discarded"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 25,
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "12e2fa52a622",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_coverage",
+      "object_name",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "1615f484e1d4": {
+    "degenerate": true,
+    "distance": 0.9388,
+    "evidence": {
+      "missing_action": "no task code at all: the whole sequence added",
+      "mock_shadowing": "redefines every API function as a stub"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 207,
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "1615f484e1d4",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "mock_shadowing"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": true
+  },
+  "1aaf84e17e73": {
+    "degenerate": false,
+    "distance": 0.7419,
+    "evidence": {
+      "gripper_order": "closes and reopens the gripper at every waypoint ('perform the wiping action') (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "a 1 cm comb over the OBB's own-axis bounds (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "unbound_name": "time.sleep without importing time",
+      "wrong_formula": "points_3d[mask] = depth[mask] -- the raw depth copied into x, y AND z: no deprojection (the grid's shape-mismatch error)",
+      "wrong_target": "orientation [1, 0, 0, 0], not the downward (0,0,1,0) the prompt specifies (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 64,
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "1aaf84e17e73",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "gripper_order",
+      "missing_coverage",
+      "unbound_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "1affa03d175d": {
+    "degenerate": false,
+    "distance": 0.0488,
+    "evidence": {
+      "call_signature": "point-prompt SAM3 results read for a 'box' key they do not carry (the grid's KeyError)",
+      "over_dense_path": "a 1 cm raster (~440 waypoints a pass): the episode horizon ends it mid-wipe -- with the box fixed it scores 14/30 with every failure interrupted; 14 points per axis, comb and bounds unchanged, 30/30 (measured)"
+    },
+    "families": [
+      "INTERFACE",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 94,
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "1affa03d175d",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "over_dense_path"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "1b1194586306": {
+    "degenerate": false,
+    "distance": 0.8438,
+    "evidence": {
+      "missing_action": "never closes the gripper and never reaches the cube",
+      "never_invoked": "defines pick_and_stack and never calls it",
+      "object_name": "underscored object strings 'green_cube' / 'red_cube'",
+      "unbound_name": "get_object_pose and sample_grasp_pose are not bound at S3 -- prompted phantoms (the task's Key rules name them)",
+      "wrong_formula": "Cartesian heights written into joint 3 of a fixed joint vector (place_z as a joint angle), repeated ~30 times"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 60,
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "1b1194586306",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK, applied BEFORE verification: five cube_stack programs (05b3b9f8b441, 0c60ac0a3d53, cda172f00f81, d6a3ee48742f, b9a6c83ddbc4) failed one scene in 12/12 draws without it and the reset cleared it each time it was tested"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "never_invoked",
+      "object_name",
+      "unbound_name",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": false
+  },
+  "1d66ee3f44bd": {
+    "degenerate": false,
+    "distance": 0.1724,
+    "evidence": {
+      "approach_param": "no pre-grasp approach; with the best-mask fix, scene 12 still failed 5/5 draws at reward 0.507-0.545 ([25,23,18,23,24], below reference); adding ONLY a 10 cm approach waypoint is the second change",
+      "frame_convention": "grasp pose used in camera frame: pose_mat never applied",
+      "missing_action": "never lifts: repair adds the lift move",
+      "wrong_formula": "rows of the 4x4 read as position [:3] and quaternion [3:7]",
+      "wrong_target": "every SAM3 'red cube' result merged into one segmentation label, so plan_grasp plans over all of them; 0/30 in 5/5 draws with reward 0.523 in every scene (reached, never grasped); keeping ONLY the best-scoring mask is the fix"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 35,
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "1d66ee3f44bd",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "frame_convention",
+      "missing_action",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "1ed3022e60f1": {
+    "degenerate": false,
+    "distance": 0.0411,
+    "evidence": {
+      "wrong_formula": "matrix->quaternion uses 0.25/s where 0.25*s belongs, in all three trace<=0 branches; a top-down grasp always takes one"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 88,
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 25,
+    "no_defect": false,
+    "note": "",
+    "pid": "1ed3022e60f1",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "2200a4c262bb": {
+    "degenerate": true,
+    "distance": 0.9689,
+    "evidence": {
+      "call_signature": "dict.get called with a (key, default) TUPLE as the key -> None, unpacked (the grid's TypeError)",
+      "frame_convention": "insertion point = PIXEL centroid * 0.01 used as metres",
+      "missing_action": "no lift before transit: no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "object_name": "peg sought as 'brown square block', the prompt's name for it (prompted): measured on 6 scenes, SAM3 text returns the NUT for it in 5 of 6 and molmo points at the nut in 3 of 6; the S1 oracle's own 'square block' finds the peg 6 of 6 with molmo",
+      "wrong_formula": "permuted rotation-matrix entries [8,4,5,3] used as the quaternion",
+      "wrong_target": "insertion orientation an identity constant"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 94,
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "2200a4c262bb",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_action",
+      "object_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "26e50e0c9e58": {
+    "degenerate": false,
+    "distance": 0.0545,
+    "evidence": {
+      "missing_coverage": "5 x-steps visiting only the two y EDGES of the box; a 14x14 serpentine over the same bounds: 29/30, the last scene being the exclusive-edge index (measured)",
+      "wrong_formula": "SAM3's box corners -- floats, with an EXCLUSIVE right/bottom edge -- used directly as depth-image indices (the grid's IndexError); fixing this alone: 3/30 (measured)"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 63,
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "26e50e0c9e58",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_coverage",
+      "wrong_formula"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "28992adf699f": {
+    "degenerate": false,
+    "distance": 0.8276,
+    "evidence": {
+      "call_signature": "reads 'grasp_quaternion' and 'bbox_extent' keys that no API returns",
+      "gripper_order": "gripper sequence [open, close, open] at the green cube -> [close, open]",
+      "never_invoked": "defines pick_and_stack and never calls it",
+      "object_name": "underscored object strings 'green_cube' / 'red_cube'",
+      "unbound_name": "get_object_pose is not bound at S4 -- a prompted phantom (the task's Key rules name it)",
+      "wrong_target": "the 'grasp' goes to the GREEN cube's placement height; the red cube is never approached"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 62,
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "28992adf699f",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "gripper_order",
+      "never_invoked",
+      "object_name",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": false
+  },
+  "298739c89a01": {
+    "degenerate": true,
+    "distance": 0.0438,
+    "evidence": {
+      "call_signature": "molmo's dict indexed [0]",
+      "missing_action": "loops on a comment until cut off; never moves"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 126,
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "298739c89a01",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": true
+  },
+  "2d86062c6393": {
+    "degenerate": false,
+    "distance": 0.2906,
+    "evidence": {
+      "call_signature": "move_to_joints given 3-vector positions instead of joint angles",
+      "frame_convention": "object 'centre' and 'extent' computed in PIXEL indices from the mask and used as world coordinates",
+      "missing_action": "never releases: ends holding the cube",
+      "never_invoked": "main() sits behind `if __name__ == '__main__'`, which never fires in the sandbox",
+      "wrong_formula": "its centre-of-mass expression multiplies the mask by itself and two index grids -- not a centroid in any frame; placement from the prompt's S1 formula (prompted)",
+      "wrong_target": "plan_grasp_for_object returns a correct world-frame grasp that is never used; motion goes to the pixel 'centres' instead"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 114,
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "2d86062c6393",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK, applied BEFORE verification: five cube_stack programs (05b3b9f8b441, 0c60ac0a3d53, cda172f00f81, d6a3ee48742f, b9a6c83ddbc4) failed one scene in 12/12 draws without it and the reset cleared it each time it was tested"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_action",
+      "never_invoked",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": true
+  },
+  "2fe557f71884": {
+    "degenerate": true,
+    "distance": 0.7582,
+    "evidence": {
+      "missing_action": "the repetition runs into the token cap mid-name (best_red_gr) before any motion: grasp, lift, place and release all added",
+      "wrong_formula": "the 'quaternion' is the grasp's translation column best_red_grasp[:3, 3] (repeated ~80 times)"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 109,
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "2fe557f71884",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": true
+  },
+  "2ffc9c9363da": {
+    "degenerate": true,
+    "distance": 0.9676,
+    "evidence": {
+      "call_signature": "SAM3's result list passed to plan_grasp as the segmentation (the grid's 'list has no ndim')",
+      "frame_convention": "the grasp used in camera frame",
+      "missing_action": "no lift: no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "object_name": "peg sought as 'brown square block', the prompt's name for it (prompted): measured on 6 scenes, SAM3 text returns the NUT for it in 5 of 6 and molmo points at the nut in 3 of 6; the S1 oracle's own 'square block' finds the peg 6 of 6 with molmo",
+      "wrong_formula": "rows of the 4x4 grasp read as position [:3] and quaternion [3:]",
+      "wrong_target": "'inserts' by moving to a plan_grasp grasp ON the peg and opening there"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 82,
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "2ffc9c9363da",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_action",
+      "object_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "3051de8b17ec": {
+    "degenerate": true,
+    "distance": 0.9367,
+    "evidence": {
+      "missing_action": "cut off before any motion: grasp, lift, place and release all added",
+      "mock_shadowing": "redefines the whole API as 'simulate' stubs returning random images and masks",
+      "never_invoked": "main() is never called: cut off inside a repeated comment block",
+      "wrong_target": "the red cube is 'at [0.5, 0.5, 0.5] in the camera frame' and its mask a synthetic square built from that"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 170,
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "3051de8b17ec",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "mock_shadowing",
+      "never_invoked",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": true
+  },
+  "30bb9fbb5770": {
+    "degenerate": false,
+    "distance": 0.9719,
+    "evidence": {
+      "approach_param": "inserts to block_center - 0.05, i.e. down INTO the peg's mid-height",
+      "missing_action": "the gripper, not the hole, is carried over the block: no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "object_name": "peg sought as 'brown square block', the prompt's name for it (prompted): measured on 6 scenes, SAM3 text returns the NUT for it in 5 of 6 and molmo points at the nut in 3 of 6; the S1 oracle's own 'square block' finds the peg 6 of 6 with molmo",
+      "wrong_formula": "gripper orientation taken from the handle OBB's rotation -- arbitrary axes, not a top-down grasp across the handle"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 128,
+    "models": [
+      "qwen35-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "30bb9fbb5770",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "object_name",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": true
+  },
+  "329213a9ebde": {
+    "degenerate": false,
+    "distance": 0.7391,
+    "evidence": {
+      "frame_convention": "the SAM3 box's PIXEL centre +/- 0.05 used as world metres: a 'grid' a tenth of a pixel wide (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "the grid spans 0.1 PIXEL units around one point, so the sweep never leaves a single spot (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_target": "[0, 0, 0, 1] labelled 'downward-facing' -- a 180 deg yaw, not (0,0,1,0) (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 37,
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "329213a9ebde",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "33f3600bd8db": {
+    "degenerate": false,
+    "distance": 0.1163,
+    "evidence": {
+      "frame_convention": "the deprojected points never leave the camera frame",
+      "over_dense_path": "a 1 cm raster: the episode horizon ends it mid-wipe; at 14 points per axis (its own comb kept) the interrupted attempts vanish and it scores 19/30 (measured)",
+      "unbound_name": "time is used (time.sleep) and never imported -- the grid's NameError",
+      "wrong_formula": "bounds = OBB centre +/- own-axis extent/2, no margin; 2-98th percentile + 1.8 cm took it from 19/30 to 30/30 (measured)",
+      "wrong_target": "[1, 0, 0, 0] while its own comment says downward (0,0,1,0)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 76,
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "33f3600bd8db",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "over_dense_path",
+      "unbound_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "3899b4e35180": {
+    "degenerate": true,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-token: '{' was never closed (line 410 of 413)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 413,
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "3899b4e35180",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": true
+  },
+  "39098985d87a": {
+    "degenerate": true,
+    "distance": 0.7634,
+    "evidence": {
+      "missing_action": "the repetition runs into the token cap before any motion: grasp, lift, place and release all added",
+      "wrong_formula": "the 'quaternion' is the grasp's translation column red_grasp_pose[:3, 3] (repeated ~85 times)"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 113,
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "39098985d87a",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": true
+  },
+  "3bc7d7a9acff": {
+    "degenerate": false,
+    "distance": 0.7398,
+    "evidence": {
+      "missing_coverage": "one move and a close_gripper ('Wiped up the brown spill.'): no sweep (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "mock_shadowing": "defines dummy get_observation, SAM3, molmo, plan_grasp, OBB, solve_ik, move_to_joints and grippers AFTER the task function -- they shadow the API by the time it is called",
+      "spurious_move": "plans a grasp on the flat spill and moves to it (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_formula": "rows of the 4x4 grasp read as position [:3] and quaternion [3:] (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 97,
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "3bc7d7a9acff",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_coverage",
+      "mock_shadowing",
+      "spurious_move",
+      "wrong_formula"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "3bf9b1ee4d1c": {
+    "degenerate": true,
+    "distance": 0.0282,
+    "evidence": {
+      "missing_action": "dummy matrices and a gripper-state dict, repeated; never calls the API"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 294,
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "3bf9b1ee4d1c",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": true
+  },
+  "3d585aa0ccda": {
+    "degenerate": false,
+    "distance": 0.959,
+    "evidence": {
+      "frame_convention": "scipy as_quat() (xyzw) passed as wxyz; hole and peg 'points' are pixel (row, col) indices plus raw depth",
+      "missing_action": "no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action) -- its own comment: 'in practice you would need to know the exact transform'",
+      "object_name": "peg sought as 'brown square block', the prompt's name for it (prompted): measured on 6 scenes, SAM3 text returns the NUT for it in 5 of 6 and molmo points at the nut in 3 of 6; the S1 oracle's own 'square block' finds the peg 6 of 6 with molmo",
+      "wrong_formula": "insertion orientation from the peg OBB's rotation; insertion 'moves' +0.01 UP"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 80,
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "3d585aa0ccda",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "object_name",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "3e80e106a025": {
+    "degenerate": false,
+    "distance": 0.9704,
+    "evidence": {
+      "missing_action": "never closes the gripper, lifts or inserts: ends on open_gripper",
+      "unbound_name": "segment_sam3 is not bound (artifact #14) and its `segmentation` argument is used before it is bound",
+      "wrong_target": "IK target is the API docstring's example [0.5, 0, 0.3] / identity, not the planned grasp"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 27,
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "3e80e106a025",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "3e958e6b91ee": {
+    "degenerate": false,
+    "distance": 0.0943,
+    "evidence": {
+      "frame_convention": "grasp pose used in camera frame: pose_mat never applied",
+      "wrong_target": "orientation is an identity constant, not the planned grasp's rotation"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 36,
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "3e958e6b91ee",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "40079e183622": {
+    "degenerate": true,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-token: '[' was never closed (line 233 of 233)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 233,
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "40079e183622",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": true
+  },
+  "4049723417fb": {
+    "degenerate": false,
+    "distance": 0.125,
+    "evidence": {
+      "frame_convention": "grasp pose used in camera frame: pose_mat never applied",
+      "missing_action": "never lifts: repair adds the lift move",
+      "wrong_formula": "rows of the 4x4 read as position [:3] and quaternion [3:7]"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 44,
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "4049723417fb",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "40eca88ba1ba": {
+    "degenerate": false,
+    "distance": 0.9898,
+    "evidence": {
+      "call_signature": "molmo's dict passed to segment_sam3_point_prompt as the pixel (the grid's KeyError 0); SAM3's result list given to the OBB as 3D points; the OBB's 3x3 R passed as the quaternion",
+      "missing_action": "never closes, lifts or inserts: ends on open_gripper"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 21,
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "40eca88ba1ba",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "416dfce48dd5": {
+    "degenerate": false,
+    "distance": 0.3234,
+    "evidence": {
+      "approach_param": "moves straight to the grasp with no z_approach, and into the placement without one",
+      "call_signature": "plan_grasp's first return value (all K poses) taken as one pose and multiplied by pose_mat",
+      "never_invoked": "main() sits behind `if __name__ == '__main__'`, which never fires in the sandbox",
+      "spurious_move": "carries the red cube to the green cube's own surface point before placing -- straight into it",
+      "unbound_name": "get_sample_grasp_pose is invented; get_object_pose is not bound at S3/S4 -- a prompted phantom (the task's Key rules name it)",
+      "wrong_formula": "grasp position read as rows [:3] and quaternion as row 3 of the 4x4; placement from the prompt's S1 formula (prompted)"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 110,
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "416dfce48dd5",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "call_signature",
+      "never_invoked",
+      "spurious_move",
+      "unbound_name",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": false
+  },
+  "4188de150af7": {
+    "degenerate": true,
+    "distance": 0.9942,
+    "evidence": {
+      "call_signature": "molmo's result dict passed to segment_sam3_point_prompt as the pixel (the grid's KeyError 0)",
+      "missing_action": "nothing but perception fallbacks, repeated until the token cap: no IK, no motion, no gripper call"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 187,
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "4188de150af7",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": true
+  },
+  "423138dfac40": {
+    "degenerate": false,
+    "distance": 0.7609,
+    "evidence": {
+      "call_signature": "molmo result read under 'point_coords', so the point is (None, None) and SAM3's point prompt rejects it (the grid's request error)",
+      "frame_convention": "the target is the SAM3 box's PIXEL centre at z = 0, used as a world position (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "one move: no sweep (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 64,
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "423138dfac40",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "46fd1f9f36c0": {
+    "degenerate": false,
+    "distance": 0.2605,
+    "evidence": {
+      "approach_param": "moves straight to the grasp with no z_approach",
+      "frame_convention": "the deprojected points never leave the camera frame (no pose_mat), and the OBB placement is computed there",
+      "never_invoked": "defines main() and never calls it: 0/30 in 16/16 draws with every scene at reward ~0.007 (nothing moves) until main() is called",
+      "unbound_name": "segment_sam3 is not bound at any tier (artifact #14: the docstring's own example names it)",
+      "wrong_formula": "its own deprojection uses (u - fx)/cx and -(v - fy)/cy -- focal length and principal point swapped, y negated; placement from the prompt's S1 formula (prompted)",
+      "wrong_target": "grasp, lift, transit and place orientation is an identity quaternion from its own 'grasp pose template', not the planned grasp"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "level": "L5_rejected_on_bar",
+    "lines": 112,
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "46fd1f9f36c0",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK, applied BEFORE verification: five cube_stack programs (05b3b9f8b441, 0c60ac0a3d53, cda172f00f81, d6a3ee48742f, b9a6c83ddbc4) failed one scene in 12/12 draws without it and the reset cleared it each time it was tested"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "frame_convention",
+      "never_invoked",
+      "unbound_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": false
+  },
+  "4793076ef262": {
+    "degenerate": false,
+    "distance": 0.125,
+    "evidence": {
+      "call_signature": "prompted 'the red cube' and read back under 'red cube': the lookup fails and the program exits",
+      "frame_convention": "grasp pose used in camera frame: pose_mat never applied",
+      "wrong_formula": "permuted rotation-matrix entries used as the quaternion"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 53,
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "4793076ef262",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "47bad0114641": {
+    "degenerate": false,
+    "distance": 0.1683,
+    "evidence": {
+      "call_signature": "molmo result read under a 'points' key it does not return",
+      "frame_convention": "pose_mat @ best_grasp_pose.T: the grasp pose transposed before composing",
+      "spurious_move": "'move down a bit' subtracts 0.2 rad from joint 0, swinging the arm sideways before closing",
+      "syntax": "typo rgb[:,:,0) on line 21 of 66 -- a complete program, not a truncation, so it is repaired",
+      "wrong_formula": "9 transposed rotation entries passed as the quaternion; 'move up' adds 0.2 rad to joint 0 (base yaw) instead of raising the hand"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "SYNTAX",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 66,
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "47bad0114641",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "spurious_move",
+      "syntax",
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": true
+  },
+  "48503330011d": {
+    "degenerate": false,
+    "distance": 0.6738,
+    "evidence": {
+      "missing_action": "no lift move, no move to the placement location (its comments: 'This part would need actual movement code')",
+      "never_invoked": "defines pick_and_place and never calls it",
+      "wrong_target": "3D points are np.random.rand, the grasp pose is np.eye(4), the grasp joints a fixed constant, the green cube at the origin -- every quantity 'simulated' instead of read from the API"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 71,
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "48503330011d",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK, applied BEFORE verification: five cube_stack programs (05b3b9f8b441, 0c60ac0a3d53, cda172f00f81, d6a3ee48742f, b9a6c83ddbc4) failed one scene in 12/12 draws without it and the reset cleared it each time it was tested"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "never_invoked",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": false
+  },
+  "49d670299ba9": {
+    "degenerate": true,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends inside an unterminated docstring opened on line 102 (155 lines)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 155,
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "49d670299ba9",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": true
+  },
+  "50ea8330051b": {
+    "degenerate": true,
+    "distance": 0.992,
+    "evidence": {
+      "missing_action": "declares robot/gripper/observation state dicts full of None, repeated until the token cap: never calls the API"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 268,
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "50ea8330051b",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": true
+  },
+  "515afb587a0a": {
+    "degenerate": false,
+    "distance": 0.716,
+    "evidence": {
+      "frame_convention": "a camera-frame ray (y negated) intersected with the WORLD plane z = 0 from the camera's position, never rotated by pose_mat (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "a 3x5 serpentine whose row index (i // 2) yields only TWO distinct rows (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_formula": "depth indexed with SAM3's float box corners (the grid's IndexError); spill size = pixels / 300 'approximate scale' (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_target": "[1, 0, 0, 0] labelled 'Downward-facing orientation (0,0,1,0 wxyz)' (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 144,
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "515afb587a0a",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": true
+  },
+  "522275947c25": {
+    "degenerate": false,
+    "distance": 0.9548,
+    "evidence": {
+      "call_signature": "molmo's result dicts used as poses: dict + array (the grid's TypeError), dicts handed to the OBB, a dict as the IK quaternion",
+      "missing_action": "'insert the nut onto the peg' is a comment: opens and closes in place",
+      "unbound_name": "np.intersect2d does not exist",
+      "wrong_target": "grasp position a constant [0, 0, 0.05]"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 52,
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "522275947c25",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "545263179f09": {
+    "degenerate": false,
+    "distance": 0.0189,
+    "evidence": {
+      "frame_convention": "pose_mat inverted: the model's comment calls it world-to-camera; it is camera-to-world (the S3 prompt's example shows camera_extrinsics @ best_T)"
+    },
+    "families": [
+      "FRAME"
+    ],
+    "level": "L3_edit",
+    "lines": 71,
+    "models": [
+      "qwen35-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "545263179f09",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "547efaa76bc3": {
+    "degenerate": true,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-token: '[' was never closed (line 189 of 189)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 189,
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "547efaa76bc3",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": true
+  },
+  "54fed28afbcb": {
+    "degenerate": false,
+    "distance": 0.7955,
+    "evidence": {
+      "frame_convention": "wipe bounds are mask PIXEL indices used as metres, with 5 cm 'steps' through them (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "two lines crossing at the centre: a plus sign, not an area (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "spurious_move": "plans a grasp on the flat spill and moves to it (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_formula": "the flattened 4x4 (16 entries) passed as the quaternion -- the grid's reshape error",
+      "wrong_target": "wiping orientation [1, 0, 0, 0] labelled 'downward-facing' (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 58,
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "54fed28afbcb",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage",
+      "spurious_move",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "56c9372211fc": {
+    "degenerate": false,
+    "distance": 0.283,
+    "evidence": {
+      "call_signature": "SAM3's list indexed as a dict; a 2-D pixel box passed to the 3-D OBB helper; depth from cam['depth']; a 4x4 pose passed to move_to_joints",
+      "missing_action": "never lifts: repair adds the lift move",
+      "never_invoked": "defines pick_up_cube and never calls it",
+      "spurious_move": "moves to all-zero joints 'to the ground' before closing"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 35,
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "56c9372211fc",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "never_invoked",
+      "spurious_move"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "5a20c6f07eba": {
+    "degenerate": false,
+    "distance": 0.9716,
+    "evidence": {
+      "missing_action": "no lift and no release",
+      "unbound_name": "get_center_pose and apply_transform are not defined anywhere",
+      "wrong_formula": "flattened 3x3 rotation (9 entries) passed as the quaternion",
+      "wrong_target": "the insertion target is derived from the nut's own centre; the peg is never located"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 37,
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "5a20c6f07eba",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "unbound_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "5aef5798c054": {
+    "degenerate": false,
+    "distance": 0.0787,
+    "evidence": {
+      "call_signature": "molmo result read under 'point'",
+      "frame_convention": "camera-frame grasp used as world; the model's comment assumes the frames align",
+      "missing_action": "never lifts: repair adds the lift move",
+      "wrong_target": "orientation is an identity constant, not the planned grasp's rotation"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 57,
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "5aef5798c054",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "5bb2ec5b64cb": {
+    "degenerate": false,
+    "distance": 0.4465,
+    "evidence": {
+      "approach_param": "approach offset has the wrong sign (0.1 m BELOW the grasp); placement moves straight in with no z_approach",
+      "frame_convention": "cam_pose @ best_grasp_pose[:3, 3] -- a 4x4 applied to a 3-vector, no homogeneous coordinate; the same mistake again in grasp_orient = cam_pose @ best_grasp_pose[:3, :3] (4x4 @ 3x3, raises) -- the repair composes the full 4x4 first",
+      "missing_action": "closes the gripper at the approach point without ever reaching the grasp",
+      "unbound_name": "get_3d_points_from_mask is not bound at any tier; the repair defines it with the model's own signature",
+      "wrong_formula": "16 flattened entries of the 4x4 passed as the quaternion; placement from the prompt's S1 formula on OBB own-axis extents (prompted)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 63,
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "5bb2ec5b64cb",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK, applied BEFORE verification: five cube_stack programs (05b3b9f8b441, 0c60ac0a3d53, cda172f00f81, d6a3ee48742f, b9a6c83ddbc4) failed one scene in 12/12 draws without it and the reset cleared it each time it was tested"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "frame_convention",
+      "missing_action",
+      "unbound_name",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": false
+  },
+  "5bfe1aa50f21": {
+    "degenerate": false,
+    "distance": 0.9821,
+    "evidence": {
+      "call_signature": "reads 'grasp_pose' and 'nut_center_pose' keys from the observation, which carries neither (the grid's KeyError) -- the prompt's pose 'queries' taken as observation fields (prompted)",
+      "missing_action": "Step 9 'insert the nut' is a comment",
+      "unbound_name": "quaternion_from_matrix is not defined",
+      "wrong_target": "handle-to-nut transform an identity placeholder; the 'insertion' is 1 cm up from the nut's own centre -- the peg is never located"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 54,
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "5bfe1aa50f21",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "5f7407b7669f": {
+    "degenerate": false,
+    "distance": 0.4699,
+    "evidence": {
+      "frame_convention": "the SAM3 box's PIXEL centre used as a world position (its comment: 'actual conversion would require more detailed camera projection')",
+      "missing_coverage": "one move to the box centre: no sweep",
+      "wrong_target": "orientation an identity constant, not the downward (0,0,1,0) the prompt specifies (its own comment says (0,0,1,0))"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 37,
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "5f7407b7669f",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "622e7caca7a0": {
+    "degenerate": false,
+    "distance": null,
+    "evidence": {},
+    "families": [],
+    "level": "L4_scene_limited",
+    "lines": 63,
+    "models": [
+      "qwen35-27b"
+    ],
+    "n_episodes": 3,
+    "no_defect": true,
+    "note": "",
+    "pid": "622e7caca7a0",
+    "tagged_by": "hand",
+    "tags": [],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "646c510c58bc": {
+    "degenerate": false,
+    "distance": 0.7368,
+    "evidence": {
+      "frame_convention": "the box centre is deprojected into the CAMERA frame and used as world (pose_mat read, never applied; its comment: 'camera is at the origin') (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "one move to the centre: no sweep (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_target": "[0, 0, 0, 1] labelled 'downward-facing' -- a 180 deg yaw, not (0,0,1,0) (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 43,
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "646c510c58bc",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "649138915149": {
+    "degenerate": false,
+    "distance": 0.9658,
+    "evidence": {
+      "frame_convention": "the hole's 'pose' from an OBB of the binary mask flattened to an (N,1) array of 0/1 values",
+      "gripper_order": "opens at the handle and closes at the hole: gripper sequence [open, close] -> [close, open]",
+      "missing_action": "no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "wrong_formula": "quaternion = [|R@z|, R@z] -- a direction vector padded to 4 entries",
+      "wrong_target": "goes to the nut's own hole, never to the peg"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 66,
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "649138915149",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "gripper_order",
+      "missing_action",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "662fcee57f3d": {
+    "degenerate": false,
+    "distance": 0.0667,
+    "evidence": {
+      "call_signature": "molmo's one-key dict unpacked as x, y",
+      "missing_action": "never lifts: repair adds the lift move",
+      "wrong_formula": "first row of the 4x4 pose used as the quaternion"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 56,
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "662fcee57f3d",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "697325f29774": {
+    "degenerate": true,
+    "distance": 0.9171,
+    "evidence": {
+      "call_signature": "molmo's result dict passed to segment_sam3_point_prompt as the point; the OBB given a single point",
+      "frame_convention": "cube 'positions' built from pixel index arithmetic and raw depth, used as world coordinates; the grasp used in camera frame",
+      "never_invoked": "main() is never called: cut off inside the repeated place/lift cycle",
+      "wrong_formula": "rows of the 4x4 grasp read as position [:3] and quaternion [3:]; placement from the prompt's S1 formula (prompted)",
+      "wrong_target": "the placement goes to the RED cube's own OBB centre, not the green cube's"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 210,
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "697325f29774",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "never_invoked",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": true
+  },
+  "697427548209": {
+    "degenerate": false,
+    "distance": 0.9706,
+    "evidence": {
+      "call_signature": "molmo results read as ['x'] / ['y']; a 3D world point passed to segment_sam3_point_prompt as the pixel",
+      "frame_convention": "pixel (x, y, 0, 1) multiplied by pose_mat as if a camera-frame point -- no deprojection, no depth",
+      "gripper_order": "the insertion opens the gripper at the target and then closes it at the handle",
+      "never_invoked": "main() sits behind `if __name__ == '__main__'`, which never fires in the sandbox",
+      "object_name": "peg sought as 'brown square block', the prompt's name for it (prompted): measured on 6 scenes, SAM3 text returns the NUT for it in 5 of 6 and molmo points at the nut in 3 of 6; the S1 oracle's own 'square block' finds the peg 6 of 6 with molmo",
+      "unbound_name": "obs and cam are used in every helper and never bound (the grid's NameError on 'cam')",
+      "wrong_formula": "Rotation.from_matrix on 3x1 position vectors; the nut pose 'in the peg frame' composed from quaternions as if matrices"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 118,
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "697427548209",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "gripper_order",
+      "never_invoked",
+      "object_name",
+      "unbound_name",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "6a6e6b62fdc8": {
+    "degenerate": false,
+    "distance": 0.625,
+    "evidence": {
+      "call_signature": "point-prompt SAM3 results read for a 'box' key they do not carry",
+      "frame_convention": "pixel centre -> metres by an invented scale (u / W * 0.2 - 0.2) (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "dabs between z = 0 and -0.05 three times at one point: no sweep (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "never_invoked": "defines wipe_spill and never calls it",
+      "wrong_target": "[0, 0, 0, 1] labelled 'identity' -- a 180 deg yaw, not the downward (0,0,1,0) (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 58,
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "6a6e6b62fdc8",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "6ae1d8fb0961": {
+    "degenerate": true,
+    "distance": 1.0,
+    "evidence": {
+      "call_signature": "solve_ik given the DEPTH IMAGE as the position and the 4x4 pose_mat as the quaternion; the OBB given the depth image; perception results discarded",
+      "missing_coverage": "move / close / open repeated at one (invalid) target until the token cap: no sweep",
+      "unbound_name": "obs is used on every line and never bound"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 163,
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "6ae1d8fb0961",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_coverage",
+      "unbound_name"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": true
+  },
+  "6d1b676640d9": {
+    "degenerate": false,
+    "distance": 0.4745,
+    "evidence": {
+      "approach_param": "no z_approach for the grasp or the placement",
+      "frame_convention": "the grasp pose used in camera frame: pose_mat never read",
+      "unbound_name": "get_3d_points_from_mask is not bound at any tier; the repair defines it with the model's own 3-argument signature",
+      "wrong_formula": "grasp_pose[:4, 3] -- the translation column plus the homogeneous 1 -- passed as the quaternion; a flattened 3x3 at the placement; the prompt's S1 formula (prompted)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 57,
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "6d1b676640d9",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "frame_convention",
+      "unbound_name",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": false
+  },
+  "6f0825480600": {
+    "degenerate": false,
+    "distance": 0.9869,
+    "evidence": {
+      "call_signature": "the OBB given the single 2-vector pixel point",
+      "frame_convention": "molmo's PIXEL point used as a world-frame pose, sliced into position [:3] and quaternion [3:] -- the prompt says the handle query 'returns an end-effector pose expressed in world frame' (prompted)",
+      "missing_action": "'Open the gripper to grasp the nut' -- never closes; no transit or insertion",
+      "never_invoked": "solve_grasp_and_insert() is never called: cut off inside a repeated comment"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 136,
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "6f0825480600",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_action",
+      "never_invoked"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": true
+  },
+  "6f8eb7df619f": {
+    "degenerate": false,
+    "distance": 0.9623,
+    "evidence": {
+      "call_signature": "molmo's dict passed to segment_sam3_point_prompt as the pixel; point-prompt results read for a 'box' key they do not carry",
+      "missing_coverage": "one move: no sweep",
+      "wrong_target": "target is a constant [0, 0, 0] with [0, 0, 0, 1] labelled 'downward-facing'"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 28,
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "6f8eb7df619f",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_coverage",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "704590195b07": {
+    "degenerate": false,
+    "distance": 0.9548,
+    "evidence": {
+      "frame_convention": "scipy as_quat() (xyzw) passed as wxyz",
+      "gripper_order": "opens at the grasp and closes at the insertion point: [open, close] -> [close, open]",
+      "missing_action": "no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "never_invoked": "defines grasp_and_insert_nut(obs) and never calls it",
+      "unbound_name": "segment_sam3 is not bound at any tier (artifact #14)",
+      "wrong_formula": "position = rows [:3] of the 4x4; an OBB of three zero points",
+      "wrong_target": "insertion point is a constant [0, 0, 0.3] with identity orientation"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 51,
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "704590195b07",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "gripper_order",
+      "missing_action",
+      "never_invoked",
+      "unbound_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "7190a3def551": {
+    "degenerate": false,
+    "distance": 0.0103,
+    "evidence": {
+      "frame_convention": "cam_to_world = np.linalg.inv(pose_mat): pose_mat IS camera-to-world, and inverting it casts every ray from the wrong origin; deleting the inv alone takes the program to 30/30 (measured). The same model's S4 cube_lifting program has the identical defect; the S3 prompt's example (camera_extrinsics @ best_T) is what S4 removes"
+    },
+    "families": [
+      "FRAME"
+    ],
+    "level": "L3_edit",
+    "lines": 245,
+    "models": [
+      "qwen35-27b"
+    ],
+    "n_episodes": 23,
+    "no_defect": false,
+    "note": "",
+    "pid": "7190a3def551",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": true
+  },
+  "7287ddc54038": {
+    "degenerate": false,
+    "distance": 0.7241,
+    "evidence": {
+      "frame_convention": "the deprojected points never leave the camera frame (pose_mat read, never applied) (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "3 passes of a sparse x-grid x 5 y-points (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "never_invoked": "wipe_spill() sits behind `if __name__ == '__main__'`, which never fires in the sandbox",
+      "unbound_name": "segment_sam3 is not bound at any tier (artifact #14)",
+      "wrong_formula": "bounds = centre +/- 1.2 x the FULL OBB extent along the box's own axes (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_target": "orientation [1,0,0,0] while its own comment says downward (0,0,1,0) (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 86,
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "7287ddc54038",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage",
+      "never_invoked",
+      "unbound_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "753196deb4c3": {
+    "degenerate": false,
+    "distance": 0.976,
+    "evidence": {
+      "call_signature": "molmo result read under a 'points' key (the grid's KeyError); point-prompt SAM3 results read for a 'box' key they do not carry",
+      "frame_convention": "the camera 'assumed at the origin looking down z': pose_mat never applied (its comment)",
+      "gripper_order": "opens at the handle, closes at the 'insertion' point: [open, close] -> [close, open]",
+      "missing_action": "no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "wrong_formula": "deprojection (u - cx) * depth with no division by the focal length, z = -depth",
+      "wrong_target": "grasp and insertion orientations are identity constants; the 'insertion' goes to the nut's own centre"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 92,
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "753196deb4c3",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "gripper_order",
+      "missing_action",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "778457d0440d": {
+    "degenerate": false,
+    "distance": 0.9633,
+    "evidence": {
+      "call_signature": "molmo result read as ['point'] (the grid's KeyError); mask.nonzero() -- a tuple of PIXEL index arrays -- handed to the OBB as 3D points",
+      "frame_convention": "the nut's 'world position' is the CAMERA's translation plus a pixel-space offset",
+      "gripper_order": "opens at the nut, then closes at the handle: gripper sequence [open, close] then never released",
+      "missing_action": "Step 15 'insert the nut onto the peg' is a comment: the peg is never located and nothing is inserted",
+      "wrong_formula": "rotation from a single yaw between pixel centroids; Rotation.as_quat() (xyzw) passed as wxyz"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 51,
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "778457d0440d",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "gripper_order",
+      "missing_action",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "7c3e32891c68": {
+    "degenerate": false,
+    "distance": 0.2,
+    "evidence": {
+      "call_signature": "prompted 'the red cube' and read back under 'red cube'; OBB of a single point raises",
+      "frame_convention": "the inverse of the grasp pose itself used as the camera-to-world rotation",
+      "missing_action": "the 'lift' re-sends the grasp joints",
+      "wrong_formula": "quaternion branch chosen on |R_ii| instead of R_ii: divides by zero for a top-down grasp",
+      "wrong_target": "orientation taken from that OBB instead of the planned grasp"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 85,
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "7c3e32891c68",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_action",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "7d93a13e528b": {
+    "degenerate": true,
+    "distance": 0.5029,
+    "evidence": {
+      "call_signature": "plan_grasp's (poses, scores) tuple sliced with [0:1,:,:] (the grid's TypeError) and grasp poses fed to the OBB as if they were 3D points",
+      "frame_convention": "np.argwhere pixel indices and raw depth used as cube positions; the grasp used in camera frame",
+      "gripper_order": "gripper sequence [open, close, open] -> [close, open]: opens at the grasp and closes at the placement, then lifts and releases",
+      "never_invoked": "main() sits behind `if __name__ == '__main__'`, which never fires in the sandbox",
+      "wrong_formula": "the grasp's translation column used as the quaternion; placement from the prompt's S1 formula on depth means (prompted)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 91,
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "7d93a13e528b",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "gripper_order",
+      "never_invoked",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": false
+  },
+  "7ea521918447": {
+    "degenerate": true,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-statement: 'from scipy.spatial.transform' (line 161 of 161)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 161,
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "7ea521918447",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": true
+  },
+  "7f5b4f9f686c": {
+    "degenerate": false,
+    "distance": 0.5484,
+    "evidence": {
+      "approach_param": "no approach waypoint for the grasp or the placement",
+      "call_signature": "get_oriented_bounding_box_from_3d_points given ONE point (the grasp translation), which raises; its dict result tuple-unpacked as (center, extent, R)",
+      "wrong_formula": "pick height = centre - extent/2 - 0.1, i.e. 10 cm under the cube's base; placement from the prompt's S1 formula (prompted)",
+      "wrong_target": "pick orientation is an identity constant (its comment: 'Use sample grasp orientation'); the green cube located from a plan_grasp sample on it"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 48,
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "7f5b4f9f686c",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK, applied BEFORE verification: five cube_stack programs (05b3b9f8b441, 0c60ac0a3d53, cda172f00f81, d6a3ee48742f, b9a6c83ddbc4) failed one scene in 12/12 draws without it and the reset cleared it each time it was tested"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "call_signature",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": false
+  },
+  "80af6268d659": {
+    "degenerate": false,
+    "distance": 0.3838,
+    "evidence": {
+      "frame_convention": "the grasp quaternion was to be taken from the CAMERA-frame pose grasp_pose_red, not the world one",
+      "missing_action": "closes the gripper at the approach point 10 cm above the cube; never descends to the grasp",
+      "unbound_name": "grasp_pose_to_quat and get_3d_points_from_mask are not bound (the model's comments: 'Assume this function ...')",
+      "wrong_formula": "placement from the prompt's S1 formula on OBB own-axis extents (prompted)",
+      "wrong_target": "the green cube's position taken from a plan_grasp sample on the green cube, not from its geometry"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 93,
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "80af6268d659",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK, applied BEFORE verification: five cube_stack programs (05b3b9f8b441, 0c60ac0a3d53, cda172f00f81, d6a3ee48742f, b9a6c83ddbc4) failed one scene in 12/12 draws without it and the reset cleared it each time it was tested"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "unbound_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": false
+  },
+  "81892841f288": {
+    "degenerate": false,
+    "distance": 0.0909,
+    "evidence": {
+      "missing_action": "never lifts: repair adds the lift move",
+      "unbound_name": "segment_sam3 is not bound at any tier (artifact #16)",
+      "wrong_target": "orientation is an identity constant, not the planned grasp's rotation"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 43,
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "81892841f288",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "846a4edcad10": {
+    "degenerate": false,
+    "distance": 0.2459,
+    "evidence": {
+      "call_signature": "depth from cam['depth']; molmo's dict indexed [0]; a float32 ndarray point is not JSON-serialisable; mask passed as (1,H,W)",
+      "frame_convention": "camera-frame grasp used as world; the model's comment assumes the frames coincide",
+      "missing_action": "never lifts: repair adds the lift move",
+      "wrong_target": "orientation is an identity constant, not the planned grasp's rotation"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 40,
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "846a4edcad10",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "852086a88201": {
+    "degenerate": false,
+    "distance": null,
+    "evidence": {
+      "syntax": "unterminated triple-quoted docstring opened on line 5, running to the end (105 lines): cut off"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 105,
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "852086a88201",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": true
+  },
+  "85820d975a6f": {
+    "degenerate": false,
+    "distance": 0.1429,
+    "evidence": {
+      "call_signature": "molmo result read as ['x']/['y']; point-prompt SAM3 results read for a 'box' key they do not carry",
+      "missing_action": "never lifts: repair adds the lift move",
+      "wrong_target": "target pose is an example constant, not the planned grasp"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 49,
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "85820d975a6f",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "863aab6689bb": {
+    "degenerate": false,
+    "distance": 0.0714,
+    "evidence": {
+      "missing_action": "never lifts: repair adds the lift move",
+      "wrong_formula": "first four rows of the 4x4 pose passed as the quaternion"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 35,
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "863aab6689bb",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "8902c5cab8bf": {
+    "degenerate": false,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-token inside a ~4700-character literal mask array (line 54)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 54,
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "8902c5cab8bf",
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": true
+  },
+  "8a4d6d5da5f7": {
+    "degenerate": false,
+    "distance": 0.966,
+    "evidence": {
+      "call_signature": "SAM3's result list passed to plan_grasp as the segmentation",
+      "missing_action": "no lift, no transit to the peg: no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "wrong_formula": "quaternion = np.roll(R, axis=1).flatten(): 9 entries",
+      "wrong_target": "the 'insertion' moves to a grasp pose planned on the nut's OWN hole and releases; the peg is never located"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 71,
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "8a4d6d5da5f7",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "8af439b9b192": {
+    "degenerate": false,
+    "distance": 0.871,
+    "evidence": {
+      "missing_coverage": "a 5x5 row-major grid that stops one step short of the far edge (range(5) of a 5-step span) (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "never_invoked": "defines wipe_spill and never calls it",
+      "wrong_formula": "deprojection keeps x, y as NORMALISED coordinates (not multiplied by depth) while z is metres; then rescales the corners by 0.0 / avg_z (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 144,
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "8af439b9b192",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_coverage",
+      "never_invoked",
+      "wrong_formula"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": true
+  },
+  "8c20bcd8b218": {
+    "degenerate": false,
+    "distance": 0.0353,
+    "evidence": {
+      "wrong_target": "orientation is an identity constant, not the planned grasp's rotation; the model's comment says the conversion is still to be implemented"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 51,
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 28,
+    "no_defect": false,
+    "note": "",
+    "pid": "8c20bcd8b218",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "8e9b29e80a4e": {
+    "degenerate": true,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-call: '(' was never closed (line 199 of 199)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 199,
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "8e9b29e80a4e",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": true
+  },
+  "8fac3edf34a8": {
+    "degenerate": true,
+    "distance": 0.9313,
+    "evidence": {
+      "missing_action": "no motion at all: never grasps, lifts, places or releases",
+      "mock_shadowing": "redefines get_object_pose, the OBB, plan_grasp, solve_ik, move_to_joints and both grippers as `pass` placeholders",
+      "never_invoked": "main() is never called: the program is cut off inside a repeated comment block",
+      "unbound_name": "segment_sam3 is not bound at any tier (artifact #14: the docstring example names it)",
+      "wrong_target": "point, 3D points, extents and centres are all 'simulated' constants or np.random -- no perception result is used"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 199,
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "8fac3edf34a8",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "mock_shadowing",
+      "never_invoked",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": true
+  },
+  "90a54316910a": {
+    "degenerate": false,
+    "distance": 0.1642,
+    "evidence": {
+      "missing_action": "never closes or lifts: ends on open_gripper",
+      "wrong_formula": "obb['R'], a 3x3 matrix, passed as the quaternion",
+      "wrong_target": "target pose from an OBB of a placeholder point (which raises) instead of the planned grasp"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 47,
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "90a54316910a",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "95afcc1bc880": {
+    "degenerate": true,
+    "distance": 0.9835,
+    "evidence": {
+      "api_rebound": "redefines every API function as a wrapper that calls ITSELF -- infinite recursion on first use",
+      "call_signature": "SAM3's result list passed to plan_grasp as the segmentation",
+      "missing_action": "cut off before any motion: grasp, lift, transit and insertion all absent",
+      "never_invoked": "main() is never called: cut off mid-function"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 217,
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "95afcc1bc880",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "api_rebound",
+      "call_signature",
+      "missing_action",
+      "never_invoked"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": true
+  },
+  "96864245c131": {
+    "degenerate": false,
+    "distance": 0.8222,
+    "evidence": {
+      "call_signature": "molmo's one-key dict unpacked as x, y (the grid's 'expected 2, got 1')",
+      "frame_convention": "wipe bounds are mask PIXEL indices +/- 5, used as world metres (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "a 10x10 comb over pixel-sized 'metres' -- a few millimetres in the world (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 63,
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "96864245c131",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "9a7b8e03358b": {
+    "degenerate": false,
+    "distance": 0.9617,
+    "evidence": {
+      "frame_convention": "the grasp used in camera frame",
+      "missing_action": "no lift or transit: no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "unbound_name": "get_3d_points_from_mask is not bound at any tier",
+      "wrong_formula": "orientation passed as R.T @ [0, 0, 1], a 3-vector",
+      "wrong_target": "the 'insertion pose' is the grasp pose again: the peg is never located"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 38,
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "9a7b8e03358b",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "unbound_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "9bccb5454081": {
+    "degenerate": false,
+    "distance": 0.7447,
+    "evidence": {
+      "frame_convention": "the deprojected centre stays in camera frame and is used as world (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "two 5 cm jabs left and right of the centre: no sweep (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_formula": "the depth for deprojection taken from the CAMERA's own height pose_mat[2, 3], not the depth image (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_target": "[0, 0, 0, 1] labelled 'downward-facing' -- a 180 deg yaw, not (0,0,1,0) (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 70,
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "9bccb5454081",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "9fdb40c8141e": {
+    "degenerate": false,
+    "distance": 0.6941,
+    "evidence": {
+      "call_signature": "molmo's result dict passed to segment_sam3_point_prompt as the pixel (the grid's KeyError 0)",
+      "missing_coverage": "10 waypoints along ONE diagonal of the box (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "unbound_name": "get_3d_points_from_depth is not bound at any tier",
+      "wrong_formula": "bounds = OBB centre +/- own-axis extent/2, with no margin (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 53,
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "9fdb40c8141e",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_coverage",
+      "unbound_name",
+      "wrong_formula"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "a01b0d01f411": {
+    "degenerate": false,
+    "distance": null,
+    "evidence": {},
+    "families": [],
+    "level": "L4_scene_limited",
+    "lines": 62,
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 3,
+    "no_defect": true,
+    "note": "",
+    "pid": "a01b0d01f411",
+    "tagged_by": "hand",
+    "tags": [],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "a392507f8786": {
+    "degenerate": false,
+    "distance": 0.1818,
+    "evidence": {
+      "missing_action": "cut off inside a comment about z_approach before moving to the placement or releasing",
+      "wrong_formula": "(1) placement from the prompt's S1 formula, green_center_z + green_extent[2]/2 + red_extent[2]/2, on OBB own-axis extents with a camera-biased centre (prompted); (2) a first approach_pos = position - quaternion*0.1 subtracts a 4-vector from a 3-vector and raises before any motion (0/30 in 12/12 draws until deleted; the program recomputes the approach correctly two lines later)"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 167,
+    "models": [
+      "qwen35-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "a392507f8786",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK, applied BEFORE verification: five cube_stack programs (05b3b9f8b441, 0c60ac0a3d53, cda172f00f81, d6a3ee48742f, b9a6c83ddbc4) failed one scene in 12/12 draws without it and the reset cleared it each time it was tested"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": true
+  },
+  "a43a0721c1e8": {
+    "degenerate": false,
+    "distance": 0.1786,
+    "evidence": {
+      "call_signature": "SAM3's result list passed to plan_grasp as the mask",
+      "missing_action": "never closes or lifts: ends on open_gripper",
+      "wrong_target": "target pose is a [0,0,0]/identity constant"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 36,
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "a43a0721c1e8",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "a55678162d56": {
+    "degenerate": false,
+    "distance": 0.6444,
+    "evidence": {
+      "frame_convention": "the points never leave the camera frame (pose_mat read, never applied)",
+      "missing_coverage": "solves IK for a 5x5 grid, then AVERAGES the 25 joint vectors and makes ONE move",
+      "never_invoked": "defines wipe_spill and never calls it",
+      "wrong_formula": "deprojection (u - w/2) * w/(2h) * cx/fx -- an invented scale, not the pinhole model",
+      "wrong_target": "orientation an identity constant, not the downward (0,0,1,0) the prompt specifies"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 54,
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "a55678162d56",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "a957393564f8": {
+    "degenerate": false,
+    "distance": 0.5591,
+    "evidence": {
+      "approach_param": "placement moves straight in with no z_approach; the GRASP also had no pre-grasp approach: without it scenes 1 and 9 failed 16/16 draws ([12,16,12,18,13,14,11,16,12,9,13,17,12,15,10,15], below reference); adding ONLY a 10 cm grasp approach waypoint -> [18,16,12,21,23], accepted",
+      "frame_convention": "grasp pose used in camera frame: pose_mat never applied",
+      "unbound_name": "get_object_pose is not bound at S3 -- a prompted phantom: the task's Key rules name it",
+      "wrong_formula": "3x3 rotation raveled into a 9-vector as the quaternion; placement from the prompt's S1 formula (prompted)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 56,
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "a957393564f8",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK, applied BEFORE verification: five cube_stack programs (05b3b9f8b441, 0c60ac0a3d53, cda172f00f81, d6a3ee48742f, b9a6c83ddbc4) failed one scene in 12/12 draws without it and the reset cleared it each time it was tested"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "frame_convention",
+      "unbound_name",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": false
+  },
+  "acc92b102fcb": {
+    "degenerate": false,
+    "distance": 0.102,
+    "evidence": {
+      "missing_coverage": "3 straight strokes; with the broadcast fixed but 3 strokes kept the program scores 0/30, with a 14x14 serpentine + crossing pass 30/30 (measured)",
+      "wrong_formula": "OBB corners projected with half_extents * corners.T -- a (3,) against a (3,8) (the grid's broadcast error); every trial crashed until fixed (measured)"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 86,
+    "models": [
+      "qwen35-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "acc92b102fcb",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_coverage",
+      "wrong_formula"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "ae0ca05cc167": {
+    "degenerate": false,
+    "distance": 0.9736,
+    "evidence": {
+      "frame_convention": "the peg 'centre' is a pixel (row, col) mean with z = 0, used as world coordinates",
+      "missing_action": "no lift before transit: no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "object_name": "peg sought as 'brown square block', the prompt's name for it (prompted): measured on 6 scenes, SAM3 text returns the NUT for it in 5 of 6 and molmo points at the nut in 3 of 6; the S1 oracle's own 'square block' finds the peg 6 of 6 with molmo",
+      "wrong_formula": "rows of the 4x4 grasp read as position [:3] and quaternion [3:]",
+      "wrong_target": "insertion orientation an identity constant"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 58,
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "ae0ca05cc167",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "object_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "ae2280badf68": {
+    "degenerate": false,
+    "distance": 0.9739,
+    "evidence": {
+      "frame_convention": "pose_mat @ handle_point.reshape(1, 4) -- a 3-vector reshaped to 1x4 and multiplied, then reshaped to a 4x4 'pose'",
+      "missing_action": "closes and immediately reopens in place: no lift, no transit, no insertion",
+      "wrong_target": "grasp orientation an identity constant; the handle-to-centre 'rigid transform' a hard-coded 5 cm along x (its comment: 'placeholder')"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 59,
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "ae2280badf68",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "b15741bf1679": {
+    "degenerate": false,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-token inside a ~1800-character literal array: '[' was never closed"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 18,
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "b15741bf1679",
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": true
+  },
+  "b175d948ab4c": {
+    "degenerate": false,
+    "distance": 0.9793,
+    "evidence": {
+      "call_signature": "molmo result read under 'rgb' (the grid's KeyError 'rgb')",
+      "gripper_order": "opens at the insertion point then closes again: [close, open, close] -> [close, open]",
+      "never_invoked": "main() sits behind `if __name__ == '__main__'`, which never fires in the sandbox",
+      "wrong_formula": "np.where's (row, col) unpacked as (px, py) -- pixel axes swapped in the deprojection",
+      "wrong_target": "the hole's centre a [0, 0, 0] placeholder; the 'rigid transform' then shifts the grasp by itself; insertion points are example constants [0, 0, 0.5] / [0, 0, 0.4]"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 142,
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "b175d948ab4c",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "gripper_order",
+      "never_invoked",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": true
+  },
+  "b1a0689ebf52": {
+    "degenerate": false,
+    "distance": 0.0893,
+    "evidence": {
+      "approach_param": "no pre-grasp approach: straight from home to the grasp pose; scene 19 failed 5/5 draws at reward 0.511 ([28,22,22,26,20]); adding ONLY a 10 cm approach waypoint is the fix",
+      "call_signature": "prompted 'the red cube' and read back under 'red cube'",
+      "frame_convention": "camera-frame grasp used as world; the model's comment assumes the camera is at the origin",
+      "unbound_name": "quaternion_from_matrix is not defined"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 65,
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "b1a0689ebf52",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "call_signature",
+      "frame_convention",
+      "unbound_name"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "b72a1f1d7dbc": {
+    "degenerate": false,
+    "distance": 0.931,
+    "evidence": {
+      "missing_coverage": "one move to a corner of the extents: no sweep (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "never_invoked": "defines wipe_spill and never calls it",
+      "unbound_name": "find_spill_extents is not defined anywhere"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 28,
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "b72a1f1d7dbc",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_coverage",
+      "never_invoked",
+      "unbound_name"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "b73fb6998209": {
+    "degenerate": false,
+    "distance": 0.7143,
+    "evidence": {
+      "call_signature": "the OBB given a single zero 3-vector; plan_grasp given a 3-element placeholder as the segmentation",
+      "missing_coverage": "no sweep at all: one move, then open_gripper",
+      "object_name": "segments 'red mug' -- the API docstring's example object, not the spill",
+      "wrong_target": "IK target is the API docstring's example [0.5, 0, 0.3] / identity"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 37,
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "b73fb6998209",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_coverage",
+      "object_name",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "b97e2b344a8c": {
+    "degenerate": false,
+    "distance": 0.6429,
+    "evidence": {
+      "frame_convention": "the SAM3 box's PIXEL centre at z = 0 used as a world position (its comment: 'For simplicity') (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "one move per mask to the box centre: no sweep (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 42,
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "b97e2b344a8c",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "b9a6c83ddbc4": {
+    "degenerate": false,
+    "distance": 0.7302,
+    "evidence": {
+      "frame_convention": "cube 'poses' built from PIXEL box centres with a made-up depth (0.5 / 0.3) and used as world coordinates",
+      "missing_action": "cut off mid-call ('move_') before placing or releasing",
+      "mock_shadowing": "redefines solve_ik, move_to_joints, the grippers, get_observation, molmo, SAM3, the OBB and plan_grasp as placeholder stubs",
+      "unbound_name": "the stubs' annotations use typing.Any without importing typing (the grid's NameError)",
+      "wrong_target": "grasp and place orientation are identity constants; the planned grasp is only read for a camera-frame translation"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 143,
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "b9a6c83ddbc4",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK; scene 28 failed 12/12 draws without it (red-minus-green mask already applied)"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "mock_shadowing",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": true
+  },
+  "bac85aa92879": {
+    "degenerate": true,
+    "distance": 0.9891,
+    "evidence": {
+      "missing_action": "cut off among further mock helpers before any task code runs; the whole sequence added",
+      "mock_shadowing": "redefines the whole API as 'mock' functions returning random images and grasps",
+      "wrong_target": "a global robot_state of constant poses and bounding boxes, and an object pose 'at the centre of the image' (pixel 50,50)"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 148,
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "bac85aa92879",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); raw mask: scenes 23/28 failed 8/8 draws; red minus green: accepted [18,20,19,21,21,18]"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "mock_shadowing",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": true
+  },
+  "bbe65f6b9b74": {
+    "degenerate": false,
+    "distance": 0.7105,
+    "evidence": {
+      "call_signature": "molmo result read under 'spill' though the prompt asked for 'brown spill' (the grid's KeyError)",
+      "frame_convention": "bounds are the molmo PIXEL +/- 10, used as world metres (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "the sweep is the invented wiping_motion(): nothing is written (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "unbound_name": "attach_sponge, wiping_motion and detach_sponge are invented ('Assuming there is a function')"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 44,
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "bbe65f6b9b74",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_coverage",
+      "unbound_name"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "bd4e1cc0f940": {
+    "degenerate": false,
+    "distance": 0.2,
+    "evidence": {
+      "call_signature": "molmo's dict passed as the point; SAM3's list passed as the mask; a 4x4 pose passed to move_to_joints",
+      "missing_action": "never lifts: repair adds the lift move",
+      "never_invoked": "defines pick_up_cube_and_lift and never calls it"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 31,
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "bd4e1cc0f940",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "never_invoked"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "bf827d8fe70a": {
+    "degenerate": false,
+    "distance": 0.1609,
+    "evidence": {
+      "approach_param": "the placement 'approach' at place_target - 0.1, below the target",
+      "missing_action": "closes the gripper at the approach point, 10 cm above the grasp; cut off before releasing",
+      "never_invoked": "main() is never called: the program is cut off mid-statement ('move_to_j') before the call",
+      "wrong_formula": "its mat_to_quat has the wrong numerator in every branch (qz = (R[0,0]-R[1,1])/s etc.); placement from the prompt's S1 formula (prompted)",
+      "wrong_target": "(1) grasp orientation taken from the red cube's OBB rotation, not from the planned grasp it transforms a few lines later; (2) plan_grasp given the 2-label seg_map (red=1, green=2): it plans every instance > 0, so candidates include the green cube -- scene 28 failed 8/8 draws [13,15,17,15,15,18,18,18]; passing seg_map == 1 only is the fix"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 163,
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "bf827d8fe70a",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "never_invoked",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": true
+  },
+  "bfd5aa0bc9dd": {
+    "degenerate": true,
+    "distance": 0.9925,
+    "evidence": {
+      "call_signature": "molmo's result dict passed to segment_sam3_point_prompt as the pixel (the grid's KeyError 0)",
+      "gripper_order": "opens at the peg, then closes and opens again: gripper sequence [close, open, close, open] -> [close, open]",
+      "missing_action": "no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "object_name": "peg sought as 'brown square block', the prompt's name for it (prompted): measured on 6 scenes, SAM3 text returns the NUT for it in 5 of 6 and molmo points at the nut in 3 of 6; the S1 oracle's own 'square block' finds the peg 6 of 6 with molmo",
+      "wrong_formula": "rows of the 4x4 grasp read as position [:3] and quaternion [3:]",
+      "wrong_target": "'inserts' at a plan_grasp grasp ON the peg"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 100,
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "bfd5aa0bc9dd",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "gripper_order",
+      "missing_action",
+      "object_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  },
+  "c1fbfd045ada": {
+    "degenerate": false,
+    "distance": 0.0667,
+    "evidence": {
+      "missing_action": "never lifts: repair adds the lift move",
+      "unbound_name": "np.quaternion does not exist; called on 9 flattened matrix entries"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 40,
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "c1fbfd045ada",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "unbound_name"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "c587df23051b": {
+    "degenerate": false,
+    "distance": 0.1238,
+    "evidence": {
+      "call_signature": "molmo's result dict passed as the pixel point; SAM3's result list passed to plan_grasp as the mask",
+      "missing_action": "never closes or lifts: ends on open_gripper",
+      "never_invoked": "defines pick_up_red_cube and never calls it",
+      "wrong_target": "target pose is a constant [0.5,0,0.3]/identity, not the planned grasp"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 60,
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "c587df23051b",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "never_invoked",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "c72fac2e18a4": {
+    "degenerate": true,
+    "distance": 0.8418,
+    "evidence": {
+      "call_signature": "intrinsics read from images['intrinsics'] (the grid's KeyError); SAM3's result list passed to plan_grasp as the segmentation",
+      "missing_action": "never lifts, carries or places: open then close in place",
+      "mock_shadowing": "redefines every API function as a 'simulate' stub returning random or zero arrays",
+      "never_invoked": "the main block sits behind `if __name__ == '__main__'`, which never fires in the sandbox",
+      "object_name": "segments and points at 'red mug' -- the API docstring's example object, not the red cube",
+      "wrong_target": "IK target is a [0,0,0] / identity constant"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 130,
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "c72fac2e18a4",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "mock_shadowing",
+      "never_invoked",
+      "object_name",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": true
+  },
+  "c75ef325c52b": {
+    "degenerate": false,
+    "distance": 0.8556,
+    "evidence": {
+      "call_signature": "SAM3's result LIST indexed ['mask'] (the grid's TypeError); the OBB given the 2D mask image and read for a 'box' key it does not return",
+      "frame_convention": "the target is a PIXEL box centre at z = 0, used as a world position (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "one move, then the prompt's wiping instructions repeated as comments until the token cap: no sweep (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_target": "orientation an identity constant, not the downward (0,0,1,0) the prompt specifies (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 170,
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "c75ef325c52b",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_coverage",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": true
+  },
+  "c9e843714e73": {
+    "degenerate": true,
+    "distance": 0.8817,
+    "evidence": {
+      "call_signature": "molmo result read under 'spill' though the prompt asked for 'brown spill' (the grid's KeyError); plan_grasp given the depth image as the segmentation; the OBB given a 4x4 pose",
+      "frame_convention": "wipe bounds are the molmo PIXEL +/- 0.1, used as metres in world coordinates (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "never wipes: the bounding-box arithmetic is repeated until the token cap (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "spurious_move": "plans a grasp on the flat spill (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_target": "[0, 0, 0, 1] labelled 'downward-facing' -- a 180 deg yaw, not (0,0,1,0) (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 199,
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "c9e843714e73",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_coverage",
+      "spurious_move",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": true
+  },
+  "c9fcfe669821": {
+    "degenerate": false,
+    "distance": 0.0789,
+    "evidence": {
+      "missing_action": "never lifts: repair adds the lift move",
+      "wrong_target": "target pose is the API docstring's example [0.5,0,0.3]/identity, not the planned grasp"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 50,
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "c9fcfe669821",
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "ca11e1541c25": {
+    "degenerate": false,
+    "distance": 0.9474,
+    "evidence": {
+      "frame_convention": "the SAM3 box's PIXEL centre at z = 0 used as a world position (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "one move to the centre: the 'wipe_delta' it computes is never used (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "never_invoked": "defines wipe_up_spill and never calls it"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 51,
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "ca11e1541c25",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage",
+      "never_invoked"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "cc162eaaef02": {
+    "degenerate": false,
+    "distance": 0.0103,
+    "evidence": {
+      "frame_convention": "cam_to_world = np.linalg.inv(pose_mat): pose_mat IS camera-to-world, and inverting it casts every ray from the wrong origin; deleting the inv alone takes the program to 30/30 (measured). The same model's S4 cube_lifting program has the identical defect; the S3 prompt's example (camera_extrinsics @ best_T) is what S4 removes"
+    },
+    "families": [
+      "FRAME"
+    ],
+    "level": "L3_edit",
+    "lines": 122,
+    "models": [
+      "qwen35-27b"
+    ],
+    "n_episodes": 7,
+    "no_defect": false,
+    "note": "",
+    "pid": "cc162eaaef02",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "cda172f00f81": {
+    "degenerate": false,
+    "distance": 0.6612,
+    "evidence": {
+      "call_signature": "plan_grasp given SAM3's result list as the segmentation",
+      "frame_convention": "cube 'centre' and 'extent' read off SAM3's PIXEL box and used as world coordinates",
+      "gripper_order": "gripper sequence [close, open, close, open] -> [close, open]: releases at the target, re-grips, then releases again",
+      "mock_shadowing": "redefines get_observation, plan_grasp, SAM3, the grippers, solve_ik and the OBB as placeholder stubs after the task function",
+      "never_invoked": "defines pick_and_stack_red_cube and never calls it",
+      "unbound_name": "move_to is not an API function -- its own placeholder that prints",
+      "wrong_target": "lift and placement go to [0, 0, z] constants; the planned grasp best_T is never used"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 113,
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "cda172f00f81",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK; scene 28 failed 12/12 draws without it (red-minus-green mask already applied)"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "gripper_order",
+      "mock_shadowing",
+      "never_invoked",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": false
+  },
+  "ce41a3d24584": {
+    "degenerate": false,
+    "distance": 0.9823,
+    "evidence": {
+      "unbound_name": "get_3d_points_from_mask, compute_transform_between_points, get_peg_pose and compute_orientation_between_points are not defined anywhere (its comment: 'Assume this function is available')",
+      "wrong_formula": "deprojection inv(K) @ [x, y, z] -- depth not multiplied through",
+      "wrong_target": "closes the gripper at the computed PEG target, then carries nothing to [0, 0, 0] and opens"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 61,
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "ce41a3d24584",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "unbound_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "ce4636e75057": {
+    "degenerate": false,
+    "distance": 0.8421,
+    "evidence": {
+      "missing_coverage": "a single move to the 'centre': no sweep",
+      "never_invoked": "defines wipe_spill and never calls it",
+      "wrong_target": "the point prompt is the IMAGE CENTRE, the depth image a constant 0.5 placeholder, the spill centre [0, 0, 0] -- none of the perception is used (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 85,
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "ce4636e75057",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_coverage",
+      "never_invoked",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "ce924ec02d95": {
+    "degenerate": false,
+    "distance": 0.0909,
+    "evidence": {
+      "approach_param": "moves straight from home to the grasp pose with no approach: with only the quaternion fixed, scene 13 failed all 5 draws (21-23/30), so a 10 cm approach was added",
+      "wrong_formula": "quaternion built from matrix entries [M00,M11,M22,M02]; the model's comment: 'a simplified assumption'"
+    },
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 66,
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "ce924ec02d95",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "cf6f40a849e4": {
+    "degenerate": false,
+    "distance": 0.976,
+    "evidence": {
+      "frame_convention": "scipy as_quat() (xyzw) passed as wxyz",
+      "missing_action": "never releases the nut",
+      "wrong_formula": "insertion orientation built with its z-axis along the horizontal handle-to-centre vector",
+      "wrong_target": "grasp orientation an identity constant (its comment: 'can be improved'); the insertion target is the nut's own centre + 0.1 -- the peg is never located"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 88,
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "cf6f40a849e4",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "d40319cf2da6": {
+    "degenerate": false,
+    "distance": 0.4861,
+    "evidence": {
+      "frame_convention": "cube points kept in camera frame; the grasp pose never transformed by pose_mat",
+      "wrong_formula": "deprojection written as depth[mask] * intrinsics @ pixel_grid (the grid's broadcast error) -- not an inverse projection; quaternion read as one row slice red_grasp_pose[0, 3:]; place_position = green_center + [0, 0, place_z] adds the height twice; the prompt's S1 formula (prompted)",
+      "wrong_target": "approach, grasp and lift positioned on the OBB's top centre instead of the planned grasp"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 71,
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "d40319cf2da6",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": false
+  },
+  "d4ebb1df7a93": {
+    "degenerate": false,
+    "distance": 0.1515,
+    "evidence": {
+      "approach_param": "no pre-grasp approach: drives straight from home to the grasp pose; scene 19 failed 5/5 draws at reward 0.511 every time ([27,24,24,18,19], below reference); adding ONLY a 10 cm approach waypoint -> [27,27], accepted",
+      "frame_convention": "orientation taken from the camera-frame grasp best_T",
+      "missing_action": "never lifts: repair adds the lift move",
+      "never_invoked": "defines pick_up_red_cube and never calls it",
+      "wrong_formula": "rows of the 4x4 passed as position and orientation",
+      "wrong_target": "pose_mat read from intrinsics (an array) instead of the camera dict"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 40,
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "d4ebb1df7a93",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "frame_convention",
+      "missing_action",
+      "never_invoked",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "d6a3ee48742f": {
+    "degenerate": true,
+    "distance": 0.5152,
+    "evidence": {
+      "missing_action": "closes the gripper at the approach point; never descends to the grasp",
+      "mock_shadowing": "redefines the whole API as stubs, get_observation returning None images",
+      "wrong_formula": "placement from the prompt's S1 formula on placeholder extents (prompted)",
+      "wrong_target": "grasp orientation is an identity placeholder; the green cube is a placeholder point [200,200,0.5] and the red extent a placeholder 0.1"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_rejected_on_bar",
+    "lines": 119,
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "d6a3ee48742f",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK; scene 28 failed 12/12 draws without it (red-minus-green mask already applied)"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "mock_shadowing",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": false
+  },
+  "d76ce5907ee8": {
+    "degenerate": false,
+    "distance": 0.9024,
+    "evidence": {
+      "call_signature": "reads obs['robot0_robotview']['segmentation'], which the observation does not carry (the grid's KeyError)",
+      "missing_action": "approach, grasp, lift, transit and place are all 'placeholder ... we do nothing'; ends on close_gripper",
+      "mock_shadowing": "redefines get_object_pose, plan_grasp, the OBB, solve_ik, move_to_joints and both grippers as dummy placeholders",
+      "never_invoked": "main() sits behind `if __name__ == '__main__'`, which never fires in the sandbox",
+      "wrong_target": "IK target is the dummy object pose [0,0,0,1] and the quaternion a constant [0,0,0,1]"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 123,
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "d76ce5907ee8",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "mock_shadowing",
+      "never_invoked",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": false
+  },
+  "d79708c148a5": {
+    "degenerate": false,
+    "distance": 0.7619,
+    "evidence": {
+      "frame_convention": "pixel coordinates x 0.001 used as world metres (its comment: 'camera is at (0, 0, 0)') (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "over_dense_path": "steps of 0.02 PIXELS over the mask's pixel bounds -- millions of waypoints; the episode terminates mid-wipe (the grid's 'executing action in terminated episode') (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_target": "[1, 0, 0, 0] labelled 'downward-facing' (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 93,
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "d79708c148a5",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "over_dense_path",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "d7a40bf9acf1": {
+    "degenerate": false,
+    "distance": 0.1864,
+    "evidence": {
+      "approach_param": "no pre-grasp approach: straight from home to the grasp pose; scene 19 failed 5/5 draws at reward 0.511-0.518 ([23,23,23,27,26]); adding ONLY a 10 cm approach waypoint is the fix",
+      "call_signature": "SAM3's result list passed to plan_grasp as the mask",
+      "missing_action": "never closes or lifts; the model's comments say those steps are not implemented",
+      "wrong_target": "target pose is an example constant"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 38,
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "d7a40bf9acf1",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "call_signature",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "d8e4b0bd6779": {
+    "degenerate": false,
+    "distance": 0.9741,
+    "evidence": {
+      "missing_action": "everything after perception is a call to an invented helper: no grasp, transit or insertion is actually written",
+      "object_name": "peg sought as 'brown square block', the prompt's name for it (prompted): measured on 6 scenes, SAM3 text returns the NUT for it in 5 of 6 and molmo points at the nut in 3 of 6; the S1 oracle's own 'square block' finds the peg 6 of 6 with molmo",
+      "unbound_name": "get_3d_points_from_mask, get_fixed_transform, get_grasp_pose, apply_transform and get_insertion_pose are not defined anywhere"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 71,
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "d8e4b0bd6779",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "object_name",
+      "unbound_name"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "d8ef6f1031d6": {
+    "degenerate": false,
+    "distance": 0.1141,
+    "evidence": {
+      "missing_coverage": "a 5x5 comb; raised to a 14x14 serpentine plus a crossing pass -- ALONE this took the program from 8/30 to 19/30 (measured)",
+      "wrong_formula": "wipe bounds = OBB centre +/- extent/2 -- extents lie along the box's own axes -- with no margin; 2-98th percentile bounds + 1.8 cm took it from 19/30 to 30/30 (measured)"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 89,
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 22,
+    "no_defect": false,
+    "note": "",
+    "pid": "d8ef6f1031d6",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_coverage",
+      "wrong_formula"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "d98cf89928ae": {
+    "degenerate": true,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-token: '(' was never closed (line 198 of 198)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 198,
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "d98cf89928ae",
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": true
+  },
+  "d990d4d0af61": {
+    "degenerate": false,
+    "distance": 0.982,
+    "evidence": {
+      "frame_convention": "camera-frame centres written into `camera_extrinsics @ np.eye(4)` as if world; scipy xyzw passed as wxyz",
+      "missing_action": "cut off before lifting, transiting or inserting",
+      "never_invoked": "plan_and_execute_grasp() is never called: cut off mid-function",
+      "object_name": "peg sought as 'brown square block', the prompt's name for it (prompted): measured on 6 scenes, SAM3 text returns the NUT for it in 5 of 6 and molmo points at the nut in 3 of 6; the S1 oracle's own 'square block' finds the peg 6 of 6 with molmo"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 183,
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "d990d4d0af61",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "never_invoked",
+      "object_name"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": true
+  },
+  "da8f1cfc64d3": {
+    "degenerate": false,
+    "distance": 0.7301,
+    "evidence": {
+      "call_signature": "the grasp pose (a 4x4) indexed as a dict ['center'] / ['R']; pixel index arrays (2xN) handed to the OBB as 3D points",
+      "missing_action": "the lateral move and placement are 'implementation details' never written, and the release calls close_gripper",
+      "mock_shadowing": "redefines the OBB, plan_grasp, solve_ik, move_to_joints and both gripper calls as 'example implementation' stubs",
+      "never_invoked": "main() sits behind `if __name__ == '__main__'`, which never fires in the sandbox",
+      "wrong_target": "red/green cube poses are example constants and the object pose comes from a stub returning np.eye(4)"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 107,
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "da8f1cfc64d3",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "mock_shadowing",
+      "never_invoked",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": false
+  },
+  "daef541efb5d": {
+    "degenerate": false,
+    "distance": 0.9813,
+    "evidence": {
+      "call_signature": "the prompt's language queries ('extruded handle of the brown square nut', 'white hollow center ...') read as get_observation() keys (the grid's KeyError) -- the prompt describes them as pose queries (prompted)",
+      "missing_action": "no lift and no release",
+      "wrong_target": "the 'insertion' goes to the nut's own centre: the peg is never located"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 39,
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "daef541efb5d",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "dbb708f7289e": {
+    "degenerate": true,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-token: unterminated string literal on the last line (183)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 183,
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "dbb708f7289e",
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": true
+  },
+  "dc5e3f03c332": {
+    "degenerate": true,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-token: '(' was never closed"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 175,
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "dc5e3f03c332",
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": true
+  },
+  "deb840787b76": {
+    "degenerate": false,
+    "distance": 0.0789,
+    "evidence": {
+      "approach_param": "no pre-grasp approach: straight from home to the grasp pose; scene 19 failed 5/5 draws at reward 0.511-0.518 ([25,26,20,22,24]); adding ONLY a 10 cm approach waypoint -> [29,29], accepted (same defect and scene as S3 gemma3-4b d4ebb1df7a93)",
+      "frame_convention": "grasp pose used in camera frame: pose_mat never applied",
+      "wrong_formula": "quaternion built from the translation column [3,3],[0,3],[1,3],[2,3]"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 50,
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "deb840787b76",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "frame_convention",
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "df966fca4c48": {
+    "degenerate": true,
+    "distance": 0.4811,
+    "evidence": {
+      "approach_param": "the placement 'approach' at place_z - 0.1, below the target, issued after reaching it",
+      "frame_convention": "pixel (column, row) indices stacked with raw depth and used as 3D points; the planned grasp never transformed by pose_mat",
+      "syntax": "typo `...[:, 2]))` on line 46 of 94 -- a complete program, not a truncation, so it is repaired",
+      "unbound_name": "np.quaternion_to_wxyz does not exist",
+      "wrong_formula": "placement from the prompt's S1 formula (prompted)",
+      "wrong_target": "grasp positioned at the (pixel) OBB centre instead of the planned grasp"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "SYNTAX",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 94,
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "df966fca4c48",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "frame_convention",
+      "syntax",
+      "unbound_name",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": true
+  },
+  "e009dfad75c4": {
+    "degenerate": false,
+    "distance": 0.1579,
+    "evidence": {
+      "call_signature": "depth read from cam['depth'], not cam['images']['depth']; molmo's dict passed as the point",
+      "frame_convention": "grasp pose used in camera frame: pose_mat never applied",
+      "wrong_formula": "16 flattened 4x4 entries passed as the quaternion"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 37,
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "e009dfad75c4",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "e09027b0bc57": {
+    "degenerate": true,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-token: '[' was never closed (line 75 of 75)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 75,
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "e09027b0bc57",
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": true
+  },
+  "e1b9d07c1724": {
+    "degenerate": true,
+    "distance": 0.253,
+    "evidence": {
+      "missing_action": "never calls the API at all: constant definitions repeated until the token cap; the whole sequence added",
+      "wrong_target": "every pose is a hard-coded constant ([0.5,0.5,0.5], [0.3,0.3,0.5], ...) rather than read from perception"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 138,
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "e1b9d07c1724",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": false
+  },
+  "e1cf1ab8a2a5": {
+    "degenerate": false,
+    "distance": 0.9741,
+    "evidence": {
+      "missing_action": "closes, then immediately opens in place ('Move to the insertion position' is a comment): no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "wrong_target": "the grasp target is an example constant [0.5, 0, 0.1] / identity; the handle and hole it located are never used"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 62,
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "e1cf1ab8a2a5",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "e4a5155486d6": {
+    "degenerate": false,
+    "distance": 0.082,
+    "evidence": {
+      "wrong_target": "orientation is an identity constant, not the planned grasp's rotation (grasp_orientation is computed and unused)"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 37,
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 28,
+    "no_defect": false,
+    "note": "",
+    "pid": "e4a5155486d6",
+    "tagged_by": "hand",
+    "tags": [
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "e552be918689": {
+    "degenerate": false,
+    "distance": 0.1765,
+    "evidence": {
+      "approach_param": "the placement 'approach' is place_pos + R[:, 2] * 0.1 issued AFTER reaching place_pos; for a downward gripper that axis points down, so it pushes 10 cm into the green cube",
+      "missing_action": "approaches along the grasp axis and closes there, 10 cm short; never moves to the grasp itself",
+      "wrong_formula": "placement from the prompt's S1 formula on OBB own-axis extents with a camera-biased centre (prompted)"
+    },
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 160,
+    "models": [
+      "qwen35-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "e552be918689",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK (nut_assembly_v7 does the same). Scene 9 failed 12/12 standard draws but passed 2/5 when run as a worker's first trial (9-trial runs) -- the program's IK depended on the previous trial's seed. With the reset: [16,22,18,19,19,16], accepted"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": true
+  },
+  "e7948a6068ca": {
+    "degenerate": false,
+    "distance": 0.9741,
+    "evidence": {
+      "call_signature": "observation['images'] read at the top level (it is under robot0_robotview); molmo result read as ['x'] / ['y']; a 'poses' key the observation does not carry",
+      "missing_action": "every motion is a commented-out placeholder: closes and opens the gripper where it stands"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 63,
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "e7948a6068ca",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "e9789142dc06": {
+    "degenerate": false,
+    "distance": 0.0286,
+    "evidence": {
+      "approach_param": "no pre-grasp approach: straight from home to the grasp pose; scene 13 failed 5/5 draws at reward 0.538-0.541 ([18,26,19,21,20], below reference); adding ONLY a 10 cm approach waypoint -> accepted (same defect as d4ebb1df7a93, deb840787b76, ce924ec02d95)",
+      "frame_convention": "scipy as_quat() is xyzw and is passed unrolled as wxyz"
+    },
+    "families": [
+      "FRAME",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 70,
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 22,
+    "no_defect": false,
+    "note": "",
+    "pid": "e9789142dc06",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "frame_convention"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": false
+  },
+  "e99032108cea": {
+    "degenerate": false,
+    "distance": 0.055,
+    "evidence": {
+      "missing_action": "never perceives or moves: the whole grasp-and-lift sequence added",
+      "syntax": "module-level `return`: SyntaxError at compile, although ast.parse accepts it"
+    },
+    "families": [
+      "SEMANTIC",
+      "SYNTAX"
+    ],
+    "level": "L3_edit",
+    "lines": 132,
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "e99032108cea",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "syntax"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": true
+  },
+  "ec1b40f975df": {
+    "degenerate": false,
+    "distance": 0.7105,
+    "evidence": {
+      "call_signature": "segment_sam3 called on the DEPTH image and the intrinsics, with no text prompt",
+      "frame_convention": "np.where pixel index arrays handed to the OBB as 3D points",
+      "missing_coverage": "one move to centre + extent/2: no sweep at all",
+      "never_invoked": "defines wipe_spill and never calls it",
+      "unbound_name": "segment_sam3 is not bound at any tier (artifact #14: the docstring's example names it)",
+      "wrong_target": "[0, 0, 0, 1] labelled 'identity, wxyz' -- a 180 deg yaw, not the downward (0,0,1,0) the prompt specifies"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 45,
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "ec1b40f975df",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_coverage",
+      "never_invoked",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "ee3706141f00": {
+    "degenerate": true,
+    "distance": 0.4944,
+    "evidence": {
+      "approach_param": "placement 'approach' at place_position - 0.1, i.e. BELOW the target",
+      "frame_convention": "np.argwhere(mask) pixel indices handed to the OBB as 3D points; orientation from the CAMERA-frame grasp red_grasp_pose",
+      "missing_action": "closes the gripper at the approach point; never descends to the grasp",
+      "wrong_formula": "flattened 3x3 rotation passed as the quaternion; placement from the prompt's S1 formula (prompted)",
+      "wrong_target": "approach, grasp and lift positioned on the (pixel) OBB centre instead of the planned grasp it had already transformed"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 86,
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "ee3706141f00",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK, applied BEFORE verification: five cube_stack programs (05b3b9f8b441, 0c60ac0a3d53, cda172f00f81, d6a3ee48742f, b9a6c83ddbc4) failed one scene in 12/12 draws without it and the reset cleared it each time it was tested"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "frame_convention",
+      "missing_action",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": false
+  },
+  "efba88f0525f": {
+    "degenerate": false,
+    "distance": 0.7083,
+    "evidence": {
+      "missing_coverage": "5 jabs of 10 cm out from the grasp point and back -- no raster over the spill's extent (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "spurious_move": "plans a grasp on the flat spill and moves to it before wiping (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_formula": "the flattened 4x4 (16 entries), normalised, passed as the quaternion (the grid's reshape error)"
+    },
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 67,
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "efba88f0525f",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_coverage",
+      "spurious_move",
+      "wrong_formula"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "f0492209f7af": {
+    "degenerate": false,
+    "distance": 0.7969,
+    "evidence": {
+      "call_signature": "the best point-prompt result (a dict) indexed [0]",
+      "frame_convention": "the points never leave the camera frame (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "missing_coverage": "dabs down and up 5 times at the spill's centre: no sweep (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "never_invoked": "defines wipe_brown_spill and never calls it",
+      "wrong_formula": "deprojection (u - cx) * depth * fx -- multiplies by the focal length instead of dividing (collective with the other tags here: the kit fixes them together, not individually attributed)",
+      "wrong_target": "[0, 0, 0, 1] labelled 'downward-facing' -- a 180 deg yaw, not (0,0,1,0) (collective with the other tags here: the kit fixes them together, not individually attributed)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 104,
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "f0492209f7af",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "frame_convention",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "f12c0cb67878": {
+    "degenerate": true,
+    "distance": null,
+    "evidence": {
+      "syntax": "ends mid-statement: 'from scipy.spatial.transform' (line 161 of 161)"
+    },
+    "families": [
+      "SYNTAX"
+    ],
+    "level": null,
+    "lines": 161,
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "tag-only: program ends mid-token",
+    "pid": "f12c0cb67878",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "syntax"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": true
+  },
+  "f248aee8ff2c": {
+    "degenerate": true,
+    "distance": 0.9825,
+    "evidence": {
+      "frame_convention": "scipy as_quat() (xyzw) passed as wxyz for the insertion",
+      "missing_action": "no lift before transit and no lowering; 'inserts' by closing the gripper again, then opens",
+      "never_invoked": "main() sits behind `if __name__ == '__main__'`, which never fires in the sandbox",
+      "object_name": "peg sought as 'brown square block', the prompt's name for it (prompted): measured on 6 scenes, SAM3 text returns the NUT for it in 5 of 6 and molmo points at the nut in 3 of 6; the S1 oracle's own 'square block' finds the peg 6 of 6 with molmo; the hole sought with SAM3 text 'white hollow center of the brown square nut', which returns the ROUND peg in 4 of 6 scenes (prompted)",
+      "wrong_target": "handle-to-centre 'rigid transform' a hard-coded 5 cm UP (its comment: 'placeholder'); grasp orientation an identity constant; the TCP sent to the block centre (mid-peg) with the block OBB's arbitrary orientation"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 192,
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "f248aee8ff2c",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "never_invoked",
+      "object_name",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": true
+  },
+  "f6c26e2e1a4c": {
+    "degenerate": false,
+    "distance": 0.0426,
+    "evidence": {
+      "wrong_formula": "first four entries of the flattened rotation matrix used as the quaternion"
+    },
+    "families": [
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 60,
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "f6c26e2e1a4c",
+    "tagged_by": "hand",
+    "tags": [
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "f7026e3d3ab2": {
+    "degenerate": true,
+    "distance": 0.2,
+    "evidence": {
+      "frame_convention": "cam_pose @ np.hstack([c, 1.0])[:3] -- slices the homogeneous vector before the multiply (matmul shape error)",
+      "missing_action": "closes the gripper at the approach point 10 cm above the cube; never descends to the grasp",
+      "never_invoked": "main() sits behind `if __name__ == '__main__'`, which never fires in the sandbox",
+      "wrong_formula": "placement from the prompt's S1 formula, green_center_z + green_extent[2]/2 + red_extent[2]/2, on OBB extents that lie along the box's own axes and an OBB centre biased toward the camera (prompted)"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 120,
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "f7026e3d3ab2",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "never_invoked",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S3",
+    "truncated": true
+  },
+  "f8f3f968f262": {
+    "degenerate": false,
+    "distance": 0.8056,
+    "evidence": {
+      "frame_convention": "the SAM3 box's PIXEL centre (mis-computed as x1 + x2/2) used as a world position",
+      "missing_coverage": "Step 7 'wipe the spill' is a placeholder comment: no sweep",
+      "spurious_move": "plans a grasp on the flat spill and moves to its pixel 'centre'",
+      "unbound_name": "obs is never bound; segment_sam3 is not bound at any tier (artifact #14)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 38,
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "f8f3f968f262",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "missing_coverage",
+      "spurious_move",
+      "unbound_name"
+    ],
+    "task": "spill_wipe",
+    "tier": "S3",
+    "truncated": false
+  },
+  "f9a22ee2b2bd": {
+    "degenerate": false,
+    "distance": 0.2083,
+    "evidence": {
+      "frame_convention": "grasp pose used in camera frame: pose_mat never applied",
+      "gripper_order": "gripper sequence [close, open] -> [open, close]: released after the lift (this model's S1 program has the same defect)",
+      "wrong_formula": "orientation passed as R.T @ [0,0,1], a 3-vector"
+    },
+    "families": [
+      "FRAME",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 34,
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "f9a22ee2b2bd",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "gripper_order",
+      "wrong_formula"
+    ],
+    "task": "cube_lifting",
+    "tier": "S3",
+    "truncated": false
+  },
+  "fafa1ac500c5": {
+    "degenerate": false,
+    "distance": 0.0396,
+    "evidence": {
+      "missing_action": "cut off inside a repeated comment before planning a grasp or moving",
+      "never_invoked": "defines pick_up_red_cube and never calls it"
+    },
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L3_edit",
+    "lines": 117,
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "fafa1ac500c5",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_action",
+      "never_invoked"
+    ],
+    "task": "cube_lifting",
+    "tier": "S4",
+    "truncated": true
+  },
+  "fb608632462b": {
+    "degenerate": false,
+    "distance": 1.0,
+    "evidence": {
+      "missing_coverage": "one move: no sweep",
+      "object_name": "SAM3 prompt \"a brown spill on the table\" segments the wrong region in scenes 8/12/14/30 (rewards 0.00-0.08); with the shared wipe kit fixed, changing ONLY the prompt to \"brown spill\" takes 26/30 -> 30/30",
+      "wrong_target": "perception results discarded; the target is a constant [0, 0, 0] with [0, 0, 0, 1]"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L3_edit",
+    "lines": 5,
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "fb608632462b",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "missing_coverage",
+      "object_name",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S4",
+    "truncated": false
+  },
+  "fb94940768c1": {
+    "degenerate": false,
+    "distance": 0.9729,
+    "evidence": {
+      "call_signature": "molmo's dict passed to segment_sam3_point_prompt as the pixel (the grid's KeyError 0); the OBB's 3x3 R indexed as a 4-vector quaternion",
+      "missing_action": "opens and closes in place: no lift, transit or insertion",
+      "wrong_target": "the nut centre and the handle pose both taken to be the CAMERA's pose_mat; the OBB built from three zero points"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 55,
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "fb94940768c1",
+    "substitutions": {},
+    "tagged_by": "hand",
+    "tags": [
+      "call_signature",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S4",
+    "truncated": false
+  },
+  "fcaa01f29320": {
+    "degenerate": false,
+    "distance": 0.7581,
+    "evidence": {
+      "approach_param": "no z_approach for the grasp or the placement",
+      "call_signature": "SAM3's result dicts iterated as if they were masks (np.argwhere(mask_dict)); plan_grasp fed depth * mask instead of the depth image",
+      "frame_convention": "pixel indices handed to the OBB as 3D points; the grasp used in camera frame",
+      "unbound_name": "`mask` used after the list comprehension that bound it",
+      "wrong_formula": "16 flattened 4x4 entries passed as the quaternion; placement from the prompt's S1 formula (prompted)"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L3_edit",
+    "lines": 61,
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "",
+    "pid": "fcaa01f29320",
+    "substitutions": {
+      "grasp_mask": "kit: red mask minus the green cube's SAM3 mask before plan_grasp (cube_stack_v7 does the same); without it scenes 23/28 failed 8/8 draws for S4 qwen35-2b bac85aa92879",
+      "ik_seed_reset": "kit: one fixed solve_ik before the first grasp IK; scene 9 (far reach) failed 12/12 draws without it"
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "call_signature",
+      "frame_convention",
+      "unbound_name",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S4",
+    "truncated": false
+  },
+  "fd4af17ffd8e": {
+    "degenerate": false,
+    "distance": 0.98,
+    "evidence": {
+      "approach_param": "lifts only 5 cm before moving to an insertion point at the peg's mid-height -- below its 11 cm top",
+      "missing_action": "the GRIPPER (holding the handle) is carried over the peg -- no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "object_name": "peg sought as 'brown square block', the prompt's name for it (prompted): measured on 6 scenes, SAM3 text returns the NUT for it in 5 of 6 and molmo points at the nut in 3 of 6; the S1 oracle's own 'square block' finds the peg 6 of 6 with molmo",
+      "wrong_formula": "'up' and the insertion orientation read off a camera-frame OBB's arbitrary axes"
+    },
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 143,
+    "models": [
+      "qwen35-27b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "fd4af17ffd8e",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "object_name",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": true
+  },
+  "ff0a2287c71a": {
+    "degenerate": false,
+    "distance": 0.9724,
+    "evidence": {
+      "frame_convention": "intrinsics @ grasp_T -- a 3x3 against a 4x4 as the 'world' grasp",
+      "gripper_order": "opens at the grasp and closes at the 'block': gripper sequence [open, close] -> [close, open]",
+      "missing_action": "no handle-to-hole offset and no yaw alignment: the insertion recipe is absent (S1 convention: missing_action)",
+      "unbound_name": "obs, segment_sam3 and points are used without being bound (segment_sam3: artifact #14)",
+      "wrong_target": "grasp at an OBB centre with an identity quaternion; the peg an example constant [0, 0, 0.3]"
+    },
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "level": "L5_shared_reference",
+    "lines": 45,
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "no_defect": false,
+    "note": "repair = the nut_assembly reference (no program-specific code survives)",
+    "pid": "ff0a2287c71a",
+    "substitutions": {
+      "grasp": "plan_grasp replaced by the analytic handle grasp: on the nut it returns 1-28 candidates, mostly on the ring ~10 cm from the handle or below the table, and an otherwise-correct program scores 0/30 with it (nut v6pg). An API limit, not the model's defect."
+    },
+    "tagged_by": "hand",
+    "tags": [
+      "frame_convention",
+      "gripper_order",
+      "missing_action",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S3",
+    "truncated": false
+  }
+}

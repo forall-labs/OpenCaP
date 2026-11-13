@@ -1,0 +1,10 @@
+workers=2 (vCPUs=2)
+
+=== two_arm_lift ===
+  repeat 0: 26/30 in 9059s
+  repeat 1: 22/30 in 6467s
+  repeat 2: 25/30 in 6205s
+  rate 0.811 (range 0.133), flip 33.3%
+
+=== two_arm_handover ===
+  repeat 0: 30/30 in 4277s

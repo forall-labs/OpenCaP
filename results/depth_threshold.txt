@@ -1,0 +1,5 @@
+# spill_wipe nesting-depth threshold -- 2026-09-07T00:40Z
+# depth 0: qwen3-0.6b, 1.7b, 14b
+# depth 1: coder-1.5b, coder-3b, qwen3-4b, qwen3-8b
+# depth 2: coder-7b only -> 29/30 (oracle 0.956)
+# code training shifts the curve left ~2-3x; does not remove the scale requirement

@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OpenCaP</title>
+<script>
+  // Same rule and storage key as the Forall Labs site, so a visitor's choice carries over.
+  // Light is the default; only an explicit stored choice switches to dark.
+  try {
+    var stored = localStorage.getItem("theme");
+    document.documentElement.setAttribute("data-theme", stored === "dark" ? "dark" : "light");
+  } catch (e) {
+    document.documentElement.setAttribute("data-theme", "light");
+  }
+</script>
+<meta name="description" content="OpenCaP repairs every failing robot program written by 21 open-weight models with the smallest edit that makes it work, and records what each edit had to fix.">
+<meta name="theme-color" content="#faf9f5">
+<link rel="icon" href="static/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Forall Labs">
+<meta property="og:title" content="OpenCaP: How Open-Weight Models Fail at Writing Robot Code">
+<meta property="og:description" content="Remove the high-level helpers and coordinate-frame errors jump from 4% to 47% of failing programs, while larger models lose their advantage.">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<style>
+/* Forall Labs design system (tokens, type, header and footer follow
+   forall-labs.github.io/styles.css), plus the data colors of the page's charts.
+   Layout: a research article. Serif reading text in a 680px column, figures and
+   interactive pieces break out to 1120px, one plain ground, citation in an appendix. */
+:root {
+  --bg:          #faf9f5;
+  --bg-sunk:     #f1efe7;
+  --bg-raised:   #ffffff;
+  --text:        #141413;
+  --text-soft:   #5e5d59;
+  --text-faint:  #918f89;
+  --line:        #e4e1d8;
+  --line-soft:   #edebe3;
+  --accent:      #3769ae;
+  --accent-deep: #2b5794;
+  --accent-wash: #ebeff5;
+  --accent-ink:  #ffffff;
+  --plate:       #ffffff;   /* figures are drawn on white, so their plates stay white */
+
+  /* API levels in the charts (Okabe-Ito) */
+  --c-s1: #a3a29d;
+  --c-s3: #0072b2;
+  --c-s4: #e69f00;
+
+  --wrap: 1200px;
+  --text-col: 680px;
+  --wide-col: 1120px;
+  --gutter: clamp(22px, 5vw, 48px);
+  --radius: 16px;
+  --radius-sm: 10px;
+
+  --t-title: clamp(3rem, 1.8rem + 4.6vw, 4.75rem);
+  --t-dek:   clamp(1.35rem, 1.1rem + 1vw, 1.8rem);
+  --t-h2:    clamp(1.75rem, 1.4rem + 1.3vw, 2.3rem);
+  --t-h3:    clamp(1.3rem, 1.15rem + .6vw, 1.55rem);
+  --t-prose: clamp(1.125rem, 1.07rem + .25vw, 1.25rem);
+  --t-lead:  clamp(1.14rem, 1.03rem + 0.5vw, 1.3rem);
+  --t-body:  1.0625rem;
+  --t-small: 0.9375rem;
+  --t-micro: 0.8125rem;
+
+  --s-1: 0.5rem;  --s-2: 0.875rem; --s-3: 1.375rem; --s-4: 2.25rem;
+  --s-5: 3.5rem;  --s-6: 5.5rem;
+
+  --serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+  --sans:  "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono:  ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg:          #21201d;
+  --bg-sunk:     #1a1917;
+  --bg-raised:   #2a2926;
+  --text:        #f3f1ea;
+  --text-soft:   #b4b1a7;
+  --text-faint:  #8a8880;
+  --line:        #3a3834;
+  --line-soft:   #302e2b;
+  --accent:      #86a9e0;
+  --accent-deep: #a6c0ea;
+  --accent-wash: #222832;
+  --accent-ink:  #1a1917;
+  --plate:       #fbfaf6;
+  --c-s1: #8a8880; --c-s3: #56b4e9; --c-s4: #e9b44c;
+  color-scheme: dark;
+}
+
+/* --- Base --- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--sans); font-size: var(--t-body); line-height: 1.68;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.1; letter-spacing: -0.021em; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--sans); font-size: var(--t-h3); font-weight: 600; letter-spacing: -0.012em; line-height: 1.35; }
+p { margin: 0 0 1.15em; }
+p:last-child { margin-bottom: 0; }
+a { color: inherit; text-decoration-thickness: 1px; text-decoration-color: color-mix(in srgb, currentColor 30%, transparent); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+img, svg { max-width: 100%; height: auto; display: block; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+code { font-family: var(--mono); font-size: 0.88em; }
+figure { margin: 0; }
+.skip { position: absolute; left: -9999px; top: 0; z-index: 100; background: var(--accent); color: var(--accent-ink); padding: 10px 16px; border-radius: 0 0 8px 0; }
+.skip:focus { left: 0; }
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+.label { font-size: var(--t-micro); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); }
+
+/* --- Header (as on the Forall Labs site) --- */
+.site-header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: saturate(1.5) blur(14px); -webkit-backdrop-filter: saturate(1.5) blur(14px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); min-height: 74px; }
+.brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; }
+.brand .mark { width: 25px; height: 24px; flex: none; color: var(--text); }
+.brand .brand-name { font-family: var(--serif); font-size: 1.28rem; letter-spacing: -0.02em; }
+.header-tools { display: flex; align-items: center; gap: var(--s-1); }
+.nav { display: flex; align-items: center; gap: 2px; }
+.nav a { position: relative; padding: 8px 13px; border-radius: 8px; font-size: var(--t-small); font-weight: 500; color: var(--text-soft); text-decoration: none; white-space: nowrap; transition: color .15s, background-color .15s; }
+.nav a:hover { color: var(--text); background: var(--bg-sunk); }
+.nav a[aria-current="page"] { color: var(--text); font-weight: 600; }
+.nav a[aria-current="page"]::after { content: ""; position: absolute; left: 13px; right: 13px; bottom: 1px; height: 2px; border-radius: 2px; background: var(--accent); }
+.nav .nav-cta { margin-left: 10px; padding: 9px 17px; border-radius: 9px; background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.nav .nav-cta:hover { background: var(--accent-deep); color: var(--accent-ink); }
+.nav .nav-cta::after { display: none; }
+.theme-toggle { display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 1px solid var(--line); border-radius: 9px; background: var(--bg-raised); color: var(--text-soft); cursor: pointer; transition: color .15s, border-color .15s; }
+.theme-toggle:hover { color: var(--text); border-color: var(--text-faint); }
+.theme-toggle svg { width: 17px; height: 17px; }
+.theme-toggle .i-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .i-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .i-sun { display: block; }
+.menu { display: none; }
+.menu > summary { list-style: none; cursor: pointer; display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 9px; background: var(--bg-raised); }
+.menu > summary::-webkit-details-marker { display: none; }
+.menu > summary span, .menu > summary span::before, .menu > summary span::after { display: block; width: 16px; height: 1.5px; background: var(--text); border-radius: 2px; }
+.menu > summary span { position: relative; }
+.menu > summary span::before, .menu > summary span::after { content: ""; position: absolute; left: 0; }
+.menu > summary span::before { top: -5px; }
+.menu > summary span::after { top: 5px; }
+.menu[open] > summary span { background: transparent; }
+.menu[open] > summary span::before { top: 0; transform: rotate(45deg); }
+.menu[open] > summary span::after { top: 0; transform: rotate(-45deg); }
+.menu-panel { position: absolute; left: 0; right: 0; top: 100%; background: var(--bg-raised); border-bottom: 1px solid var(--line); padding: var(--s-2) 0 var(--s-3); }
+.menu-panel .nav { flex-direction: column; align-items: stretch; gap: 0; }
+.menu-panel .nav a { padding: 13px var(--gutter); border-radius: 0; font-size: 1.05rem; }
+.menu-panel .nav a[aria-current="page"]::after { left: var(--gutter); right: auto; width: 18px; bottom: 7px; }
+.menu-panel .nav .nav-cta { margin: var(--s-2) var(--gutter) 0; border-radius: 9px; text-align: center; justify-content: center; }
+@media (max-width: 900px) { .header-tools > .nav { display: none; } .menu { display: block; } }
+
+/* --- Buttons --- */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 17px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg-raised); color: var(--text); font: inherit; font-size: var(--t-small); font-weight: 600; line-height: 1.4; text-decoration: none; cursor: pointer; transition: background-color .15s, border-color .15s, color .15s; }
+.btn:hover { border-color: var(--text-faint); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
+.btn svg { width: 1.05em; height: 1.05em; flex: none; }
+.btn[aria-disabled="true"] { opacity: .45; cursor: not-allowed; pointer-events: none; }
+.btn[aria-disabled="true"] em { font-style: normal; font-weight: 500; color: var(--text-soft); }
+.btn.small { padding: 7px 13px; font-size: var(--t-micro); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* --- Article frame: every block sits in the reading column unless marked .wide --- */
+.article { padding-inline: var(--gutter); padding-block: var(--s-5) var(--s-6); }
+.article > * { max-width: var(--text-col); margin-inline: auto; margin-block: 0; }
+.article > .wide { max-width: var(--wide-col); }
+.article > * + * { margin-top: var(--s-3); }
+.article > .wide, .article > .wide + * { margin-top: var(--s-5); }
+.article > h2.sec { margin-top: var(--s-6); }
+.article > h3.sub { margin-top: var(--s-5); }
+.article > h2 + *, .article > h3 + * { margin-top: var(--s-2); }
+.article > h3 + .wide { margin-top: var(--s-3); }
+
+.article > p { font-family: var(--serif); font-size: var(--t-prose); line-height: 1.62; letter-spacing: -0.003em; }
+.article > p strong { font-weight: 600; }
+h2.sec { font-size: var(--t-h2); scroll-margin-top: 96px; }
+h3.sub { font-family: var(--serif); font-weight: 500; font-size: var(--t-h3); letter-spacing: -0.015em; line-height: 1.25; }
+[id] { scroll-margin-top: 96px; }
+
+/* --- Article head --- */
+.article-head { display: grid; gap: var(--s-3); }
+.kicker { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .7rem; font-size: var(--t-micro); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); margin: 0; }
+.kicker a { color: var(--accent); text-decoration: none; }
+.kicker a:hover { text-decoration: underline; }
+.kicker .dot { width: 3px; height: 3px; border-radius: 50%; background: currentColor; }
+.title-block { display: grid; gap: var(--s-1); }
+.title-block h1 { font-size: var(--t-title); letter-spacing: -0.035em; line-height: 1; }
+.dek { font-family: var(--serif); font-size: var(--t-dek); line-height: 1.22; letter-spacing: -0.015em; color: var(--text-soft); margin: 0; max-width: 30ch; }
+.standfirst { font-size: var(--t-lead); line-height: 1.55; color: var(--text-soft); margin: 0; }
+.byline { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-2) var(--s-3); border-block: 1px solid var(--line); padding-block: var(--s-2); margin: 0; }
+@media (max-width: 600px) { .byline { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .byline > div:first-child { grid-column: 1 / -1; } }
+.byline dt { margin-bottom: .2rem; }
+.byline dd { margin: 0; font-size: var(--t-small); line-height: 1.5; }
+.byline sup { color: var(--accent); font-weight: 600; margin-left: 1px; }
+.byline .soft { color: var(--text-soft); }
+.article-head .actions { gap: 8px; }
+.article-head .actions .btn { padding: 8px 13px; font-size: .9rem; }
+
+/* --- Figures --- */
+.fig > figcaption { font-size: var(--t-small); line-height: 1.6; color: var(--text-soft); margin-top: var(--s-2); max-width: 80ch; }
+.fig > figcaption.above { margin: 0 0 var(--s-2); }
+.fig > figcaption b { color: var(--text); font-weight: 600; }
+.fig-n { color: var(--text); font-weight: 600; margin-right: .3em; }
+.plate { margin: 0; background: var(--plate); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(.75rem, 2vw, 1.5rem); }
+.plate img { margin-inline: auto; }
+
+/* --- Key numbers --- */
+.findings { display: grid; gap: var(--s-3); grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1040px) { .findings { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .findings { grid-template-columns: minmax(0, 1fr); } }
+.finding { border-top: 2px solid var(--text); padding-top: var(--s-2); min-width: 0; display: grid; align-content: start; gap: var(--s-1); }
+.finding .big { font-family: var(--serif); font-size: clamp(2.4rem, 1.9rem + 1.8vw, 3.1rem); line-height: 1; letter-spacing: -0.03em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.finding p { color: var(--text-soft); font-size: var(--t-small); line-height: 1.55; margin: 0; }
+.finding .src { font-size: var(--t-micro); color: var(--text-faint); }
+
+/* --- Method steps (the numbered pattern of the Forall Labs site) --- */
+.steps { display: grid; gap: var(--s-4); grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 0; list-style: none; }
+@media (max-width: 900px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+.step { padding-top: var(--s-2); border-top: 1px solid var(--line); min-width: 0; }
+.step .num { font-family: var(--mono); font-size: var(--t-micro); font-weight: 500; color: var(--accent); letter-spacing: .08em; display: block; margin-bottom: var(--s-1); }
+.step h3 { font-size: 1.12rem; margin-bottom: var(--s-1); }
+.step p { color: var(--text-soft); font-size: var(--t-small); }
+
+/* --- Results table --- */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-raised); }
+table { border-collapse: collapse; width: 100%; min-width: 660px; font-size: var(--t-small); }
+th, td { padding: .8rem 1rem; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+thead th { font-size: var(--t-micro); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint); border-bottom: 1px solid var(--line); vertical-align: bottom; }
+tbody td { border-bottom: 1px solid var(--line-soft); font-family: var(--mono); font-size: .88rem; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody td:first-child { font-family: var(--sans); font-size: var(--t-small); font-weight: 600; }
+tr.ours td { background: var(--accent-wash); }
+tr.ours td:first-child { color: var(--accent-deep); }
+tr.ref td:first-child { font-style: italic; font-weight: 500; }
+.swatch { display: inline-block; width: .7em; height: .7em; border-radius: 50%; margin-right: .55em; vertical-align: .02em; }
+
+/* --- Gallery --- */
+.thumbs { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 760px) { .thumbs { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.thumb { appearance: none; padding: 0; border: 2px solid transparent; border-radius: var(--radius-sm); overflow: hidden; cursor: pointer; background: var(--plate); aspect-ratio: 1; transition: border-color .15s; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.thumb[aria-pressed="true"], .thumb:hover { border-color: var(--accent); }
+.compare { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: var(--s-3); }
+@media (max-width: 900px) { .compare { grid-template-columns: repeat(2, minmax(0, 1fr)); } .compare .cell:first-child { grid-column: 1 / -1; } }
+.cell { margin: 0; min-width: 0; }
+.cell .img { border-radius: var(--radius-sm); overflow: hidden; background: var(--plate); aspect-ratio: 4 / 3; border: 2px solid transparent; }
+.cell .img img { width: 100%; height: 100%; object-fit: cover; }
+.cell.ours .img { border-color: var(--accent); }
+.cell figcaption { margin-top: .5rem; display: flex; justify-content: space-between; gap: .5rem; font-size: var(--t-micro); color: var(--text-soft); }
+.cell figcaption b { font-family: var(--mono); font-weight: 500; color: var(--text); }
+.cell.ours figcaption b, .cell.ours figcaption span { color: var(--accent-deep); font-weight: 600; }
+
+/* --- Appendix: citation and resources, set smaller as at the end of a paper --- */
+.appendix { border-top: 1px solid var(--line); padding: var(--s-5) var(--gutter) var(--s-6); }
+.appendix-inner { max-width: var(--wide-col); margin-inline: auto; display: grid; gap: var(--s-4); }
+.app-row { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: var(--s-1) var(--s-4); }
+@media (max-width: 760px) { .app-row { grid-template-columns: minmax(0, 1fr); } }
+.app-row h2 { font-family: var(--sans); font-size: var(--t-micro); font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--text-faint); line-height: 1.6; padding-top: .15rem; }
+.app-row > div { min-width: 0; font-size: var(--t-small); color: var(--text-soft); }
+.app-row a { color: var(--text); }
+.bib { position: relative; margin-top: var(--s-2); }
+.bib pre { margin: 0; overflow-x: auto; padding: var(--s-3); border-radius: var(--radius-sm); background: var(--bg-raised); border: 1px solid var(--line); font: .84rem/1.65 var(--mono); color: var(--text); }
+.bib .btn { position: absolute; top: .65rem; right: .65rem; }
+
+/* --- Footer (as on the Forall Labs site) --- */
+.site-footer { background: var(--bg-sunk); border-top: 1px solid var(--line); }
+.footer-grid { display: grid; gap: var(--s-4); grid-template-columns: minmax(0, 1.7fr) repeat(2, minmax(0, 1fr)); padding-block: var(--s-5) var(--s-4); }
+@media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; } }
+.footer-grid h4 { font-family: var(--sans); font-size: var(--t-micro); font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--text-faint); margin-bottom: var(--s-3); }
+.footer-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+.footer-grid a { font-size: var(--t-small); color: var(--text-soft); text-decoration: none; }
+.footer-grid a:hover { color: var(--accent); }
+.footer-about p { font-size: var(--t-small); color: var(--text-soft); max-width: 40ch; margin-top: var(--s-3); }
+.footer-bottom { border-top: 1px solid var(--line); padding-block: var(--s-3); display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-3); justify-content: space-between; font-size: var(--t-micro); color: var(--text-faint); }
+.footer-bottom p { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
+
+/* --- Charts (drawn in HTML so they follow the theme) --- */
+.chart-card { background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1rem, 2.5vw, 2rem); }
+.chart-legend { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; font-size: var(--t-small); color: var(--text-soft); margin-bottom: var(--s-3); }
+.chart-legend span { display: inline-flex; align-items: center; gap: .5rem; }
+.chart-legend .dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.chart-legend .sq { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+.s1 { --c: var(--c-s1); } .s34, .s3 { --c: var(--c-s3); } .s4 { --c: var(--c-s4); }
+.chart-legend i { background: var(--c); }
+.dumbbell { display: grid; gap: .35rem; }
+.db-axis { position: relative; height: 1.2rem; margin-left: 110px; margin-right: 120px; font-size: var(--t-micro); color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.db-axis span { position: absolute; transform: translateX(-50%); }
+.db-row { display: grid; grid-template-columns: 110px minmax(0, 1fr) 120px; align-items: center; min-height: 2.4rem; }
+.db-name { font-weight: 600; font-size: var(--t-small); }
+.db-val { text-align: right; font-family: var(--mono); font-size: .86rem; color: var(--text-soft); font-variant-numeric: tabular-nums; }
+.db-val b { color: var(--text); font-weight: 600; }
+.db-track { position: relative; height: 2.4rem; background: linear-gradient(to right, var(--line-soft) 1px, transparent 1px) 0 0 / 25% 100%; border-right: 1px solid var(--line-soft); }
+.db-track i { position: absolute; top: 50%; display: block; }
+.db-link { height: 2px; background: var(--line); transform: translateY(-50%); }
+.db-ci { height: 8px; border-radius: 4px; background: color-mix(in srgb, var(--c) 28%, transparent); transform: translateY(-50%); }
+.db-pt { width: 14px; height: 14px; border-radius: 50%; background: var(--c); border: 2px solid var(--bg-raised); transform: translate(-50%, -50%); }
+@media (max-width: 600px) {
+  .db-row { grid-template-columns: 78px minmax(0, 1fr) 92px; } .db-axis { margin-left: 78px; margin-right: 92px; }
+  .db-name { font-size: var(--t-micro); } .db-val { font-size: .74rem; }
+}
+.bands { display: grid; gap: var(--s-3); }
+.band { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: var(--s-2); align-items: center; }
+.band-name { font-weight: 600; font-size: var(--t-small); font-variant-numeric: tabular-nums; }
+.bars { display: grid; gap: 4px; }
+.bar { height: 20px; width: calc(var(--v) / 5 * 100%); background: var(--c); border-radius: 0 5px 5px 0; position: relative; }
+.bar b { position: absolute; left: calc(100% + .5rem); top: 50%; transform: translateY(-50%); font: 500 .8rem/1 var(--mono); color: var(--text-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.step code, .article > p code { font-size: .85em; background: var(--bg-sunk); padding: .08em .35em; border-radius: 5px; }
+</style>
+</head>
+<body>
+<!-- The ∀L mark of Forall Labs (from forall-labs.github.io/site/base.html). -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="fl-mark" viewBox="2.77 14 75.46 72"><clipPath id="fl-mark-clip"><rect x="0" y="14" width="100" height="72"/></clipPath><g clip-path="url(#fl-mark-clip)" fill="none" stroke="currentColor" stroke-width="10" stroke-miterlimit="10" stroke-linejoin="miter"><path d="M7.39 12L30 86L52.61 12M18.08 47L41.92 47"/><path d="M73.61 12L52.53 81L78.23 81"/></g></symbol></svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="https://forall-labs.github.io/" aria-label="Forall Labs home">
+      <svg class="mark" aria-hidden="true"><use href="#fl-mark"/></svg>
+      <span class="brand-name">Forall Labs</span>
+    </a>
+    <div class="header-tools">
+      <nav class="nav" aria-label="Main">
+        <a href="https://forall-labs.github.io/research/">Research</a>
+        <a href="https://forall-labs.github.io/projects/" aria-current="page">Projects</a>
+        <a href="https://forall-labs.github.io/people/">People</a>
+        <a href="https://forall-labs.github.io/news/">News</a>
+        <a href="https://forall-labs.github.io/about/">About</a>
+        <a class="nav-cta" href="https://forall-labs.github.io/join/">Join us</a>
+      </nav>
+      <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch to dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.8v2.4M12 19.8v2.4M4.0 4.0l1.7 1.7M18.3 18.3l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.0 20.0l1.7-1.7M18.3 5.7l1.7-1.7"/></svg>
+      </button>
+      <details class="menu">
+        <summary aria-label="Menu"><span></span></summary>
+        <div class="menu-panel">
+          <nav class="nav" aria-label="Main, mobile">
+            <a href="https://forall-labs.github.io/research/">Research</a>
+            <a href="https://forall-labs.github.io/projects/" aria-current="page">Projects</a>
+            <a href="https://forall-labs.github.io/people/">People</a>
+            <a href="https://forall-labs.github.io/news/">News</a>
+            <a href="https://forall-labs.github.io/about/">About</a>
+            <a class="nav-cta" href="https://forall-labs.github.io/join/">Join us</a>
+          </nav>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+
+<main id="main">
+<article class="article">
+  <header class="article-head">
+    <p class="kicker"><a href="https://forall-labs.github.io/projects/">Projects</a><span class="dot" aria-hidden="true"></span><span>Robot code</span><span class="dot" aria-hidden="true"></span><span>Open-weight models</span></p>
+    <div class="title-block">
+      <h1>OpenCaP</h1>
+      <p class="dek">How open-weight models fail at writing robot code, and the smallest fix for each failure</p>
+    </div>
+    <p class="standfirst">Twenty-one open-weight models write programs that control a robot. For every program that fails, we find the smallest edit that makes it work, keeping the model's own code, and record what that edit had to fix.</p>
+    <dl class="byline">
+      <div><dt class="label">Author</dt><dd>Sajjad Pakdamansavoji</dd></div>
+      <div><dt class="label">Affiliation</dt><dd>Forall Labs</dd></div>
+      <div><dt class="label">Released</dt><dd>November 2026</dd></div>
+    </dl>
+    <div class="actions">
+      <a class="btn primary" href="https://github.com/forall-labs/OpenCaP">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+        Code</a>
+      <a class="btn" href="https://github.com/forall-labs/OpenCaP/blob/main/docs/WRITEUP.md">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>
+        Write-up</a>
+      <a class="btn" href="#citation">BibTeX</a>
+    </div>
+  </header>
+
+  <p id="abstract">Language models can write Code-as-Policies programs that drive a robot, and success rate is how they are usually compared. Success rate says how often a program fails but not why. <strong>OpenCaP</strong> takes every failing program from a grid of 21 open-weight models, four manipulation tasks in CaP-X and three levels of robot API, repairs each with the smallest edit that makes it work, and tags each cause the repair had to fix.</p>
+  <p>The level of the API decides what goes wrong. With high-level helpers, failures are mostly not about robotics: an uncalled function, a shadowed primitive, a missing final action, the wrong object. Remove the helpers, leaving only perception, inverse kinematics and the gripper, and coordinate-frame errors jump from 4% to 47% of failing programs, misread API calls from 26% to 60%, and the larger models lose their advantage: their failing programs carry about twice as many defects as before.</p>
+
+  <div class="wide findings" role="list" aria-label="Key numbers">
+    <div class="finding" role="listitem"><span class="big">4% → 47%</span><p>of failing programs carry a coordinate-frame error once the high-level helpers are removed: camera values used as world coordinates, wxyz and xyzw mixed up.</p><span class="src">FRAME, S1 against S3/S4</span></div>
+    <div class="finding" role="listitem"><span class="big">26% → 60%</span><p>carry an interface error: a misread return value or argument, a wrong prompt, an unbound name.</p><span class="src">INTERFACE, S1 against S3/S4</span></div>
+    <div class="finding" role="listitem"><span class="big">2×</span><p>defects per failing program for the 12B and larger models at S3/S4 compared with S1, 3.33 against 1.54. It holds for all 15 models of 3B and up.</p><span class="src">Mann-Whitney p = 0.0002</span></div>
+    <div class="finding" role="listitem"><span class="big">7,560</span><p>trials: 21 models, 4 tasks, 3 API levels, 30 fixed scenes each, with greedy decoding.</p><span class="src">Qwen3, Qwen3-VL, Qwen3.5, Gemma 3</span></div>
+  </div>
+
+  <h2 class="sec" id="method">How OpenCaP works</h2>
+  <p>Each failing program is treated as evidence of a specific mistake, not as a zero. The repair is the measurement: the smaller the edit that makes a program work, the closer the model was, and the edit itself names what was wrong.</p>
+
+  <ol class="wide steps">
+    <li class="step"><span class="num">Step 01</span><h3>Run the grid</h3><p>Every model writes one program per task and API level, run on 30 fixed scenes. <b>S1</b> offers helpers such as <code>get_object_pose</code> and <code>goto_pose</code>. <b>S3</b> keeps only perception (SAM3, Molmo, Contact-GraspNet), <code>solve_ik</code>, <code>move_to_joints</code> and the gripper. <b>S4</b> also removes the worked example.</p></li>
+    <li class="step"><span class="num">Step 02</span><h3>Repair minimally</h3><p>Each failing program gets the smallest edit that makes it pass, keeping the model's code. A repair is accepted when no scene fails in all <i>k</i> draws, with <i>k</i> calibrated per task on the task's own reference program. Workarounds any correct program would need are shared and never counted as defects.</p></li>
+    <li class="step"><span class="num">Step 03</span><h3>Tag the cause</h3><p>Each repair gets one tag per distinct cause, in six families: syntax, structure, interface, semantic, trajectory and frame. 70 failing programs at S1 and 169 at S3/S4 are tagged, 116 of them against a verified repair.</p></li>
+  </ol>
+
+  <h2 class="sec" id="results">Lowering the API changes what fails</h2>
+  <p>At S1 the API returns world poses, so frame errors almost never happen. At S3 and S4 the model must turn camera-frame detections into world coordinates itself, and that is where it breaks. The rise holds on every task, and with unverified records removed.</p>
+
+  <figure class="wide fig" aria-labelledby="fam-cap">
+    <div class="chart-card">
+      <div class="chart-legend" aria-hidden="true"><span><i class="dot s1"></i>S1, high-level helpers (n = 70)</span><span><i class="dot s34"></i>S3/S4, perception and IK only (n = 154)</span></div>
+      <div class="dumbbell" role="img" aria-label="Share of failing programs with at least one defect in each family. FRAME rises from 4% to 47%, INTERFACE from 26% to 60%, TRAJECTORY falls from 47% to 19%, STRUCTURE goes from 29% to 35%, SEMANTIC stays at 94 to 95%.">
+        <div class="db-axis" aria-hidden="true"><span style="left:0%">0%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span><span style="left:100%">100%</span></div>
+        <div class="db-row"><span class="db-name">Frame</span><div class="db-track"><i class="db-link" style="left:4%;width:43%"></i><i class="db-ci s1" style="left:1%;width:11%"></i><i class="db-ci s34" style="left:40%;width:15%"></i><i class="db-pt s1" style="left:4%"></i><i class="db-pt s34" style="left:47%"></i></div><span class="db-val">4% → <b>47%</b></span></div>
+        <div class="db-row"><span class="db-name">Interface</span><div class="db-track"><i class="db-link" style="left:26%;width:34%"></i><i class="db-ci s1" style="left:17%;width:20%"></i><i class="db-ci s34" style="left:52%;width:15%"></i><i class="db-pt s1" style="left:26%"></i><i class="db-pt s34" style="left:60%"></i></div><span class="db-val">26% → <b>60%</b></span></div>
+        <div class="db-row"><span class="db-name">Trajectory</span><div class="db-track"><i class="db-link" style="left:19%;width:28%"></i><i class="db-ci s1" style="left:36%;width:23%"></i><i class="db-ci s34" style="left:14%;width:12%"></i><i class="db-pt s1" style="left:47%"></i><i class="db-pt s34" style="left:19%"></i></div><span class="db-val">47% → <b>19%</b></span></div>
+        <div class="db-row"><span class="db-name">Structure</span><div class="db-track"><i class="db-link" style="left:29%;width:6%"></i><i class="db-ci s1" style="left:19%;width:21%"></i><i class="db-ci s34" style="left:28%;width:15%"></i><i class="db-pt s1" style="left:29%"></i><i class="db-pt s34" style="left:35%"></i></div><span class="db-val">29% → <b>35%</b></span></div>
+        <div class="db-row"><span class="db-name">Semantic</span><div class="db-track"><i class="db-link" style="left:94%;width:1%"></i><i class="db-ci s1" style="left:86%;width:12%"></i><i class="db-ci s34" style="left:90%;width:7%"></i><i class="db-pt s1" style="left:94%"></i><i class="db-pt s34" style="left:95%"></i></div><span class="db-val">94% → <b>95%</b></span></div>
+      </div>
+    </div>
+    <figcaption id="fam-cap"><span class="fig-n">Figure 1.</span>Share of failing programs with at least one defect in each family, with Wilson 95% intervals. Frame and interface errors rise sharply once the helpers are gone. Trajectory falls because S1's approach-height argument, the source of most S1 trajectory tags, does not exist at S3/S4: that reflects the API, not the models. Semantic slips are near-universal at every level.</figcaption>
+  </figure>
+
+  <figure class="wide fig">
+    <figcaption class="above"><span class="fig-n">Table 1.</span>Share of failing programs with at least one tag in each family, with Wilson 95% intervals and Fisher's exact test between S1 and S3/S4. The verified-only column keeps the 116 programs tagged against a verified minimal repair.</figcaption>
+    <div class="table-wrap" role="region" aria-label="Defect families by API level" tabindex="0">
+      <table>
+        <thead><tr><th>Family</th><th>S1 (n = 70)</th><th>S3/S4 (n = 154)</th><th>Verified only (n = 116)</th><th>Fisher p</th></tr></thead>
+        <tbody>
+          <tr class="ours"><td>Frame</td><td>4% [1, 12]</td><td>47% [40, 55]</td><td>48%</td><td>≈1e-11</td></tr>
+          <tr class="ours"><td>Interface</td><td>26% [17, 37]</td><td>60% [52, 67]</td><td>52%</td><td>≈3e-6</td></tr>
+          <tr><td>Trajectory</td><td>47% [36, 59]</td><td>19% [14, 26]</td><td>23%</td><td>≈5e-5</td></tr>
+          <tr><td>Structure</td><td>29% [19, 40]</td><td>35% [28, 43]</td><td>33%</td><td>n.s.</td></tr>
+          <tr><td>Semantic</td><td>94% [86, 98]</td><td>95% [90, 97]</td><td>93%</td><td>1.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </figure>
+
+  <h2 class="sec" id="scale">The scale advantage disappears</h2>
+  <p>With helpers, a larger model's failing programs are cleaner: defects per failing program fall from 4.2 at 2B and below to 1.5 at 7B and above. Without them, every size band sits between 3.2 and 4.6. Frame errors appear for 19 of the 21 models at S3/S4, against 3 of 21 at S1; the two exceptions are the smallest models, whose programs fail before reaching any coordinate math.</p>
+
+  <figure class="wide fig" aria-labelledby="band-cap">
+    <div class="chart-card">
+      <div class="chart-legend" aria-hidden="true"><span><i class="sq s1"></i>S1</span><span><i class="sq s3"></i>S3</span><span><i class="sq s4"></i>S4</span></div>
+      <div class="bands" role="img" aria-label="Mean defect tags per failing program by model size. Up to 2B: S1 4.17, S3 4.10, S4 3.20. 3 to 4B: 2.70, 4.61, 3.82. 7 to 9B: 1.54, 3.53, 3.56. 12B and up: 1.54, 3.46, 3.21.">
+        <div class="band"><span class="band-name">≤ 2B</span><div class="bars"><div class="bar s1" style="--v:4.17"><b>4.17</b></div><div class="bar s3" style="--v:4.10"><b>4.10</b></div><div class="bar s4" style="--v:3.20"><b>3.20</b></div></div></div>
+        <div class="band"><span class="band-name">3–4B</span><div class="bars"><div class="bar s1" style="--v:2.70"><b>2.70</b></div><div class="bar s3" style="--v:4.61"><b>4.61</b></div><div class="bar s4" style="--v:3.82"><b>3.82</b></div></div></div>
+        <div class="band"><span class="band-name">7–9B</span><div class="bars"><div class="bar s1" style="--v:1.54"><b>1.54</b></div><div class="bar s3" style="--v:3.53"><b>3.53</b></div><div class="bar s4" style="--v:3.56"><b>3.56</b></div></div></div>
+        <div class="band"><span class="band-name">≥ 12B</span><div class="bars"><div class="bar s1" style="--v:1.54"><b>1.54</b></div><div class="bar s3" style="--v:3.46"><b>3.46</b></div><div class="bar s4" style="--v:3.21"><b>3.21</b></div></div></div>
+      </div>
+    </div>
+    <figcaption id="band-cap"><span class="fig-n">Figure 2.</span>Mean defect tags per failing program, by model size and API level. At S1 the count falls with scale; at S3 and S4 it does not. With an automated tagger instead of the filed tags, the S1 row reads 3.21 to 1.15, the same direction.</figcaption>
+  </figure>
+
+  <h2 class="sec" id="checks">Checks and limits</h2>
+  <p><strong>The token cap does not explain the failures.</strong> Raising it from 2,048 to 8,192 tokens fixes no failure of a 12B or larger model: two models loop on one line at any budget, and another completes and still crashes. <strong>No program cheats.</strong> The observation also exposes object poses, and a scan of all 5,040 S3/S4 episodes found no program reading them.</p>
+  <p><strong>The tags come from language models, not people.</strong> Claude Opus 5 tagged every program against its repair. An independent rater from a different model family, GPT-6 Astra, blind to the question, re-tagged a 60-program sample: per-family agreement is κ 0.82 for frame and 0.87 for interface, and both contrasts reproduce in its own labels. The size of the defect-count gap moves between raters, so the family contrasts are the stronger result. No human has rated the packet yet; it ships with the code, ready for one.</p>
+  <p>These are failing programs only: the counts describe what goes wrong, not how often programs fail.</p>
+</article>
+
+<section class="appendix" id="citation" aria-label="Citation and resources">
+  <div class="appendix-inner">
+    <div class="app-row">
+      <h2>Citation</h2>
+      <div>
+        <p>Please cite this work as</p>
+        <div class="bib">
+          <button class="btn small" id="copy-bib" type="button">Copy</button>
+          <pre id="bibtex">@misc{pakdamansavoji2026opencap,
+  title        = {OpenCaP: How Open-Weight Models Fail at Writing Robot Code},
+  author       = {Pakdamansavoji, Sajjad},
+  year         = {2026},
+  howpublished = {\url{https://github.com/forall-labs/OpenCaP}}
+}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="app-row">
+      <h2>Reproducing</h2>
+      <div><p>Every number on this page is regenerated on a CPU from the tags and repairs in the <a href="https://github.com/forall-labs/OpenCaP">GitHub repository</a>, for example <code>python scripts/cross_tier_report.py --no-truncated</code>. The method, all tables and the limitations are in <a href="https://github.com/forall-labs/OpenCaP/blob/main/docs/WRITEUP.md">the write-up</a>.</p></div>
+    </div>
+    <div class="app-row">
+      <h2>Built on</h2>
+      <div><p><a href="https://github.com/capgym/cap-x">CaP-X</a>, with models served by vLLM and perception from SAM3, Molmo and Contact-GraspNet.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a class="brand" href="https://forall-labs.github.io/" aria-label="Forall Labs home">
+          <svg class="mark" aria-hidden="true"><use href="#fl-mark"/></svg>
+          <span class="brand-name">Forall Labs</span>
+        </a>
+        <p>OpenCaP is a Forall Labs project, built on the CaP-X benchmark.</p>
+      </div>
+      <div>
+        <h4>OpenCaP</h4>
+        <ul>
+          <li><a href="https://github.com/forall-labs/OpenCaP">Code</a></li>
+          <li><a href="https://github.com/forall-labs/OpenCaP/blob/main/docs/WRITEUP.md">Write-up</a></li>
+          <li><a href="#citation">Cite</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Forall Labs</h4>
+        <ul>
+          <li><a href="https://forall-labs.github.io/research/">Research</a></li>
+          <li><a href="https://forall-labs.github.io/projects/">Projects</a></li>
+          <li><a href="https://github.com/forall-labs">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Code under the MIT License. Models: Qwen3, Qwen3-VL, Qwen3.5 and Gemma 3, served with vLLM.</p>
+      <p>&forall; is the mathematical symbol for &ldquo;for all&rdquo;.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  // theme (same behavior and storage key as the Forall Labs site)
+  const root = document.documentElement, toggle = $("#theme-toggle");
+  const label = () => toggle.setAttribute("aria-label",
+    root.getAttribute("data-theme") === "dark" ? "Switch to light theme" : "Switch to dark theme");
+  label();
+  toggle.addEventListener("click", () => {
+    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    label();
+  });
+  // BibTeX
+  $("#copy-bib").addEventListener("click", async () => {
+    const btn = $("#copy-bib"), text = $("#bibtex").textContent;
+    try { await navigator.clipboard.writeText(text); btn.textContent = "Copied"; }
+    catch {
+      const range = document.createRange(); range.selectNodeContents($("#bibtex"));
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      btn.textContent = "Selected, press Ctrl+C";
+    }
+    setTimeout(() => { btn.textContent = "Copy"; }, 2000);
+  });
+})();
+</script>
+</body>

@@ -1,0 +1,11 @@
+{
+  "16bcf3f58b09": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\n\n# Get the pose and bounding box extent of the 'brown spill'\nposition, quaternion_wxyz, bbox_extent = get_object_pose(\"brown spill\", return_bbox_extent=True)\n\n# Extract min and max x, y bounds from the bounding box extent\nmin_x = position[0] - bbox_extent[0] / 2\nmax_x = position[0] + bbox_extent[0] / 2\nmin_y = position[1] - bbox_extent[1] / 2\nmax_y = position[1] + bbox_extent[1] / 2\n\n# Wiping height is at z = 0.0 m\nz = 0.0\n\n# Define a small step size for the wiping motion\nstep_size = 0.02\n\n# Move to the starting position for wiping\nstart_position = np.array([min_x, min_y, z])\ngoto_pose(start_position, np.array([0, 0, 1, 0]))\n\n# Raster the whole spill area: for each y, sweep across x\nfor y in np.arange(min_y, max_y, step_size):\n    for x in np.arange(min_x, max_x, step_size):\n        goto_pose(np.array([x, y, z]), np.array([0, 0, 1, 0]))",
+      "result": "23/30",
+      "hypothesis": "two sequential loops trace an L along two edges; nest them to cover the area",
+      "outcome": "0/30 -> 23/30. Nesting is the right fix. EXACTLY the same score as qwen3-14b with the same row-major raster (for y outer). The one column-major repair scored 26/30 and the column-major reference 29/30. Sweep order is worth ~3 scenes and is a property of the task, not the model."
+    }
+  ]
+}

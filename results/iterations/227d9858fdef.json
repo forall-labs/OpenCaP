@@ -1,0 +1,11 @@
+{
+  "227d9858fdef": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\n\n# Sample grasp pose\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\n\n# Get object poses and extents\nred_position, red_quaternion, red_extent = get_object_pose(\"red cube\", return_bbox_extent=True)\ngreen_position, green_quaternion, green_extent = get_object_pose(\"green cube\", return_bbox_extent=True)\n\n# Open gripper\nopen_gripper()\n\n# Approach and grasp the red cube\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\nclose_gripper()\n\n# Lift the red cube\nlift_position = grasp_position.copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, grasp_quaternion)\n\n# Place the red cube on top of the green cube\nplace_z = green_position[2] + green_extent[2]/2 + red_extent[2]/2\ngoto_pose(np.array([green_position[0], green_position[1], place_z]), grasp_quaternion, z_approach=0.1)\n\n# Release\nopen_gripper()",
+      "result": "29/30",
+      "hypothesis": "near-total rewrite: shadowed sample_grasp_pose, unpacked goto_pose's None return, undefined extents, hardcoded heights",
+      "outcome": "0/30 -> 29/30. Residual is trial 13 at reward 0.05 -- the FIFTH independent repair to fail that exact scene at that exact value, all five having cached the green cube's pose before the lift."
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+workers=2 (vCPUs=2)
+
+=== cube_lifting ===
+  repeat 0: 30/30 in 171s
+  repeat 1: 30/30 in 161s
+  repeat 2: 30/30 in 157s
+  rate 1.000 (range 0.000), flip 0.0%
+
+=== cube_stack ===
+  repeat 0: 30/30 in 185s
+  repeat 1: 30/30 in 185s
+  repeat 2: 30/30 in 184s
+  rate 1.000 (range 0.000), flip 0.0%
+
+=== cube_restack ===
+  repeat 0: 30/30 in 245s
+  repeat 1: 30/30 in 246s
+  repeat 2: 29/30 in 243s
+  rate 0.989 (range 0.033), flip 2.2%
+
+=== spill_wipe ===
+  repeat 0: 30/30 in 346s
+  repeat 1: 27/30 in 351s
+  repeat 2: 29/30 in 338s
+  rate 0.956 (range 0.100), flip 8.9%
+
+=== nut_assembly ===
+  repeat 0: 11/30 in 346s
+  repeat 1: 7/30 in 334s
+  repeat 2: 7/30 in 327s
+  rate 0.278 (range 0.133), flip 31.1%
+
+=== two_arm_lift ===
+Traceback (most recent call last):
+  File "/content/capx-scaling/scripts/measure_reliability.py", line 155, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/content/capx-scaling/scripts/measure_reliability.py", line 109, in main
+    trials = run_oracle(capx, task, args.trials, out, args.workers)
+  File "/content/capx-scaling/scripts/measure_reliability.py", line 72, in run_oracle
+    p = subprocess.run(cmd, cwd=capx, env=dict(os.environ, **env),
+                       capture_output=True, text=True, timeout=3600)
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2155, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['uv', 'run', 'capx/envs/launch.py', '--config-path', 'env_configs/human_oracle_code/robosuite/franka_robosuite_two_arm_lift_privileged_oracle.yaml', '--total-trials', '30', '--num-workers', '2', '--record-video', 'False', '--output-dir', '/content/outputs/rel_patched_two_arm_lift_0']' timed out after 3600 seconds
+REL_RC=1

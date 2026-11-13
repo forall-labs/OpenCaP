@@ -1,0 +1,11 @@
+{
+  "dc702b55fff8": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\n\ndef pick_and_stack_red_on_green():\n    # Sample grasp pose for the red cube\n    red_grasp_position, red_grasp_quaternion = sample_grasp_pose('red cube')\n\n    # Get the pose of the red and green cubes\n    _, _, red_extent = get_object_pose('red cube', return_bbox_extent=True)\n    green_pose, _, green_extent = get_object_pose('green cube', return_bbox_extent=True)\n\n    # Calculate the placement position\n    green_center_z = green_pose[2]\n    place_z = green_center_z + green_extent[2]/2 + red_extent[2]/2\n    place_position = np.array([green_pose[0], green_pose[1], place_z])\n\n    # Open the gripper before approaching\n    open_gripper()\n\n    # Go to the grasp position\n    goto_pose(red_grasp_position, red_grasp_quaternion, z_approach=0.1)\n\n    # Close the gripper\n    close_gripper()\n\n    # Lift the red cube to a safe height\n    lift_position = red_grasp_position.copy()\n    lift_position[2] += 0.2\n    goto_pose(lift_position, red_grasp_quaternion)\n\n    # Go to the placement position\n    goto_pose(place_position, red_grasp_quaternion, z_approach=0.1)\n\n    # Release the red cube\n    open_gripper()\n\npick_and_stack_red_on_green()",
+      "result": "29/30",
+      "hypothesis": "function never called; green_center_z and red_extent undefined; wrong object strings; gripper ordering",
+      "outcome": "0/30 -> 29/30. Residual is trial 13 at reward 0.05, the same scene and value as coder-7b, qwen35-4b and coder-3b -- all four cached the green cube's pose before the lift."
+    }
+  ]
+}

@@ -1,0 +1,1601 @@
+{
+  "016f6392e871": {
+    "auto_tags": [
+      "approach_param"
+    ],
+    "families": [
+      "INTERFACE",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "gemma3-12b"
+    ],
+    "pid": "016f6392e871",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "call_signature",
+      "post_release_retreat"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "06788121c5ac": {
+    "auto_tags": [
+      "api_rebound",
+      "gripper_order",
+      "approach_param",
+      "wrong_formula",
+      "unbound_name"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "pid": "06788121c5ac",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "api_rebound",
+      "call_signature",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "0e0d6365d8ae": {
+    "auto_tags": [
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "pid": "0e0d6365d8ae",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "gripper_order",
+      "missing_action",
+      "stale_read",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "0fa31bc12c81": {
+    "auto_tags": [
+      "wrong_target",
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "pid": "0fa31bc12c81",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "never_invoked",
+      "object_name",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "0feeed1b6e4a": {
+    "auto_tags": [
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen35-4b"
+    ],
+    "pid": "0feeed1b6e4a",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "143db90b314a": {
+    "auto_tags": [
+      "syntax",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "SYNTAX"
+    ],
+    "models": [
+      "qwen35-4b"
+    ],
+    "pid": "143db90b314a",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_action",
+      "syntax"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": true
+  },
+  "182bce0f3411": {
+    "auto_tags": [],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "pid": "182bce0f3411",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "1969e3eebd73": {
+    "auto_tags": [
+      "spurious_move",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3-8b"
+    ],
+    "pid": "1969e3eebd73",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_action",
+      "spurious_move"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "202d7235339e": {
+    "auto_tags": [
+      "spurious_move",
+      "missing_action",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE",
+      "SYNTAX"
+    ],
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "pid": "202d7235339e",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "api_rebound",
+      "missing_coverage",
+      "syntax"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": true
+  },
+  "203ec1356c6e": {
+    "auto_tags": [
+      "approach_param",
+      "post_release_retreat"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "pid": "203ec1356c6e",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "spurious_move",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "28da0e2b6638": {
+    "auto_tags": [],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "pid": "28da0e2b6638",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "wrong_formula"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "2959a48311b6": {
+    "auto_tags": [
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "gemma3-12b"
+    ],
+    "pid": "2959a48311b6",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "29b073a0e4f3": {
+    "auto_tags": [
+      "api_rebound",
+      "call_signature",
+      "approach_param",
+      "unbound_name"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "pid": "29b073a0e4f3",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "api_rebound",
+      "approach_param",
+      "missing_action",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "354e3ade0228": {
+    "auto_tags": [
+      "api_rebound",
+      "object_name",
+      "wrong_target",
+      "approach_param"
+    ],
+    "families": [
+      "FRAME",
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "SYNTAX"
+    ],
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "pid": "354e3ade0228",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "api_rebound",
+      "call_signature",
+      "frame_convention",
+      "missing_action",
+      "object_name",
+      "syntax"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": true
+  },
+  "3bd536fcbb88": {
+    "auto_tags": [
+      "frame_convention"
+    ],
+    "families": [
+      "FRAME"
+    ],
+    "models": [
+      "qwen35-27b"
+    ],
+    "pid": "3bd536fcbb88",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "frame_convention"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "41168a8604cf": {
+    "auto_tags": [
+      "call_signature",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "gemma3-12b"
+    ],
+    "pid": "41168a8604cf",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "43095d10c293": {
+    "auto_tags": [
+      "spurious_move",
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "pid": "43095d10c293",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "49b442823ed4": {
+    "auto_tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen35-4b"
+    ],
+    "pid": "49b442823ed4",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "gripper_order",
+      "post_release_retreat",
+      "stale_read",
+      "wrong_formula"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "4b1984c7e64d": {
+    "auto_tags": [
+      "gripper_order",
+      "missing_action",
+      "call_signature",
+      "approach_param",
+      "wrong_task"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "pid": "4b1984c7e64d",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "spurious_move"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "53322897bc04": {
+    "auto_tags": [
+      "spurious_move",
+      "missing_action",
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "pid": "53322897bc04",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "api_rebound",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "57234b798b89": {
+    "auto_tags": [
+      "missing_action",
+      "frame_convention"
+    ],
+    "families": [
+      "FRAME",
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3-32b"
+    ],
+    "pid": "57234b798b89",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "frame_convention",
+      "missing_action",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "596af49dbfc0": {
+    "auto_tags": [
+      "call_signature",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "pid": "596af49dbfc0",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "5c33ddefc93f": {
+    "auto_tags": [
+      "unbound_name"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "pid": "5c33ddefc93f",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_action",
+      "spurious_move",
+      "unbound_name"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "616993ccfad3": {
+    "auto_tags": [
+      "syntax",
+      "approach_param",
+      "wrong_formula",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE",
+      "SYNTAX"
+    ],
+    "models": [
+      "qwen35-2b"
+    ],
+    "pid": "616993ccfad3",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "gripper_order",
+      "never_invoked",
+      "syntax",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": true
+  },
+  "6455261487f0": {
+    "auto_tags": [
+      "spurious_move",
+      "missing_action",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE",
+      "SYNTAX"
+    ],
+    "models": [
+      "qwen35-2b"
+    ],
+    "pid": "6455261487f0",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "api_rebound",
+      "missing_coverage",
+      "syntax"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": true
+  },
+  "65ceca4e9cdb": {
+    "auto_tags": [
+      "stale_read"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "pid": "65ceca4e9cdb",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "stale_read"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "66b818dc7474": {
+    "auto_tags": [],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3-32b"
+    ],
+    "pid": "66b818dc7474",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "692ff5246487": {
+    "auto_tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "pid": "692ff5246487",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "6a1443eea0cc": {
+    "auto_tags": [
+      "missing_coverage"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3-4b"
+    ],
+    "pid": "6a1443eea0cc",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage",
+      "object_name"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "6a98c7c543d8": {
+    "auto_tags": [
+      "call_signature",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3-14b"
+    ],
+    "pid": "6a98c7c543d8",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "718915ea2b1a": {
+    "auto_tags": [
+      "stale_read",
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "pid": "718915ea2b1a",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "post_release_retreat",
+      "stale_read"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "72b308ae20c1": {
+    "auto_tags": [
+      "approach_param",
+      "spurious_move",
+      "call_signature",
+      "missing_action",
+      "post_release_retreat"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "pid": "72b308ae20c1",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "gripper_order",
+      "object_name",
+      "spurious_move",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "7993b2d06474": {
+    "auto_tags": [
+      "never_invoked",
+      "call_signature",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "models": [
+      "gemma3-4b"
+    ],
+    "pid": "7993b2d06474",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage",
+      "never_invoked",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "7a333ab97785": {
+    "auto_tags": [
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "pid": "7a333ab97785",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "81ee85d0f933": {
+    "auto_tags": [],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3-4b"
+    ],
+    "pid": "81ee85d0f933",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "8342c9b02e4a": {
+    "auto_tags": [
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3-14b"
+    ],
+    "pid": "8342c9b02e4a",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "885695a8c1ba": {
+    "auto_tags": [],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "pid": "885695a8c1ba",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "88c506d29d99": {
+    "auto_tags": [
+      "stale_read",
+      "approach_param",
+      "wrong_target",
+      "missing_action"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "gemma3-4b"
+    ],
+    "pid": "88c506d29d99",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "call_signature",
+      "gripper_order",
+      "missing_action",
+      "post_release_retreat",
+      "stale_read",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "8a7b8a9113ba": {
+    "auto_tags": [],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "gemma3-27b"
+    ],
+    "pid": "8a7b8a9113ba",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "8c045a27c831": {
+    "auto_tags": [
+      "frame_convention"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "pid": "8c045a27c831",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "90b045d2103b": {
+    "auto_tags": [
+      "syntax",
+      "object_name",
+      "approach_param",
+      "wrong_target",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "SYNTAX"
+    ],
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "pid": "90b045d2103b",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_action",
+      "syntax",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": true
+  },
+  "9aa8b5eb8b62": {
+    "auto_tags": [
+      "wrong_target",
+      "missing_coverage"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "pid": "9aa8b5eb8b62",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "call_signature",
+      "missing_coverage",
+      "object_name"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "9c02bbf8000b": {
+    "auto_tags": [
+      "wrong_target",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "pid": "9c02bbf8000b",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_action",
+      "wrong_formula"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "9fec67c20d20": {
+    "auto_tags": [
+      "gripper_order",
+      "object_name",
+      "wrong_formula",
+      "stale_read",
+      "spurious_move"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "pid": "9fec67c20d20",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "gripper_order",
+      "object_name",
+      "stale_read",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "a734cf837029": {
+    "auto_tags": [
+      "spurious_move",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "pid": "a734cf837029",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "spurious_move"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "a86bb6608456": {
+    "auto_tags": [
+      "spurious_move",
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen35-2b"
+    ],
+    "pid": "a86bb6608456",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "api_rebound",
+      "approach_param",
+      "missing_action"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "acb91dfbfdf3": {
+    "auto_tags": [
+      "frame_convention"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3-8b"
+    ],
+    "pid": "acb91dfbfdf3",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "afc6b311aed3": {
+    "auto_tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "pid": "afc6b311aed3",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "b21323ef80f7": {
+    "auto_tags": [
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC",
+      "SYNTAX"
+    ],
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "pid": "b21323ef80f7",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage",
+      "syntax",
+      "wrong_formula"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": true
+  },
+  "b296d8967481": {
+    "auto_tags": [
+      "approach_param",
+      "post_release_retreat"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "pid": "b296d8967481",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "object_name",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "b6a608c42e2c": {
+    "auto_tags": [
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3-4b"
+    ],
+    "pid": "b6a608c42e2c",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "b722ec980ef2": {
+    "auto_tags": [
+      "wrong_target"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen35-4b"
+    ],
+    "pid": "b722ec980ef2",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "b7fa7bcdd8d0": {
+    "auto_tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3-4b"
+    ],
+    "pid": "b7fa7bcdd8d0",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "bca76f283040": {
+    "auto_tags": [
+      "never_invoked",
+      "missing_coverage"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "pid": "bca76f283040",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage",
+      "never_invoked",
+      "object_name",
+      "wrong_formula"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "c05383192094": {
+    "auto_tags": [
+      "wrong_target",
+      "call_signature",
+      "approach_param",
+      "post_release_retreat",
+      "unbound_name"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "pid": "c05383192094",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "object_name",
+      "spurious_move",
+      "unbound_name",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "c0c896f94222": {
+    "auto_tags": [
+      "approach_param",
+      "wrong_target"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "pid": "c0c896f94222",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "post_release_retreat",
+      "stale_read",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "c3db4fcecebf": {
+    "auto_tags": [
+      "call_signature",
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen3-8b"
+    ],
+    "pid": "c3db4fcecebf",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "c5ddb94e26f2": {
+    "auto_tags": [],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen35-9b"
+    ],
+    "pid": "c5ddb94e26f2",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_action"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "d5fcf1e81967": {
+    "auto_tags": [
+      "spurious_move"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE"
+    ],
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "pid": "d5fcf1e81967",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "call_signature",
+      "gripper_order",
+      "stale_read",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "d664c03db81d": {
+    "auto_tags": [
+      "object_name"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "pid": "d664c03db81d",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "object_name",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "d7d45f9310bc": {
+    "auto_tags": [
+      "wrong_target"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "qwen35-9b"
+    ],
+    "pid": "d7d45f9310bc",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "d95f866f69e8": {
+    "auto_tags": [
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "gemma3-4b"
+    ],
+    "pid": "d95f866f69e8",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "d99d119f5f06": {
+    "auto_tags": [
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "pid": "d99d119f5f06",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "wrong_formula"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "dc702b55fff8": {
+    "auto_tags": [
+      "never_invoked",
+      "object_name",
+      "wrong_target",
+      "wrong_formula",
+      "missing_action",
+      "stale_read",
+      "approach_param",
+      "unbound_name"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "pid": "dc702b55fff8",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "gripper_order",
+      "never_invoked",
+      "object_name",
+      "spurious_move",
+      "stale_read",
+      "unbound_name",
+      "wrong_target"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "dcf251c02bbf": {
+    "auto_tags": [
+      "approach_param"
+    ],
+    "families": [
+      "SEMANTIC",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "gemma3-4b"
+    ],
+    "pid": "dcf251c02bbf",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": false
+  },
+  "e19d3ded68a0": {
+    "auto_tags": [
+      "never_invoked",
+      "call_signature",
+      "approach_param"
+    ],
+    "families": [
+      "INTERFACE",
+      "SEMANTIC",
+      "STRUCTURE",
+      "SYNTAX",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen35-2b"
+    ],
+    "pid": "e19d3ded68a0",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "missing_action",
+      "never_invoked",
+      "object_name",
+      "syntax",
+      "wrong_formula",
+      "wrong_target"
+    ],
+    "task": "nut_assembly",
+    "tier": "S1",
+    "truncated": true
+  },
+  "e7356f7f0021": {
+    "auto_tags": [
+      "post_release_retreat"
+    ],
+    "families": [
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen3-8b"
+    ],
+    "pid": "e7356f7f0021",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "post_release_retreat"
+    ],
+    "task": "cube_stack",
+    "tier": "S1",
+    "truncated": false
+  },
+  "eabe08645dd3": {
+    "auto_tags": [
+      "missing_coverage"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "gemma3-27b"
+    ],
+    "pid": "eabe08645dd3",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_coverage"
+    ],
+    "task": "spill_wipe",
+    "tier": "S1",
+    "truncated": false
+  },
+  "fa2f9b908fc4": {
+    "auto_tags": [
+      "missing_action",
+      "wrong_target",
+      "call_signature"
+    ],
+    "families": [
+      "SEMANTIC"
+    ],
+    "models": [
+      "gemma3-27b"
+    ],
+    "pid": "fa2f9b908fc4",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "missing_action",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  },
+  "ffb459024b50": {
+    "auto_tags": [
+      "never_invoked",
+      "spurious_move",
+      "missing_action"
+    ],
+    "families": [
+      "SEMANTIC",
+      "STRUCTURE",
+      "TRAJECTORY"
+    ],
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "pid": "ffb459024b50",
+    "tagged_by": "hand (CLI session, 2026-10-04, S3/S4 procedure; one tag per distinct cause the verified repair fixed)",
+    "tags": [
+      "approach_param",
+      "gripper_order",
+      "never_invoked",
+      "wrong_target"
+    ],
+    "task": "cube_lifting",
+    "tier": "S1",
+    "truncated": false
+  }
+}

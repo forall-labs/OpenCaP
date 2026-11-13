@@ -1,0 +1,18 @@
+{
+  "1969e3eebd73": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\n\nposition, quaternion, _ = get_object_pose(\"red cube\", return_bbox_extent=False)\ngoto_pose(position, quaternion, z_approach=0.1)\nopen_gripper()\nposition, quaternion = sample_grasp_pose(\"red cube\")\ngoto_pose(position, quaternion, z_approach=0.1)\nclose_gripper()\nlift_position = position.copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, quaternion)",
+      "result": "25/30",
+      "hypothesis": "adding the missing lift is sufficient",
+      "outcome": "5 scenes grasp (reward ~0.51) but never reach lift threshold"
+    },
+    {
+      "iter": 2,
+      "code": "import numpy as np\n\nposition, quaternion = sample_grasp_pose(\"red cube\")\nopen_gripper()\ngoto_pose(position, quaternion, z_approach=0.1)\nclose_gripper()\nlift_position = position.copy()\nlift_position[2] += 0.2\ngoto_pose(lift_position, quaternion)",
+      "result": "30/30",
+      "hypothesis": "the model's own preamble moves the gripper to the CUBE's pose using the CUBE's arbitrary orientation before opening, disturbing the object on a minority of scenes",
+      "outcome": "PASS at ceiling; cross-check 30/30 agree; 196.2s"
+    }
+  ]
+}

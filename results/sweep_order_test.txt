@@ -1,0 +1,6 @@
+# Sweep-order repeated measures -- 2026-09-08T08:20Z
+# Same program (qwen3-14b spill_wipe repair), same seeds, only loop order differs.
+column-major [27, 29, 30] mean 28.7
+row-major    [22, 23, 29] mean 24.7
+exact permutation test p = 0.300 -- NOT ESTABLISHED
+same-code variance measured elsewhere: +-5.3 scenes

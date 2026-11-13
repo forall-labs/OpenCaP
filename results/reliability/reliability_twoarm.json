@@ -1,0 +1,19 @@
+{
+  "label": "patched_twoarm",
+  "repeats": 3,
+  "tasks": {
+    "two_arm_lift": {
+      "flip_rate_max": 0.4,
+      "flip_rate_mean": 0.3333333333333333,
+      "rate_mean": 0.8111111111111112,
+      "rate_range": 0.13333333333333341,
+      "rate_stdev": 0.06938886664887114,
+      "rates": [
+        0.8666666666666667,
+        0.7333333333333333,
+        0.8333333333333334
+      ]
+    }
+  },
+  "trials": 30
+}

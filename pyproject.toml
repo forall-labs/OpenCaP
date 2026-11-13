@@ -1,0 +1,19 @@
+[project]
+name = "opencap"
+version = "0.1.0"
+description = "OpenCaP: how open-weight LLMs fail when they write robot code, and the minimal repair for each failure."
+requires-python = ">=3.10"
+dependencies = [
+    "huggingface_hub[hf_transfer]>=0.26",
+    "zstandard>=0.22",
+    "pyarrow>=16",
+]
+
+[project.optional-dependencies]
+serve = ["vllm"]
+
+[project.scripts]
+opencap = "opencap.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["opencap*"]

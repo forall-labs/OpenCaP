@@ -1,0 +1,3 @@
+# Spine E / code-training result -- 2026-09-06T23:00Z
+# qwen25-coder-7b S1: spill_wipe 29/30, cube_stack 0/30
+# nesting depth 2 in 30/30 episodes; no Qwen3 rung reaches depth 2 in 150

@@ -1,0 +1,724 @@
+{
+  "003de971e81e": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 59,
+    "model": "qwen3-14b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 28,
+    "scores": [
+      27,
+      28,
+      27
+    ],
+    "tag_only": false,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "126b2e1a4430": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 29,
+    "model": "qwen3-0.6b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 29,
+    "scores": [
+      29,
+      27,
+      26
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "1615f484e1d4": {
+    "lines": 207,
+    "model": "qwen35-0.8b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "1d66ee3f44bd": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 35,
+    "model": "gemma3-4b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 27,
+    "scores": [
+      27,
+      24,
+      25
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "1ed3022e60f1": {
+    "lines": 88,
+    "model": "qwen35-9b",
+    "parses": true,
+    "pathological": false,
+    "score": 27,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "298739c89a01": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 126,
+    "model": "qwen3vl-4b",
+    "oversized": true,
+    "parses": true,
+    "saved": true,
+    "score": 30,
+    "scores": [
+      30
+    ],
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "3bf9b1ee4d1c": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 294,
+    "model": "qwen35-0.8b",
+    "oversized": true,
+    "parses": true,
+    "saved": true,
+    "score": 28,
+    "scores": [
+      27,
+      28,
+      25
+    ],
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "3e958e6b91ee": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 36,
+    "model": "qwen25-coder-7b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 28,
+    "scores": [
+      23,
+      27,
+      28
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "4049723417fb": {
+    "lines": 44,
+    "model": "qwen3-1.7b",
+    "parses": true,
+    "pathological": false,
+    "score": 26,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "4793076ef262": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 53,
+    "model": "gemma3-27b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 26,
+    "scores": [
+      26,
+      23,
+      26
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "47bad0114641": {
+    "lines": 66,
+    "model": "gemma3-12b",
+    "oversized": false,
+    "parses": false,
+    "tag_only": true,
+    "tags": [
+      "missing_coverage",
+      "truncated",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "545263179f09": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 71,
+    "model": "qwen35-27b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 29,
+    "scores": [
+      27,
+      29,
+      28
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "56c9372211fc": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 35,
+    "model": "qwen25-coder-1.5b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 29,
+    "scores": [
+      27,
+      29,
+      27
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "5aef5798c054": {
+    "accepted": false,
+    "always_failing_scenes": [
+      23
+    ],
+    "lines": 57,
+    "model": "qwen35-4b",
+    "oversized": false,
+    "parses": true,
+    "score": 26,
+    "scores": [
+      26,
+      26,
+      22
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "622e7caca7a0": {
+    "lines": 63,
+    "model": "qwen35-27b",
+    "parses": true,
+    "pathological": false,
+    "score": 27,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "662fcee57f3d": {
+    "lines": 56,
+    "model": "gemma3-12b",
+    "parses": true,
+    "pathological": false,
+    "score": 26,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "7c3e32891c68": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 85,
+    "model": "qwen35-9b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 28,
+    "scores": [
+      25,
+      28,
+      25
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "81892841f288": {
+    "lines": 43,
+    "model": "qwen35-4b",
+    "parses": true,
+    "pathological": false,
+    "score": 27,
+    "tags": [
+      "missing_coverage",
+      "unbound_name",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "846a4edcad10": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 40,
+    "model": "qwen3-4b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 28,
+    "scores": [
+      28,
+      27,
+      26
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "85820d975a6f": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 49,
+    "model": "qwen25-coder-3b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 28,
+    "scores": [
+      27,
+      28,
+      27
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "863aab6689bb": {
+    "lines": 35,
+    "model": "qwen3-4b",
+    "parses": true,
+    "pathological": false,
+    "score": 24,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "8c20bcd8b218": {
+    "lines": 51,
+    "model": "qwen3vl-8b",
+    "parses": true,
+    "pathological": false,
+    "score": 27,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "90a54316910a": {
+    "lines": 47,
+    "model": "qwen3vl-2b",
+    "parses": true,
+    "pathological": false,
+    "score": 26,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "a01b0d01f411": {
+    "lines": 62,
+    "model": "qwen3-32b",
+    "parses": true,
+    "pathological": false,
+    "score": 28,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "a43a0721c1e8": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 36,
+    "model": "qwen3vl-2b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 28,
+    "scores": [
+      27,
+      28,
+      27
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "b1a0689ebf52": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 65,
+    "model": "qwen3vl-8b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 27,
+    "scores": [
+      27,
+      27,
+      27
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "bd4e1cc0f940": {
+    "lines": 31,
+    "model": "qwen25-coder-1.5b",
+    "parses": true,
+    "pathological": false,
+    "score": 24,
+    "tags": [
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "c1fbfd045ada": {
+    "lines": 40,
+    "model": "qwen3-14b",
+    "parses": true,
+    "pathological": false,
+    "score": 23,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "c587df23051b": {
+    "lines": 60,
+    "model": "qwen35-2b",
+    "parses": true,
+    "pathological": false,
+    "score": 27,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "c9fcfe669821": {
+    "lines": 50,
+    "model": "qwen25-coder-3b",
+    "parses": true,
+    "pathological": false,
+    "score": 27,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "ce924ec02d95": {
+    "lines": 66,
+    "model": "qwen3vl-32b",
+    "parses": true,
+    "pathological": false,
+    "score": 29,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "d4ebb1df7a93": {
+    "lines": 40,
+    "model": "gemma3-4b",
+    "parses": true,
+    "pathological": false,
+    "score": 27,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "d7a40bf9acf1": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 38,
+    "model": "qwen3-1.7b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 28,
+    "scores": [
+      26,
+      26,
+      28
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "dc5e3f03c332": {
+    "lines": 175,
+    "model": "qwen3vl-4b",
+    "parses": false,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "pixel_as_world",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "deb840787b76": {
+    "accepted": false,
+    "always_failing_scenes": [
+      1
+    ],
+    "lines": 50,
+    "model": "qwen3-32b",
+    "oversized": false,
+    "parses": true,
+    "score": 27,
+    "scores": [
+      27,
+      26,
+      26
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "e009dfad75c4": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 37,
+    "model": "qwen3-8b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 29,
+    "scores": [
+      29,
+      28,
+      27
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "e4a5155486d6": {
+    "lines": 37,
+    "model": "qwen3-8b",
+    "parses": true,
+    "pathological": false,
+    "score": 24,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "e9789142dc06": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 70,
+    "model": "qwen3vl-32b",
+    "oversized": false,
+    "parses": true,
+    "saved": true,
+    "score": 28,
+    "scores": [
+      26,
+      26,
+      28
+    ],
+    "tag_only": false,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  },
+  "e99032108cea": {
+    "lines": 132,
+    "model": "qwen3-0.6b",
+    "parses": true,
+    "pathological": true,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "f6c26e2e1a4c": {
+    "lines": 60,
+    "model": "gemma3-27b",
+    "parses": true,
+    "pathological": false,
+    "score": 26,
+    "tags": [
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "f9a22ee2b2bd": {
+    "lines": 34,
+    "model": "qwen25-coder-7b",
+    "parses": true,
+    "pathological": false,
+    "score": 23,
+    "tags": [
+      "frame_no_world_transform",
+      "missing_coverage",
+      "wrong_orientation"
+    ],
+    "tier": "S3"
+  },
+  "fafa1ac500c5": {
+    "accepted": true,
+    "always_failing_scenes": [],
+    "lines": 117,
+    "model": "qwen35-2b",
+    "oversized": true,
+    "parses": true,
+    "saved": true,
+    "score": 30,
+    "scores": [
+      30
+    ],
+    "tag_only": false,
+    "tags": [
+      "degenerate_repetition",
+      "frame_no_world_transform",
+      "missing_coverage",
+      "never_invoked",
+      "wrong_orientation"
+    ],
+    "tier": "S4"
+  }
+}

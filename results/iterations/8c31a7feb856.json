@@ -1,0 +1,11 @@
+{
+  "8c31a7feb856": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\n\ndef wipe_up_spill(spill_name: str) -> None:\n  \"\"\"Wipes up the 'brown spill' using the attached sponge.\n\n  Args:\n      spill_name: The name of the spill to wipe up.\n  \"\"\"\n  spill_pose = get_object_pose(spill_name)\n  spill_position = spill_pose[0]\n  spill_quaternion = spill_pose[1]\n\n  # Define the wiping area.  We'll wipe a small square around the spill.\n  wipe_size = 0.15  # meters\n  min_x = spill_position[0] - wipe_size / 2\n  max_x = spill_position[0] + wipe_size / 2\n  min_y = spill_position[1] - wipe_size / 2\n  max_y = spill_position[1] + wipe_size / 2\n\n  # Iterate over the wiping area and go to the pose for each point.\n  for x in np.arange(min_x, max_x, 0.02):\n    for y in np.arange(min_y, max_y, 0.02):\n      current_pose = get_object_pose(spill_name, return_bbox_extent=False)\n      position = np.array([x, y, 0.0])\n      quaternion = np.array([0.0, 0.0, 1.0, 0.0])\n      goto_pose(position, quaternion)\n\nwipe_up_spill(\"brown spill\")",
+      "result": "6/30",
+      "hypothesis": "the nested raster is complete and correct; only the call is missing",
+      "outcome": "WRONG. Recovered 6/30. The raster covers a HARDCODED 0.15m square centred on the spill, never reading the bbox extent, at 49 waypoints vs the reference 100. It works only on scenes where the spill happens to fit inside that square."
+    }
+  ]
+}

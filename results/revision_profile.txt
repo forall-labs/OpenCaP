@@ -1,0 +1,11 @@
+# Multi-turn scaffold utilisation by scale -- 2026-09-06T20:23Z
+# S1, both arms, MAX_TURNS=10
+
+model          eps  mean turns  multi-turn  verbatim  revised  revised+won
+--------------------------------------------------------------------------
+qwen3-0.6b      60        1.00           0         0        0            0
+qwen3-4b       180        1.79          83        20       63           21
+qwen3-8b       180        1.32          30        30        0            0
+qwen3-14b      180        1.00           0         0        0            0
+
+A rung with 0 multi-turn episodes never re-entered the loop; a rung whose multi-turn episodes are all verbatim spent the turns for nothing. Neither is a longer-horizon-planning problem.

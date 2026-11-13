@@ -1,0 +1,11 @@
+{
+  "3d6eda2daf6e": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\n\n# Get initial poses of the objects\nred_pos, red_quat, _ = get_object_pose(\"red cube\", return_bbox_extent=False)\ngreen_pos, green_quat, green_extent = get_object_pose(\"green cube\", return_bbox_extent=True)\n\n# Get safe lift height (at least 0.2m above green cube top)\ngreen_center_z = green_pos[2]\ngreen_half_height = green_extent[2] / 2\nred_half_height = green_extent[2] / 2  # Assuming red cube has same size as green\nsafe_lift_z = green_center_z + green_half_height + 0.2\n\n# Calculate placement position (on top of green cube)\nplace_pos = np.array([green_pos[0], green_pos[1], green_center_z + green_half_height + red_half_height])\n\n# Use the grasp quaternion from sample_grasp_pose for both grasping and placing\nred_grasp_pos, red_grasp_quat = sample_grasp_pose(\"red cube\")\nplace_quat = red_grasp_quat  # Reuse the grasp quaternion for placement orientation\n\n# Step 1: Grasp the red cube\ngoto_pose(red_grasp_pos, red_grasp_quat, z_approach=0.1)\nclose_gripper()\n\n# Step 2: Lift the red cube to safe height\nlift_pos = red_grasp_pos.copy()\nlift_pos[2] += 0.2\ngoto_pose(lift_pos, red_grasp_quat)\n\n# Step 3: Move laterally to placement position (keeping same Z height)\ngoto_pose(np.array([place_pos[0], place_pos[1], lift_pos[2]]), red_grasp_quat)\n\n# Step 4: Place the red cube on top of the green cube\ngoto_pose(place_pos, place_quat, z_approach=0.1)\n\n# Step 5: Release the red cube\nopen_gripper()",
+      "result": "29/30",
+      "hypothesis": "the \"lift\" re-issues the grasp pose with z_approach=0.0 so nothing rises",
+      "outcome": "29/30. Residual is trial 13 at reward 0.05 -- the SAME scene and value as coder-7b's repair."
+    }
+  ]
+}

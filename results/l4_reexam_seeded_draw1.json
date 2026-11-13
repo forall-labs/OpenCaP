@@ -1,0 +1,50 @@
+[
+  {
+    "pid": "ef40b4163e91",
+    "ok": true,
+    "cross_check": "30/30 agree",
+    "wall": 34.4,
+    "successes": 30,
+    "n": 30,
+    "run_dir": "/data/capx-out/l4_reexam/draw1/oracle/ef40b4163e91",
+    "task": "cube_lifting",
+    "model": "gemma3-12b",
+    "level": "L4_scene_limited"
+  },
+  {
+    "pid": "81ee85d0f933",
+    "ok": true,
+    "cross_check": "29/30 agree",
+    "wall": 39.3,
+    "successes": 29,
+    "n": 30,
+    "run_dir": "/data/capx-out/l4_reexam/draw1/oracle/81ee85d0f933",
+    "task": "cube_stack",
+    "model": "qwen3-4b",
+    "level": "L4_scene_limited"
+  },
+  {
+    "pid": "e7356f7f0021",
+    "ok": true,
+    "cross_check": "26/30 agree",
+    "wall": 39.0,
+    "successes": 26,
+    "n": 30,
+    "run_dir": "/data/capx-out/l4_reexam/draw1/oracle/e7356f7f0021",
+    "task": "cube_stack",
+    "model": "qwen3-8b",
+    "level": "L4_scene_limited"
+  },
+  {
+    "pid": "0554815815fc",
+    "ok": true,
+    "cross_check": "30/30 agree",
+    "wall": 104.1,
+    "successes": 30,
+    "n": 30,
+    "run_dir": "/data/capx-out/l4_reexam/draw1/oracle/0554815815fc",
+    "task": "spill_wipe",
+    "model": "qwen25-coder-7b",
+    "level": "L4_scene_limited"
+  }
+]

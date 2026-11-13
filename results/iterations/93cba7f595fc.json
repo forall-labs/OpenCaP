@@ -1,0 +1,11 @@
+{
+  "93cba7f595fc": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\n\n# Get the pose of the brown spill\nspill_pose, _, bbox_extent = get_object_pose('brown spill', return_bbox_extent=True)\n\n# Extract the bounding box extents\nx_extent, y_extent, _ = bbox_extent\n\n# Calculate the minimum and maximum x and y bounds for wiping\nmin_x = spill_pose[0] - x_extent / 2\nmax_x = spill_pose[0] + x_extent / 2\nmin_y = spill_pose[1] - y_extent / 2\nmax_y = spill_pose[1] + y_extent / 2\n\n# Define the wiping orientation (downward-facing)\nwiping_orientation = np.array([0, 0, 1, 0])\n\n# Define the wipe height\nz_wipe = 0.0  # Wiping at the table surface height\n\n# Raster the spill area\nfor y in np.linspace(min_y, max_y, 10):\n    for x in np.linspace(min_x, max_x, 10):\n        goto_pose(np.array([x, y, z_wipe]), wiping_orientation)",
+      "result": "22/30",
+      "hypothesis": "ragged np.array literal raises before any motion; replace with a nested raster",
+      "outcome": "0/30 -> 22/30. Third row-major replication (22, 23, 23) confirming sweep order costs ~3 scenes."
+    }
+  ]
+}

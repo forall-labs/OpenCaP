@@ -1,0 +1,11 @@
+{
+  "6a98c7c543d8": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\n\n# Get the position and bounding box extent of the 'brown spill'\nspill_position, spill_quaternion, spill_bbox = get_object_pose('brown spill', return_bbox_extent=True)\n\n# Calculate the min and max x and y bounds for wiping\nx_min = spill_position[0] - spill_bbox[0] / 2\nx_max = spill_position[0] + spill_bbox[0] / 2\ny_min = spill_position[1] - spill_bbox[1] / 2\ny_max = spill_position[1] + spill_bbox[1] / 2\n\n# Set the wiping orientation (downward-facing)\nwiping_orientation = np.array([0.0, 0.0, 1.0, 0.0])\n\n# Move to the starting position for wiping (min x, min y)\nstart_position = np.array([x_min, y_min, 0.0])\ngoto_pose(start_position, wiping_orientation)\n\n# Raster the spill area rather than moving straight to the far corner\nfor y in np.linspace(y_min, y_max, 10):\n    for x in np.linspace(x_min, x_max, 10):\n        goto_pose(np.array([x, y, 0.0]), wiping_orientation)",
+      "result": "23/30",
+      "hypothesis": "moves only to the start and end corners; needs a nested raster",
+      "outcome": "0/30 -> 23/30. The nested raster IS the missing capability. Residual 6 scenes: my raster sweeps rows (for y outer, for x inner); the 29/30 reference sweeps columns (for x outer, for y inner). Only structural difference between them."
+    }
+  ]
+}

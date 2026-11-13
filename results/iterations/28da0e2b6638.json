@@ -1,0 +1,11 @@
+{
+  "28da0e2b6638": [
+    {
+      "iter": 1,
+      "code": "import numpy as np\nget_object_pose(\"brown spill\", return_bbox_extent=True)\nposition, quaternion, bbox_extent = get_object_pose(\"brown spill\", return_bbox_extent=True)\nmin_x = position[0] - bbox_extent[0] / 2\nmax_x = position[0] + bbox_extent[0] / 2\nmin_y = position[1] - bbox_extent[1] / 2\nmax_y = position[1] + bbox_extent[1] / 2\ngoto_pose(position, (0, 0, 1, 0))\nfor x in np.linspace(min_x, max_x, 10):\n    for y in np.linspace(min_y, max_y, 10):\n        goto_pose([x, y, 0.0], (0, 0, 1, 0))",
+      "result": "26/30",
+      "hypothesis": "nested raster present; range(int(...)) over metre coords collapses it",
+      "outcome": "0/30 -> 26/30. The linspace fix is right. Residual 3 scenes: a stray goto_pose to the spill centre at the SPILL own z before rastering (the pre-move pattern seen in cube_lifting for 2 other models), plus list/tuple args where the reference uses np.array. Column-major here scored 26 vs 23 for row-major on qwen3-14b, so sweep order is worth about 3 scenes but is not the whole gap."
+    }
+  ]
+}

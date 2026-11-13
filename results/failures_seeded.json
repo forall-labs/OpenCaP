@@ -1,0 +1,1081 @@
+[
+  {
+    "pid": "1969e3eebd73",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete",
+      "marginal"
+    ],
+    "median_reward": 0.516,
+    "error": "",
+    "code": "import numpy as np\n\nposition, quaternion, _ = get_object_pose(\"red cube\", return_bbox_extent=False)\ngoto_pose(position, quaternion, z_approach=0.1)\nopen_gripper()\nposition, quaternion = sample_grasp_pose(\"red cube\")\ngoto_pose(position, quaternion, z_approach=0.1)\nclose_gripper()"
+  },
+  {
+    "pid": "b7fa7bcdd8d0",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.5125,
+    "error": "",
+    "code": "# Get the grasp pose for the red cube\nposition, quaternion_wxyz = sample_grasp_pose(\"red cube\")\n\n# Move the robot to the grasp pose\ngoto_pose(position, quaternion_wxyz)\n\n# Close the gripper to grasp the red cube\nclose_gripper()"
+  },
+  {
+    "pid": "a734cf837029",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.5375,
+    "error": "",
+    "code": "# Get the pose of the red cube\nposition, quaternion_wxyz, bbox_extent = get_object_pose(\"red cube\")\n\n# Open the gripper\nopen_gripper()\n\n# Move to the pose of the red cube\ngoto_pose(position, quaternion_wxyz)\n\n# Grasp the red cube using the sample grasp pose\nposition_grasp, quaternion_grasp = sample_grasp_pose(\"red cube\")\n\n# Move to the grasp position\ngoto_pose(position_grasp, quaternion_grasp)\n\n# Close the gripper\nclose_gripper()"
+  },
+  {
+    "pid": "29b073a0e4f3",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "bad_value"
+    ],
+    "median_reward": 0.5195,
+    "error": "ValueError: too many values to unpack (expected 2)",
+    "code": "import numpy as np\n\n# Sample grasp pose for the red cube\nsample_grasp_pose = sample_grasp_pose(\"red_cube\")\n\n# Open the gripper\nopen_gripper()\n\n# Get the position and grasp pose of the red cube\nobject_pose, grasp_quaternion_wxyz = get_object_pose(\"red_cube\")\n\n# Calculate the gripper position using the sample grasp pose\nposition = np.array([0.0, 0.0, 0.0])  # Placeholder for actual position\nquaternion_wxyz = np.array([0.0, 0.0, 0.0])  # Placeholder for actual gripper position\n\n# Perform the goto_pose with the sample grasp pose\ngoto_pose(position, grasp_quaternion_wxyz, z_approach=0.0)\n\n# Lift the red cube\nlift_red_cube()"
+  },
+  {
+    "pid": "43095d10c293",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.527,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the red cube\nred_cube_pose = get_object_pose(\"red cube\")\nposition, quaternion_wxyz, bbox_extent = red_cube_pose\n\n# Sample a grasp pose for the red cube\ngrasp_pose = sample_grasp_pose(\"red cube\")\nposition_grasp, quaternion_grasp = grasp_pose\n\n# Move to the grasp pose\ngoto_pose(position_grasp, quaternion_grasp)\n\n# Open the gripper\nopen_gripper()\n\n# Lift the red cube\ngoto_pose(position, quaternion_wxyz, z_approach=0.0)"
+  },
+  {
+    "pid": "53322897bc04",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.485,
+    "error": "ModuleNotFoundError: No module named 'franka_api'",
+    "code": "import numpy as np\nfrom franka_api import get_object_pose, sample_grasp_pose, goto_pose, open_gripper, close_gripper\n\n# Sample grasp pose for the red cube\n# Note: The exact pose depends on the environment, but we use a sample grasp pose for the gripper\nsample_grasp_pose(\"red_cube\")\n\n# Get the grasp pose quaternion\ngrasp_quaternion = sample_grasp_pose(\"red_cube\")\n\n# Get the object pose\nobject_pose = get_object_pose(\"red_cube\", return_bbox_extent=False)\n\n# Get the object position\nobject_position = object_pose[0]\n\n# Get the object quaternion\nobject_quaternion = object_pose[1]\n\n# Get the gripper position\ngripper_position = grasp_quaternion[0]\n\n# Get the gripper quaternion\ngripper_quaternion = grasp_quaternion[1]\n\n# Open the gripper\nopen_gripper()\n\n# Close the gripper\nclose_gripper()\n\n# Go to the object position\ngoto_pose(object_position, object_quaternion, z_approach=0.0)"
+  },
+  {
+    "pid": "a86bb6608456",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.485,
+    "error": "ModuleNotFoundError: No module named 'franka_api'",
+    "code": "import numpy as np\nfrom franka_api import get_object_pose, sample_grasp_pose, goto_pose, open_gripper, close_gripper\n\n# Define the object name for the red cube\nobject_name = \"red_cube\"\n\n# Get the current pose of the red cube\ncube_pose = get_object_pose(object_name)\ncube_position = cube_pose[0]\ncube_quaternion = cube_pose[1]\ncube_bbox = cube_pose[2]\n\n# Sample a grasp pose for the red cube\ngrasp_pose = sample_grasp_pose(object_name)\ngrasp_position = grasp_pose[0]\ngrasp_quaternion = grasp_pose[1]\n\n# Open the gripper to prepare for picking up the object\nopen_gripper()\n\n# Move to the grasp pose with a small approach distance for precision\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.0)\n\n# Close the gripper to hold the object\nclose_gripper()"
+  },
+  {
+    "pid": "ffb459024b50",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "never_invoked"
+    ],
+    "median_reward": 0.485,
+    "error": "",
+    "code": "import numpy as np\n\ndef pick_up_red_cube():\n    # Get the pose of the red cube\n    red_cube_pose = get_object_pose('red_cube')\n    \n    # Sample a grasp pose for the red cube\n    grasp_pose = sample_grasp_pose('red_cube')\n    \n    # Go to the grasp pose\n    goto_pose(grasp_pose[0], grasp_pose[1])\n    \n    # Open the gripper\n    open_gripper()\n    \n    # Lift the cube\n    goto_pose(red_cube_pose[0], red_cube_pose[1], z_approach=0.1)\n    \n    # Close the gripper\n    close_gripper()"
+  },
+  {
+    "pid": "afc6b311aed3",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.508,
+    "error": "",
+    "code": "position, quaternion = sample_grasp_pose(\"red cube\")\ngoto_pose(position, quaternion, z_approach=0.1)\nopen_gripper()\ngoto_pose(position, quaternion, z_approach=0.1)\nclose_gripper()"
+  },
+  {
+    "pid": "4b1984c7e64d",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": -19.4775,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the red cube\ncube_position, cube_quaternion, cube_bbox_extent = get_object_pose(\"red cube\")\n\n# Sample a grasp pose for the red cube\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\n\n# Move the robot to the grasp position\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\n\n# Close the gripper to pick up the red cube\nclose_gripper()\n\n# Move the robot to a safe height above the red cube\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.2)\n\n# Move the robot to a position above the desired placement location\nplace_position = np.array([0.5, 0.5, 0.5])  # Example placement position\ngoto_pose(place_position, grasp_quaternion, z_approach=0.1)\n\n# Open the gripper to release the red cube\nopen_gripper()\n\n# Move the robot to a safe height above the placement location\ngoto_pose(place_position, grasp_quaternion, z_approach=0.2)"
+  },
+  {
+    "pid": "d95f866f69e8",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.515,
+    "error": "",
+    "code": "import numpy as np\n\nred_cube_pose = get_object_pose(\"red cube\")\nred_cube_position = red_cube_pose[0]\nred_cube_quaternion_wxyz = red_cube_pose[1]\n\ngrasp_pose = sample_grasp_pose(\"red cube\")\ngrasp_position = grasp_pose[0]\ngrasp_quaternion_wxyz = grasp_pose[1]\n\ngoto_pose(red_cube_position, red_cube_quaternion_wxyz)\nclose_gripper()"
+  },
+  {
+    "pid": "b722ec980ef2",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.5125,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the red cube\nred_cube_pose = get_object_pose(\"red cube\")\nposition = red_cube_pose[0]\nquaternion = red_cube_pose[1]\n\n# Sample a grasp pose for the red cube\ngrasp_pose = sample_grasp_pose(\"red cube\")\ngrasp_position = grasp_pose[0]\ngrasp_quaternion = grasp_pose[1]\n\n# Open the gripper\nopen_gripper()\n\n# Move to the grasp position with approach\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\n\n# Close the gripper to grasp the object\nclose_gripper()\n\n# Move to the object's position with approach to lift it\nlift_position = position\nlift_quaternion = (0, 0, 1, 0)  # Gripper down orientation\ngoto_pose(lift_position, lift_quaternion, z_approach=0.1)\n\n# Close the gripper to lift the object\nclose_gripper()"
+  },
+  {
+    "pid": "5c33ddefc93f",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "undefined_name"
+    ],
+    "median_reward": 0.485,
+    "error": "NameError: name 'position' is not defined",
+    "code": "get_object_pose(\"red cube\")\nsample_grasp_pose(\"red cube\")\ngoto_pose(position, quaternion_wxyz, z_approach=0.1)\nclose_gripper()\ngoto_pose(position, quaternion_wxyz, z_approach=0.1)\nopen_gripper()"
+  },
+  {
+    "pid": "d664c03db81d",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 19,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.71,
+    "error": "",
+    "code": "import numpy as np\n\n# Sample the grasp pose for the red cube\nred_cube_grasp_pose = sample_grasp_pose(\"red_cube\")\n\n# Get the pose of the red cube\nred_cube_pose = get_object_pose(\"red_cube\")\n\n# Open the gripper\nopen_gripper()\n\n# Go to the grasp pose with an approach of 0.1 meters\ngoto_pose(red_cube_grasp_pose[0], red_cube_grasp_pose[1], z_approach=0.1)\n\n# Close the gripper\nclose_gripper()\n\n# Go to the original pose of the red cube\ngoto_pose(red_cube_pose[0], red_cube_pose[1])"
+  },
+  {
+    "pid": "fa2f9b908fc4",
+    "task": "cube_lifting",
+    "tier": "S1",
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 3,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.747,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the red cube\nred_cube_position, red_cube_quaternion, _ = get_object_pose(\"red cube\")\n\n# Sample a grasp pose for the red cube\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red cube\")\n\n# Move to the grasp pose with a z-approach\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.05)\n\n# Close the gripper\nclose_gripper()\n\n# Move to a lifted pose\nlifted_position = red_cube_position + np.array([0.0, 0.0, 0.2])\ngoto_pose(lifted_position, red_cube_quaternion)  # Use the original cube's quaternion for lifting."
+  },
+  {
+    "pid": "616993ccfad3",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "syntax"
+    ],
+    "median_reward": 0.0025,
+    "error": "SyntaxError: '(' was never closed",
+    "code": "import numpy as np\n\ndef main():\n    # Define object names\n    red_cube_name = \"red_cube\"\n    green_cube_name = \"green_cube\"\n    \n    # Sample grasp pose for orientation\n    grasp_pos, grasp_quat = sample_grasp_pose(red_cube_name)\n    \n    # Get pose of green cube for reference\n    green_pos, green_quat, green_bbox = get_object_pose(green_cube_name, return_bbox_extent=True)\n    \n    # Get pose of red cube for reference\n    red_pos, red_quat, red_bbox = get_object_pose(red_cube_name, return_bbox_extent=True)\n    \n    # Calculate half-extents\n    green_half_extent = green_bbox[2] / 2\n    red_half_extent = red_bbox[2] / 2\n    \n    # Calculate target placement Z\n    # Formula: place_z = green_center_z + green_extent[2]/2 + red_extent[2]/2\n    target_z = green_pos[2] + green_half_extent + red_half_extent\n    \n    # Open gripper\n    open_gripper()\n    \n    # Approach red cube to grasp\n    # Use z_approach=0.1 as required\n    goto_pose(red_pos, red_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Lift red cube to safe height (at least +0.2m in Z)\n    # We approach with z_approach=0.1, so we need to go up 0.1 + 0.2 = 0.3m from the grasp point\n    # However, the problem says \"lift the cube to a safe height (at least +0.2m in Z) before moving laterally\"\n    # This implies we should approach the lift point with z_approach=0.1, then move up 0.2m.\n    # But to be safe and follow the \"nothing should be dropped\" rule strictly, we approach the lift point with z_approach=0.1.\n    # The lift height is 0.2m above the grasp point.\n    lift_z = target_z + 0.2\n    \n    # Approach the lift point\n    lift_pos = green_pos + np.array([0, 0, lift_z])\n    lift_quat = green_quat\n    goto_pose(lift_pos, lift_quat, z_approach=0.1)\n    \n    # Move to the placement location (green cube center)\n    # We need to approach the green cube with z_approach=0.1\n    green_center_z = green_pos[2]\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Place the red cube\n    # Use the grasp quaternion for orientation\n    place_z = target_z\n    place_quat = grasp_quat\n    goto_pose(green_center_pos, place_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Release the red cube\n    # Approach the red cube with z_approach=0.1\n    red_center_z = red_pos[2]\n    red_center_pos = red_pos + np.array([0, 0, red_center_z])\n    red_center_quat = red_quat\n    goto_pose(red_center_pos, red_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the red cube center\n    red_center_pos = red_pos + np.array([0, 0, red_center_z])\n    red_center_quat = red_quat\n    goto_pose(red_center_pos, red_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green_center_pos, green_center_quat, z_approach=0.1)\n    \n    # Close gripper\n    close_gripper()\n    \n    # Move to the green cube center\n    green_center_pos = green_pos + np.array([0, 0, green_center_z])\n    green_center_quat = green_quat\n    goto_pose(green"
+  },
+  {
+    "pid": "dc702b55fff8",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "never_invoked"
+    ],
+    "median_reward": 0.0025,
+    "error": "",
+    "code": "import numpy as np\n\ndef pick_and_stack_red_on_green():\n    # Sample grasp pose for the red cube\n    red_grasp_position, red_grasp_quaternion = sample_grasp_pose('red_cube')\n    \n    # Sample grasp pose for the green cube\n    green_grasp_position, green_grasp_quaternion = sample_grasp_pose('green_cube')\n    \n    # Get the pose of the green cube\n    green_pose, _, green_extent = get_object_pose('green_cube', return_bbox_extent=True)\n    \n    # Calculate the placement position\n    place_z = green_center_z + green_extent[2]/2 + red_extent[2]/2\n    place_position = np.array([green_pose[0], green_pose[1], place_z])\n    \n    # Go to the grasp position\n    goto_pose(red_grasp_position, red_grasp_quaternion, z_approach=0.1)\n    \n    # Open the gripper\n    open_gripper()\n    \n    # Lift the red cube to a safe height\n    goto_pose(red_grasp_position, red_grasp_quaternion, z_approach=0.2)\n    \n    # Close the gripper\n    close_gripper()\n    \n    # Go to the placement position\n    goto_pose(place_position, green_grasp_quaternion, z_approach=0.1)\n    \n    # Open the gripper\n    open_gripper()\n    \n    # Place the red cube on top of the green cube\n    goto_pose(place_position, green_grasp_quaternion, z_approach=0.2)\n    \n    # Close the gripper\n    close_gripper()"
+  },
+  {
+    "pid": "0e0d6365d8ae",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "marginal"
+    ],
+    "median_reward": 0.234,
+    "error": "",
+    "code": "import numpy as np\n\n# Sample grasp pose for the red cube\ngrasp_pose = sample_grasp_pose(\"red cube\")\nposition, quaternion_wxyz = grasp_pose\n\n# Get the pose of the green cube\ngreen_cube_pose = get_object_pose(\"green cube\", return_bbox_extent=True)\nposition_green, quaternion_wxyz_green, bbox_extent_green = green_cube_pose\n\n# Get the pose of the red cube\nred_cube_pose = get_object_pose(\"red cube\", return_bbox_extent=True)\nposition_red, quaternion_wxyz_red, bbox_extent_red = red_cube_pose\n\n# Use the grasp quaternion for orientation\ngripper_orientation = quaternion_wxyz\n\n# Approach the red cube with z_approach=0.1\ngoto_pose(position_red, quaternion_wxyz, z_approach=0.1)\n\n# Open gripper\nopen_gripper()\n\n# Grasp the red cube\ngoto_pose(position_red, quaternion_wxyz, z_approach=0.1)\n\n# Lift the red cube to a safe height (at least +0.2m in Z)\ngoto_pose(position_red, quaternion_wxyz, z_approach=0.2)\n\n# Calculate the stacking height\nstacking_height = position_green[2] + bbox_extent_green[2] / 2 + bbox_extent_red[2] / 2\n\n# Place the red cube on top of the green cube\ngoto_pose(position_red, quaternion_wxyz, z_approach=0.1)\ngoto_pose(position_red, quaternion_wxyz, z_approach=0.2)\n\n# Close the gripper\nclose_gripper()\n\n# Release the red cube\ngoto_pose(position_red, quaternion_wxyz, z_approach=0.1)"
+  },
+  {
+    "pid": "90b045d2103b",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "syntax"
+    ],
+    "median_reward": 0.0025,
+    "error": "SyntaxError: invalid syntax",
+    "code": "import numpy as np\n\n# Assuming the following objects exist in the environment:\n# - 'red_cube'\n# - 'green_cube'\n# - 'grasp_pose' (sample_grasp_pose)\n# - 'pose' (get_object_pose)\n\n# Sample grasp pose quaternion (wxyz)\ngrasp_quaternion = np.array([0.99, 0.01, 0.01, 0.01])\n\n# Sample grasp position (meters)\ngrasp_position = np.array([0.0, 0.0, 0.0])\n\n# Sample green cube pose (meters)\ngreen_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube pose (meters)\nred_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample green cube extent (meters)\ngreen_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube extent (meters)\nred_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose position (meters)\ngrasp_position = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose quaternion (wxyz)\ngrasp_quaternion = np.array([0.99, 0.01, 0.01, 0.01])\n\n# Sample green cube pose (meters)\ngreen_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube pose (meters)\nred_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample green cube extent (meters)\ngreen_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube extent (meters)\nred_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose position (meters)\ngrasp_position = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose quaternion (wxyz)\ngrasp_quaternion = np.array([0.99, 0.01, 0.01, 0.01])\n\n# Sample green cube pose (meters)\ngreen_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube pose (meters)\nred_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample green cube extent (meters)\ngreen_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube extent (meters)\nred_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose position (meters)\ngrasp_position = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose quaternion (wxyz)\ngrasp_quaternion = np.array([0.99, 0.01, 0.01, 0.01])\n\n# Sample green cube pose (meters)\ngreen_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube pose (meters)\nred_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample green cube extent (meters)\ngreen_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube extent (meters)\nred_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose position (meters)\ngrasp_position = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose quaternion (wxyz)\ngrasp_quaternion = np.array([0.99, 0.01, 0.01, 0.01])\n\n# Sample green cube pose (meters)\ngreen_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube pose (meters)\nred_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample green cube extent (meters)\ngreen_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube extent (meters)\nred_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose position (meters)\ngrasp_position = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose quaternion (wxyz)\ngrasp_quaternion = np.array([0.99, 0.01, 0.01, 0.01])\n\n# Sample green cube pose (meters)\ngreen_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube pose (meters)\nred_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample green cube extent (meters)\ngreen_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube extent (meters)\nred_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose position (meters)\ngrasp_position = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose quaternion (wxyz)\ngrasp_quaternion = np.array([0.99, 0.01, 0.01, 0.01])\n\n# Sample green cube pose (meters)\ngreen_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube pose (meters)\nred_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample green cube extent (meters)\ngreen_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube extent (meters)\nred_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose position (meters)\ngrasp_position = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose quaternion (wxyz)\ngrasp_quaternion = np.array([0.99, 0.01, 0.01, 0.01])\n\n# Sample green cube pose (meters)\ngreen_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube pose (meters)\nred_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample green cube extent (meters)\ngreen_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube extent (meters)\nred_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose position (meters)\ngrasp_position = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose quaternion (wxyz)\ngrasp_quaternion = np.array([0.99, 0.01, 0.01, 0.01])\n\n# Sample green cube pose (meters)\ngreen_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube pose (meters)\nred_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample green cube extent (meters)\ngreen_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube extent (meters)\nred_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose position (meters)\ngrasp_position = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose quaternion (wxyz)\ngrasp_quaternion = np.array([0.99, 0.01, 0.01, 0.01])\n\n# Sample green cube pose (meters)\ngreen_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube pose (meters)\nred_pose = np.array([0.0, 0.0, 0.0])\n\n# Sample green cube extent (meters)\ngreen_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample red cube extent (meters)\nred_extent = np.array([0.0, 0.0, 0.0])\n\n# Sample grasp pose position (meters)\ngrasp_position ="
+  },
+  {
+    "pid": "88c506d29d99",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.0,
+    "error": "",
+    "code": "import numpy as np\n\ndef solve():\n    # Get the pose of the red cube\n    red_pose, red_quaternion_wxyz, red_bbox_extent = get_object_pose(\"red cube\")\n    \n    # Get the pose of the green cube\n    green_pose, green_quaternion_wxyz, green_bbox_extent = get_object_pose(\"green cube\")\n    \n    # Sample a grasp pose for the red cube\n    red_grasp_pose, red_grasp_quaternion_wxyz = sample_grasp_pose(\"red cube\")\n    \n    # Calculate the placement height\n    place_z = green_pose[2] + green_bbox_extent[2]/2 + red_bbox_extent[2]/2\n    \n    # Go to the green cube's pose with a z-approach\n    goto_pose(green_pose, green_quaternion_wxyz, z_approach=0.1)\n    \n    # Approach the green cube\n    close_gripper()\n    \n    # Lift the red cube to a safe height\n    goto_pose(red_pose, red_quaternion_wxyz, z_approach=0.1)\n    \n    # Move laterally to the placement location\n    goto_pose(np.array([0.5, 0.5, 0.2]), red_grasp_quaternion_wxyz, z_approach=0.1)\n    \n    # Place the red cube on top of the green cube\n    goto_pose(np.array([0.5, 0.5, place_z]), red_grasp_quaternion_wxyz, z_approach=0.1)\n    \n    # Release the red cube\n    open_gripper()\n    \nsolve()"
+  },
+  {
+    "pid": "9fec67c20d20",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "bad_index"
+    ],
+    "median_reward": 0.1035,
+    "error": "IndexError: invalid index to scalar variable.",
+    "code": "import numpy as np\n\n# Define the stacking height formula\ndef calculate_place_z(green_center_z, green_extent):\n    return green_center_z + green_extent[2] / 2 + (np.array([1, 0, 0]) @ np.array([1, 0, 0]))[2] / 2\n\n# Get the pose of the green cube\ngreen_cube_pose = get_object_pose(\"green_cube\", return_bbox_extent=True)\ngreen_position, green_quaternion, green_extent = green_cube_pose\n\n# Get the pose of the red cube\nred_cube_pose = get_object_pose(\"red_cube\", return_bbox_extent=True)\nred_position, red_quaternion, red_extent = red_cube_pose\n\n# Sample grasp pose for the red cube\ngrasp_position, grasp_quaternion = sample_grasp_pose(\"red_cube\")\n\n# Approach the red cube with z_approach=0.1\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\n\n# Open the gripper\nopen_gripper()\n\n# Lift the red cube to a safe height\ngoto_pose(red_position, grasp_quaternion, z_approach=0.2)\n\n# Place the red cube on top of the green cube\nplace_z = calculate_place_z(green_position[2], green_extent)\ngoto_pose([red_position[0], red_position[1], place_z], grasp_quaternion, z_approach=0.1)\n\n# Close the gripper\nclose_gripper()"
+  },
+  {
+    "pid": "d5fcf1e81967",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "wrong_signature"
+    ],
+    "median_reward": 0.112,
+    "error": "TypeError: FrankaControlPrivilegedApi.goto_pose() got multiple values for argument 'position'",
+    "code": "import numpy as np\n\n# Sample the grasp pose for the red cube\nred_grasp_pose = sample_grasp_pose('red_cube')\n\n# Get the pose of the green cube\ngreen_pose = get_object_pose('green_cube', return_bbox_extent=True)\n\n# Calculate the placement position\ngreen_center_z = green_pose[0][2]\ngreen_extent = green_pose[2]\nred_extent = get_object_pose('red_cube', return_bbox_extent=True)[2]\nplace_z = green_center_z + green_extent[2]/2 + red_extent[2]/2\n\n# Approach the red cube for grasping\ngoto_pose(red_grasp_pose[0], red_grasp_pose[1], z_approach=0.1)\n\n# Open the gripper\nopen_gripper()\n\n# Grasp the red cube\ngoto_pose(red_grasp_pose[0], red_grasp_pose[1])\n\n# Lift the red cube to a safe height\ngoto_pose(red_grasp_pose[0], red_grasp_pose[1], z_approach=0.1, position=np.array([red_grasp_pose[0][0], red_grasp_pose[0][1], place_z]))\n\n# Close the gripper\nclose_gripper()\n\n# Approach the green cube for placement\ngoto_pose(green_pose[0], np.array([0, 0, 0]), z_approach=0.1)\n\n# Place the red cube on top of the green cube\ngoto_pose(green_pose[0], np.array([0, 0, place_z]))\n\n# Open the gripper\nopen_gripper()"
+  },
+  {
+    "pid": "06788121c5ac",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "wrong_signature"
+    ],
+    "median_reward": 0.0275,
+    "error": "TypeError: cannot unpack non-iterable NoneType object",
+    "code": "import numpy as np\n\n# Sample grasp pose\nsample_grasp_pose = np.array([0.5, 0.5, 0.5]), np.array([0, 0, 1, 0]), np.array([0.0])\n\n# Get object pose\nobject_pose, grasp_quaternion_wxyz, _ = get_object_pose(\"red_cube\")\n\n# Open gripper\nopen_gripper()\n\n# Place the red cube\nposition, quaternion_wxyz, _ = goto_pose(object_pose, grasp_quaternion_wxyz, z_approach=0.1)\n# Place the red cube on top of the green cube\ngreen_center_z = 0.5\nred_center_z = green_center_z + 0.25 + 0.25\nplace_z = green_center_z + green_extent[2]/2 + red_extent[2]/2\n# Place the red cube\nposition, quaternion_wxyz, _ = goto_pose(position, quaternion_wxyz, z_approach=0.1)\n\n# Close gripper\nclose_gripper()"
+  },
+  {
+    "pid": "016f6392e871",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 23,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.004,
+    "error": "",
+    "code": "import numpy as np\n\ndef stack_red_on_green():\n    \"\"\"\n    Pick up the red cube and gently stack it on top of the green cube, then release it.\n    \"\"\"\n\n    # Get the grasp pose for the red cube\n    red_grasp_pos, red_grasp_quat = sample_grasp_pose(\"red cube\")\n\n    # Go to the red cube grasp pose\n    goto_pose(red_grasp_pos, red_grasp_quat, z_approach=0.1)\n\n    # Close the gripper\n    close_gripper()\n\n    # Lift the red cube to a safe height\n    lift_z = 0.2\n    red_pos = np.copy(red_grasp_pos)\n    red_pos[2] += lift_z\n    goto_pose(red_pos, red_grasp_quat, z_approach=0.1)\n\n    # Get the pose of the green cube\n    green_pos, green_quat, green_extent = get_object_pose(\"green cube\", return_bbox_extent=True)\n\n    # Calculate the placement position\n    place_z = green_pos[2] + green_extent[2]/2 + red_extent[2]/2\n    place_pos = np.copy(green_pos)\n    place_pos[2] = place_z\n\n    # Go to the placement position\n    goto_pose(place_pos, red_grasp_quat, z_approach=0.1)\n\n    # Open the gripper\n    open_gripper()\n\n    # Move away from the placed cube\n    move_away_z = 0.2\n    place_pos[2] += move_away_z\n    goto_pose(place_pos, red_grasp_quat, z_approach=0.1)\n\n# Assume red_extent and green_extent are available from get_object_pose\nred_extent, _, _ = get_object_pose(\"red cube\", return_bbox_extent=True)\ngreen_extent, _, _ = get_object_pose(\"green cube\", return_bbox_extent=True)\n\nstack_red_on_green()"
+  },
+  {
+    "pid": "718915ea2b1a",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 23,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.0,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the poses and extents of the red and green cubes\nred_pose, red_quaternion, red_extent = get_object_pose(\"red cube\", return_bbox_extent=True)\ngreen_pose, green_quaternion, green_extent = get_object_pose(\"green cube\", return_bbox_extent=True)\n\n# Sample a grasp pose for the red cube\nred_grasp_pose, red_grasp_quaternion = sample_grasp_pose(\"red cube\")\n\n# Approach the red cube for grasping\ngoto_pose(red_grasp_pose, red_grasp_quaternion, z_approach=0.1)\n\n# Close the gripper to grasp the red cube\nclose_gripper()\n\n# Lift the red cube to a safe height\nred_lifted_pose = red_grasp_pose.copy()\nred_lifted_pose[2] += 0.2\ngoto_pose(red_lifted_pose, red_grasp_quaternion)\n\n# Calculate the placement position\nplace_z = green_pose[2] + green_extent[2] / 2 + red_extent[2] / 2\nplace_pose = green_pose.copy()\nplace_pose[2] = place_z\n\n# Approach the placement position for placing\ngoto_pose(place_pose, red_grasp_quaternion, z_approach=0.1)\n\n# Open the gripper to release the red cube\nopen_gripper()\n\n# Move the robot to a safe position after releasing the cube\ngoto_pose(np.array([0.5, 0.5, 0.5]), np.array([0, 0, 1, 0]), z_approach=0.1)"
+  },
+  {
+    "pid": "49b442823ed4",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 18,
+    "root_causes": [
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.05,
+    "error": "",
+    "code": "import numpy as np\n\n# Get initial poses of the objects\nred_pos, red_quat, _ = get_object_pose(\"red cube\", return_bbox_extent=False)\ngreen_pos, green_quat, green_extent = get_object_pose(\"green cube\", return_bbox_extent=True)\n\n# Get safe lift height (at least 0.2m above green cube top)\ngreen_center_z = green_pos[2]\ngreen_half_height = green_extent[2] / 2\nred_half_height = green_extent[2] / 2  # Assuming red cube has same size as green\nsafe_lift_z = green_center_z + green_half_height + 0.2\n\n# Calculate placement position (on top of green cube)\nplace_pos = np.array([green_pos[0], green_pos[1], green_center_z + green_half_height + red_half_height])\n\n# Use the grasp quaternion from sample_grasp_pose for both grasping and placing\nred_grasp_pos, red_grasp_quat = sample_grasp_pose(\"red cube\")\n\n# Approach and grasp the red cube\ngoto_pose(red_grasp_pos, red_grasp_quat, z_approach=0.1)\nclose_gripper()\n\n# Lift the red cube to safe height\ngoto_pose(red_grasp_pos, red_grasp_quat, z_approach=0.0)\n\n# Move laterally to placement position while maintaining lift height\ngoto_pose(place_pos, red_grasp_quat, z_approach=0.0)\n\n# Place the red cube on top of the green cube\ngoto_pose(place_pos, red_grasp_quat, z_approach=0.1)\nclose_gripper()\n\n# Open the gripper to release\nopen_gripper()"
+  },
+  {
+    "pid": "c0c896f94222",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 10,
+    "root_causes": [
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.043,
+    "error": "",
+    "code": "import numpy as np\n\n# Get poses and extents of the objects\nred_pose, red_quat, red_extent = get_object_pose(\"red cube\", return_bbox_extent=True)\ngreen_pose, green_quat, green_extent = get_object_pose(\"green cube\", return_bbox_extent=True)\n\n# Sample grasp pose for the red cube\nred_grasp_pose = sample_grasp_pose(\"red cube\")\n\n# Calculate placement height for the red cube on top of the green cube\ngreen_center_z = green_pose[2]\nplace_z = green_center_z + green_extent[2]/2 + red_extent[2]/2\n\n# Approach to the red cube for grasping\ngoto_pose(red_grasp_pose[0], red_grasp_pose[1], z_approach=0.1)\n\n# Grasp the red cube\nclose_gripper()\n\n# Lift the red cube to a safe height\ngoto_pose(red_grasp_pose[0], red_grasp_pose[1], z_approach=0.1)\ngoto_pose(red_grasp_pose[0], red_grasp_pose[1], z_approach=0.1)  # Ensure safe lift\n\n# Move laterally to the green cube's placement location\n# Calculate placement position: center of green cube + half extent in Z (for stacking)\nplacement_position = green_pose.copy()\nplacement_position[2] = place_z\n\n# Approach to placement position\ngoto_pose(placement_position, red_grasp_pose[1], z_approach=0.1)\n\n# Place the red cube\nopen_gripper()\n\n# Move back to original position (optional, if needed for safety or reset)\ngoto_pose(red_grasp_pose[0], red_grasp_pose[1], z_approach=0.1)"
+  },
+  {
+    "pid": "e7356f7f0021",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 5,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.003,
+    "error": "",
+    "code": "import numpy as np\n\n# Get initial poses for red and green cubes\nred_pos, red_quat, red_extent = get_object_pose(\"red cube\", return_bbox_extent=True)\ngreen_pos, green_quat, green_extent = get_object_pose(\"green cube\", return_bbox_extent=True)\n\n# Sample grasp pose for red cube\nred_grasp_pos, red_grasp_quat = sample_grasp_pose(\"red cube\")\n\n# Approach and grasp red cube\ngoto_pose(red_grasp_pos, red_grasp_quat, z_approach=0.1)\nclose_gripper()\n\n# Lift red cube to safe height\nlift_height = 0.2\nlift_pos = red_grasp_pos.copy()\nlift_pos[2] += lift_height\ngoto_pose(lift_pos, red_grasp_quat, z_approach=0.0)\n\n# Calculate placement position for red cube on top of green cube\nplace_z = green_pos[2] + green_extent[2]/2 + red_extent[2]/2\nplace_pos = green_pos.copy()\nplace_pos[2] = place_z\n\n# Approach and place red cube\ngoto_pose(place_pos, red_grasp_quat, z_approach=0.1)\nopen_gripper()\n\n# Move back to lift position to avoid collision\ngoto_pose(lift_pos, red_grasp_quat, z_approach=0.0)"
+  },
+  {
+    "pid": "65ceca4e9cdb",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 1,
+    "root_causes": [
+      "marginal"
+    ],
+    "median_reward": 0.05,
+    "error": "",
+    "code": "import numpy as np\n\n# Get poses and extents for red and green cubes\nred_pose, red_quat = sample_grasp_pose(\"red cube\")\ngreen_pose, green_quat, green_extent = get_object_pose(\"green cube\", return_bbox_extent=True)\nred_extent = get_object_pose(\"red cube\", return_bbox_extent=True)[2]\n\n# Calculate placement position for stacking\nplace_z = green_pose[2] + green_extent[2]/2 + red_extent[2]/2\nplace_pose = np.array([green_pose[0], green_pose[1], place_z])\n\n# Approach and grasp red cube\ngoto_pose(red_pose, red_quat, z_approach=0.1)\nclose_gripper()\n\n# Lift cube to safe height\nlift_pose = red_pose.copy()\nlift_pose[2] += 0.2\ngoto_pose(lift_pose, red_quat)\n\n# Move to placement position\ngoto_pose(place_pose, red_quat, z_approach=0.1)\n\n# Release the cube\nopen_gripper()"
+  },
+  {
+    "pid": "81ee85d0f933",
+    "task": "cube_stack",
+    "tier": "S1",
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 1,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.038,
+    "error": "",
+    "code": "import numpy as np\n\n# Get poses and extents of the objects\nred_pose, red_quat, red_bbox = get_object_pose(\"red cube\", return_bbox_extent=True)\ngreen_pose, green_quat, green_bbox = get_object_pose(\"green cube\", return_bbox_extent=True)\n\n# Extract positions and extents\nred_pos = red_pose\ngreen_pos = green_pose\nred_extent = red_bbox\ngreen_extent = green_bbox\n\n# Use the grasp quaternion from sample_grasp_pose for orientation\ngrasp_quat = sample_grasp_pose(\"red cube\")[1]\n\n# Calculate placement position for the red cube on top of the green cube\ngreen_center_z = green_pos[2]\nplace_z = green_center_z + green_extent[2]/2 + red_extent[2]/2\nplace_pos = np.array([green_pos[0], green_pos[1], place_z])\n\n# Approach and grasp the red cube\ngoto_pose(red_pos, grasp_quat, z_approach=0.1)\nclose_gripper()\n\n# Lift the cube to a safe height\nlift_height = red_pos[2] + 0.2\ngoto_pose(red_pos, grasp_quat, z_approach=lift_height - red_pos[2])\n\n# Move laterally to the placement position\ngoto_pose(place_pos, grasp_quat, z_approach=0.1)\n\n# Place the cube on top of the green cube\nopen_gripper()"
+  },
+  {
+    "pid": "c05383192094",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "undefined_name"
+    ],
+    "median_reward": 0.0,
+    "error": "NameError: name 'get_fixed_rigid_transform' is not defined",
+    "code": "# Get the object pose of the brown square nut\nnut_pose = get_object_pose(\"brown square nut\")\n\n# Get the grasp pose for the extruded handle of the brown square nut\nextruded_handle_pose = sample_grasp_pose(\"extruded handle of the brown square nut\")\n\n# Apply the fixed rigid transform between the nut's object center and the grasp pose\nfixed_rigid_transform = get_fixed_rigid_transform(nut_pose, extruded_handle_pose)\n\n# Get the position of the handle region in the world frame\nhandle_position = get_object_pose(\"handle region\")\n\n# Apply the fixed rigid transform to the handle position\nhandle_position = handle_position @ fixed_rigid_transform\n\n# Use the handle position to reach the peg\ngoto_pose(handle_position, fixed_rigid_transform, z_approach=0.0)\n\n# Open the gripper\nopen_gripper()\n\n# Insert the nut onto the peg\ngoto_pose(nut_pose, fixed_rigid_transform, z_approach=0.0)"
+  },
+  {
+    "pid": "b296d8967481",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "bad_value"
+    ],
+    "median_reward": 0.0,
+    "error": "ValueError: Invalid object name: brown square nut",
+    "code": "# Get the pose of the brown square nut\nnut_pose = get_object_pose(\"brown square nut\")\n\n# Get the pose of the extruded handle of the brown square nut\nhandle_pose = get_object_pose(\"extruded handle of the brown square nut\")\n\n# Sample a grasp pose for the nut\ngrasp_pose = sample_grasp_pose(\"brown square nut\")\n\n# Apply the grasp pose to the nut\ngoto_pose(grasp_pose[0], grasp_pose[1])\n\n# Open the gripper\nopen_gripper()\n\n# Insert the nut onto the brown square block\ngoto_pose(nut_pose[0], nut_pose[1], z_approach=0.0)"
+  },
+  {
+    "pid": "354e3ade0228",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "bad_value"
+    ],
+    "median_reward": 0.0,
+    "error": "ValueError: Invalid object name: brown_square_nut",
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\n\n# Define the object names based on the task description\n# The task mentions:\n# - 'brown square nut'\n# - 'brown square block'\n# - 'extruded handle of the brown square nut'\n# - 'white hollow center of the brown square nut'\n# - 'brown square block' (likely the peg)\n\n# Assuming these are the object names as described in the task\nobject_names = ['brown_square_nut', 'brown_square_block', 'extruded_handle', 'white_hollow_center']\n\n# Sample grasp pose for the brown square nut\nsample_grasp_pose = sample_grasp_pose(object_names[0])\n\n# Get the object pose for the brown square nut\nobject_pose = get_object_pose(object_names[0])\n\n# Get the grasp pose for the brown square nut\ngrasp_pose = sample_grasp_pose(object_names[0])\n\n# Get the object center pose for the brown square nut\nobject_center = get_object_pose(object_names[1])\n\n# Get the grasp pose for the brown square nut\ngrasp_center = sample_grasp_pose(object_names[1])\n\n# Get the grasp pose for the extruded handle of the brown square nut\nhandle_grasp = sample_grasp_pose(object_names[2])\n\n# Get the grasp pose for the white hollow center of the brown square nut\nhandle_center_grasp = sample_grasp_pose(object_names[3])\n\n# Define the rigid transform between the handle grasp pose and the object center pose\n# The task states they have a fixed rigid transform\nhandle_grasp_quaternion = grasp_center[2]\nhandle_grasp_position = grasp_center[0]\nhandle_grasp_quaternion_wxyz = grasp_center[3]\n\n# Calculate the rotation matrix from the handle grasp pose to the object center pose\n# We need to find the rotation that aligns the handle grasp pose to the object center pose\n# Since we have the quaternion of the handle grasp pose and the quaternion of the object center pose,\n# we can compute the rotation matrix using the quaternion-to-rotation matrix conversion.\n\n# Convert quaternion to rotation matrix\nhandle_grasp_rotation = Rotation.from_quaternion(handle_grasp_quaternion_wxyz)\nobject_center_rotation = Rotation.from_quaternion(object_center[3])\n\n# Calculate the rotation matrix\nhandle_grasp_rotation_matrix = handle_grasp_rotation.matrix\nobject_center_rotation_matrix = object_center_rotation.matrix\n\n# Calculate the rotation that transforms the handle grasp pose to the object center pose\n# This is the rotation needed to align the handle grasp pose with the object center pose\n# We need to find the rotation R such that R * handle_grasp_rotation_matrix = object_center_rotation_matrix\n# This is a bit tricky because we don't have the target pose directly.\n# Instead, we can compute the rotation that aligns the handle grasp pose to the object center pose\n# by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Let's try a different approach:\n# We know the handle grasp pose and the object center pose.\n# We need to find the rotation that transforms the handle grasp pose to the object center pose.\n# This is equivalent to finding the rotation R such that R * handle_grasp_pose = object_center_pose.\n\n# Since we don't have the handle grasp pose directly, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can do this by finding the rotation that makes the handle grasp pose equal to the object center pose.\n\n# Since we don't have the handle grasp pose, let's assume the handle grasp pose is the same as the object center pose\n# for now, and we'll adjust based on the actual values.\n\n# Let's try to find the rotation that aligns the handle grasp pose to the object center pose\n# We can"
+  },
+  {
+    "pid": "e19d3ded68a0",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "never_invoked"
+    ],
+    "median_reward": 0.0,
+    "error": "",
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation as R\n\ndef main():\n    # Define the objects we need to interact with\n    nut_name = \"brown square nut\"\n    block_name = \"brown square block\"\n    \n    # Get the object pose of the nut\n    nut_pose = get_object_pose(nut_name)\n    nut_position = nut_pose[0]\n    nut_quaternion = nut_pose[1]\n    \n    # Get the object pose of the block\n    block_pose = get_object_pose(block_name)\n    block_position = block_pose[0]\n    block_quaternion = block_pose[1]\n    \n    # Get the sample grasp pose for the nut's handle\n    # This gives us the end-effector pose on the handle region\n    handle_grasp_pose = sample_grasp_pose(nut_name)\n    handle_grasp_position = handle_grasp_pose[0]\n    handle_grasp_quaternion = handle_grasp_pose[1]\n    \n    # Get the object center pose of the nut\n    nut_center_pose = get_object_pose(nut_name)\n    nut_center_position = nut_center_pose[0]\n    nut_center_quaternion = nut_center_pose[1]\n    \n    # The nut's object center pose and the handle grasp pose have a fixed rigid transform\n    # We need to apply this transform to get the nut's center relative to the handle\n    nut_center_quaternion = nut_center_quaternion * handle_grasp_quaternion\n    nut_center_position = nut_center_position + handle_grasp_position\n    \n    # Define the target position for the nut's center on the block\n    # We need to approach the block and then insert the nut\n    target_block_position = block_position + np.array([0.0, 0.0, 0.05])  # Approach 5cm in Z\n    \n    # Go to the target block position\n    goto_pose(target_block_position, block_quaternion, z_approach=0.0)\n    \n    # Open the gripper to prepare for insertion\n    open_gripper()\n    \n    # Move to the nut's center position (which is now relative to the handle)\n    # We need to go to the nut's center position relative to the block\n    nut_center_relative_to_block = nut_center_position - block_position\n    goto_pose(nut_center_relative_to_block, block_quaternion, z_approach=0.0)\n    \n    # Close the gripper to grasp the nut\n    close_gripper()\n    \n    # Move to the nut's center position relative to the block\n    goto_pose(nut_center_relative_to_block, block_quaternion, z_approach=0.0)\n    \n    # Now we need to insert the nut onto the block. \n    # The nut's center is at the handle, so we need to move the end-effector to the nut's center\n    # and then rotate to align with the block's surface.\n    # Since the nut is rigid with its handle, we can use the handle grasp pose to guide the insertion.\n    # We'll move to the nut's center position and then rotate to align with the block.\n    \n    # Move to the nut's center position\n    goto_pose(nut_center_position, nut_quaternion, z_approach=0.0)\n    \n    # Rotate to align with the block's surface\n    # We need to find the rotation that aligns the nut's center with the block's surface\n    # Since we don't have the exact surface normal, we'll use a simple approach\n    # to align the nut's center with the block's position and then rotate to match the block's orientation.\n    \n    # Move to the block's position\n    goto_pose(block_position, block_quaternion, z_approach=0.0)\n    \n    # Rotate to align the nut's center with the block's position\n    # We'll use a simple rotation to align the nut's center with the block's position\n    # This is a simplified approach and may need adjustment based on the actual geometry\n    nut_center_quaternion = R.from_euler('z', np.pi/2, nut_center_quaternion)\n    goto_pose(nut_center_position, nut_center_quaternion, z_approach=0.0)\n    \n    # Close the gripper to grasp the nut\n    close_gripper()\n    \n    # Move to the nut's center position relative to the block\n    goto_pose(nut_center_relative_to_block, block_quaternion, z_approach=0.0)\n    \n    # Now we need to insert the nut onto the block. \n    # Since the nut is rigid with its handle, we can use the handle grasp pose to guide the insertion.\n    # We'll move to the nut's center position and then rotate to align with the block's surface.\n    \n    # Move to the nut's center position\n    goto_pose(nut_center_position, nut_quaternion, z_approach=0.0)\n    \n    # Rotate to align with the block's surface\n    # We'll use a simple rotation to align the nut's center with the block's position\n    # This is a simplified approach and may need adjustment based on the actual geometry\n    nut_center_quaternion = R.from_euler('z', np.pi/2, nut_center_quaternion)\n    goto_pose(nut_center_position, nut_center_quaternion, z_approach=0.0)\n    \n    # Close the gripper to grasp the nut\n    close_gripper()\n    \n    # Move to the nut's center position relative to the block\n    goto_pose(nut_center_relative_to_block, block_quaternion, z_approach=0.0)\n    \n    # Now we need to insert the nut onto the block. \n    # Since the nut is rigid with its handle, we can use the handle grasp pose to guide the insertion.\n    # We'll move to the nut's center position and then rotate to align with the block's surface.\n    \n    # Move to the nut's center position\n    goto_pose(nut_center_position, nut_quaternion, z_approach=0.0)\n    \n    # Rotate to align with the block's surface\n    # We'll use a simple rotation to align the nut's center with the block's position\n    # This is a simplified approach and may need adjustment based on the actual geometry\n    nut_center_quaternion = R.from_euler('z', np.pi/2, nut_center_quaternion)\n    goto_pose(nut_center_position, nut_center_quaternion, z_approach=0.0)\n    \n    # Close the gripper to grasp the nut\n    close_gripper()\n    \n    # Move to the nut's center position relative to the block\n    goto_pose(nut_center_relative_to_block, block_quaternion, z_approach=0.0)\n    \n    # Now we need to insert the nut onto the block. \n    # Since the nut is rigid with its handle, we can use the handle grasp pose to guide the insertion.\n    # We'll move to the nut's center position and then rotate to align with the block's surface.\n    \n    # Move to the nut's center position\n    goto_pose(nut_center_position, nut_quaternion, z_approach=0.0)\n    \n    # Rotate to align with the block's surface\n    # We'll use a simple rotation to align the nut's center with the block's position\n    # This is a simplified approach and may need adjustment based on the actual geometry\n    nut_center_quaternion = R.from_euler('z', np.pi/2, nut_center_quaternion)\n    goto_pose(nut_center_position, nut_center_quaternion, z_approach=0.0)\n    \n    # Close the gripper to grasp the nut\n    close_gripper()\n    \n    # Move to the nut's center position relative to the block\n    goto_pose(nut_center_relative_to_block, block_quaternion, z_approach=0.0)\n    \n    # Now we need to insert the nut onto the block. \n    # Since the nut is rigid with its handle, we can use the handle grasp pose to guide the insertion.\n    # We'll move to the nut's center position and then rotate to align with the block's surface.\n    \n    # Move to the nut's center position\n    goto_pose(nut_center_position, nut_quaternion, z_approach=0.0)\n    \n    # Rotate to align with the block's surface\n    # We'll use a simple rotation to align the nut's center with the block's position\n    # This is a simplified approach and may need adjustment based on the actual geometry\n    nut_center_quaternion = R.from_euler('z', np.pi/2, nut_center_quaternion)\n    goto_pose(nut_center_position, nut_center_quaternion, z_approach=0.0)\n    \n    # Close the gripper to grasp the nut\n    close_gripper()\n    \n    # Move to the nut's center position relative to the block\n    goto_pose(nut_center_relative_to_block, block_quaternion, z_approach=0.0)\n    \n    # Now we need to insert the nut onto the block. \n    # Since the nut is rigid with its handle, we can use the handle grasp pose to guide the insertion.\n    # We'll move to the nut's center position and then rotate to align with the block's surface.\n    \n    # Move to the nut's center position\n    goto_pose(nut_center_position, nut_quaternion, z_approach=0.0)\n    \n    # Rotate to align with the block"
+  },
+  {
+    "pid": "0fa31bc12c81",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.0,
+    "error": "",
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation\n\n# Function to grasp the brown square nut\ndef grasp_brown_square_nut():\n    # Sample a grasp pose for the brown square nut\n    grasp_pose = sample_grasp_pose('brown square nut')\n    \n    # Get the object pose of the brown square nut\n    object_pose = get_object_pose('brown square nut')\n    \n    # Calculate the rigid transform between the object and the grasp pose\n    rigid_transform = np.dot(object_pose[1], grasp_pose[1].T)\n    \n    # Go to the grasp pose\n    goto_pose(grasp_pose[0], grasp_pose[1])\n    \n    # Apply the rigid transform to the grasp pose\n    grasp_pose = np.dot(rigid_transform, grasp_pose[0])\n    \n    # Go to the grasp pose with the rigid transform applied\n    goto_pose(grasp_pose, grasp_pose[1])\n\n# Function to insert the brown square nut onto the brown square block\ndef insert_brown_square_nut():\n    # Open the gripper\n    open_gripper()\n    \n    # Go to the home joint position\n    goto_home_joint_position()\n    \n    # Go to the grasp pose\n    grasp_brown_square_nut()\n    \n    # Close the gripper\n    close_gripper()"
+  },
+  {
+    "pid": "d99d119f5f06",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.109,
+    "error": "",
+    "code": "# Step 1: Get the grasp pose for the extruded handle of the brown square nut\nhandle_grasp_pose = sample_grasp_pose('extruded handle of the brown square nut')\nhandle_position = handle_grasp_pose[0]\nhandle_quaternion = handle_grasp_pose[1]\n\n# Step 2: Get the object center pose of the brown square nut\nnut_center_pose = get_object_pose('white hollow center of the brown square nut')\nnut_center_position = nut_center_pose[0]\nnut_center_quaternion = nut_center_pose[1]\n\n# Step 3: Compute the rigid transform from handle to nut center\n# Since the handle and nut center are part of the same rigid body, we can compute the transform\n# by subtracting the handle position from the nut center position and using the same quaternion\n# (assuming the handle is aligned with the nut center)\nhandle_to_nut_transform = nut_center_position - handle_position\n\n# Step 4: Go to the handle grasp pose\ngoto_pose(handle_position, handle_quaternion, z_approach=0.1)\n\n# Step 5: Open the gripper\nopen_gripper()\n\n# Step 6: Grasp the nut by its handle\nclose_gripper()\n\n# Step 7: Move to the brown square block to insert the nut\n# We need to get the pose of the brown square block\nblock_pose = get_object_pose('brown square block')\nblock_position = block_pose[0]\nblock_quaternion = block_pose[1]\n\n# Step 8: Compute the insertion pose by applying the rigid transform from handle to nut center\n# to the block pose\ninsertion_position = block_position + handle_to_nut_transform\ninsertion_quaternion = block_quaternion\n\n# Step 9: Go to the insertion pose\ngoto_pose(insertion_position, insertion_quaternion, z_approach=0.1)\n\n# Step 10: Open the gripper to release the nut\nopen_gripper()"
+  },
+  {
+    "pid": "8c045a27c831",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.0,
+    "error": "",
+    "code": "import numpy as np\n\n# Step 1: Get the grasp pose for the handle of the brown square nut\nhandle_grasp_pos, handle_grasp_quat = sample_grasp_pose(\"extruded handle of the brown square nut\")\n\n# Step 2: Get the center pose of the brown square nut (to compute relative transform)\nnut_center_pos, nut_center_quat = get_object_pose(\"white hollow center of the brown square nut\")\n\n# Step 3: Compute the relative transform from handle grasp to nut center\n# We need to compute the transformation from handle grasp frame to nut center frame\n# This is done by: T_center = T_handle * T_handle_to_center\n# But since we have poses, we can compute the relative transform as:\n# T_handle_to_center = T_center * T_handle_inv\n\n# Convert quaternions to rotation matrices for easier transformation\ndef quat_to_rot(quat):\n    w, x, y, z = quat\n    return np.array([\n        [1 - 2*y*y - 2*z*z, 2*x*y - 2*w*z, 2*x*z + 2*w*y],\n        [2*x*y + 2*w*z, 1 - 2*x*x - 2*z*z, 2*y*z - 2*w*x],\n        [2*x*z - 2*w*y, 2*y*z + 2*w*x, 1 - 2*x*x - 2*y*y]\n    ])\n\ndef rot_to_quat(rot):\n    trace = np.trace(rot)\n    if trace > 0:\n        s = 0.5 / np.sqrt(trace + 1.0)\n        w = 0.25 / s\n        x = (rot[2,1] - rot[1,2]) * s\n        y = (rot[0,2] - rot[2,0]) * s\n        z = (rot[1,0] - rot[0,1]) * s\n    else:\n        if rot[0,0] > rot[1,1] and rot[0,0] > rot[2,2]:\n            s = 2.0 * np.sqrt(1.0 + rot[0,0] - rot[1,1] - rot[2,2])\n            x = 0.25 / s\n            y = (rot[0,1] + rot[1,0]) / s\n            z = (rot[0,2] + rot[2,0]) / s\n            w = (rot[1,2] - rot[2,1]) / s\n        elif rot[1,1] > rot[2,2]:\n            s = 2.0 * np.sqrt(1.0 + rot[1,1] - rot[0,0] - rot[2,2])\n            x = (rot[0,1] + rot[1,0]) / s\n            y = 0.25 / s\n            z = (rot[1,2] + rot[2,1]) / s\n            w = (rot[2,0] - rot[0,2]) / s\n        else:\n            s = 2.0 * np.sqrt(1.0 + rot[2,2] - rot[0,0] - rot[1,1])\n            x = (rot[0,2] + rot[2,0]) / s\n            y = (rot[1,2] + rot[2,1]) / s\n            z = 0.25 / s\n            w = (rot[0,1] - rot[1,0]) / s\n    return np.array([w, x, y, z])\n\n# Compute rotation matrix from handle grasp quaternion\nR_handle = quat_to_rot(handle_grasp_quat)\n# Compute rotation matrix from nut center quaternion\nR_center = quat_to_rot(nut_center_quat)\n\n# Compute relative rotation: R_center_to_handle = R_center * R_handle.T\nR_center_to_handle = R_center @ R_handle.T\n# Convert back to quaternion\nrel_quat = rot_to_quat(R_center_to_handle)\n\n# Compute relative translation: t_center_to_handle = t_center - t_handle\nrel_pos = nut_center_pos - handle_grasp_pos\n\n# Step 4: Get the pose of the brown square block (target for insertion)\nblock_pos, block_quat = get_object_pose(\"brown square block\")\n\n# Step 5: Compute the target pose for the nut center (aligned with block)\n# We want the nut center to be at the block's center, with the same orientation as the block\n# But we need to account for the relative transform from handle grasp to nut center\n# So: target_nut_center = block_pos\n#     target_nut_quat = block_quat\n\n# But we need to compute the target grasp pose for the handle (since we grasp the handle)\n# target_handle_pos = target_nut_center - rel_pos\n# target_handle_quat = target_nut_quat (since rotation is same)\n\ntarget_handle_pos = block_pos - rel_pos\ntarget_handle_quat = block_quat\n\n# Step 6: Execute the motion\n# Go to home position first\ngoto_home_joint_position()\n\n# Open gripper before moving\nopen_gripper()\n\n# Move to approach pose above the handle grasp\ngoto_pose(handle_grasp_pos + np.array([0, 0, 0.1]), handle_grasp_quat, z_approach=0.1)\n\n# Close gripper to grasp the handle\nclose_gripper()\n\n# Move to the target handle pose (insertion pose)\ngoto_pose(target_handle_pos, target_handle_quat)\n\n# Optional: add a small z-offset for insertion\ngoto_pose(target_handle_pos, target_handle_quat, z_approach=-0.05)\n\n# Open gripper to release the nut\nopen_gripper()"
+  },
+  {
+    "pid": "2959a48311b6",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.103,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the grasp pose for the nut handle\nnut_handle_pose = sample_grasp_pose(\"extruded handle of the brown square nut\")\nnut_handle_position = nut_handle_pose[0]\nnut_handle_quaternion = nut_handle_pose[1]\n\n# Get the object center pose of the nut\nnut_center_pose = get_object_pose(\"white hollow center of the brown square nut\")\nnut_center_position = nut_center_pose[0]\nnut_center_quaternion = nut_center_pose[1]\n\n# Get the object center pose of the block\nblock_center_pose = get_object_pose(\"white hollow center of the brown square block\")\nblock_center_position = block_center_pose[0]\nblock_center_quaternion = block_center_pose[1]\n\n# Calculate the desired insertion pose\ninsertion_position = block_center_position\ninsertion_quaternion = block_center_quaternion\n\n# Approach the nut handle\ngoto_pose(nut_handle_position, nut_handle_quaternion, z_approach=0.1)\n\n# Close the gripper\nclose_gripper()\n\n# Move to the insertion position\ngoto_pose(insertion_position, insertion_quaternion, z_approach=0.1)\n\n# Open the gripper\nopen_gripper()\n\n# Return to home\ngoto_home_joint_position()"
+  },
+  {
+    "pid": "0feeed1b6e4a",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete",
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.353,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the brown square block (target)\nblock_pose = get_object_pose('brown square block')\nblock_position = block_pose[0]\nblock_quaternion = block_pose[1]\n\n# Sample a grasp pose for the brown square nut by its handle\ngrasp_pose = sample_grasp_pose('extruded handle of the brown square nut')\ngrasp_position = grasp_pose[0]\ngrasp_quaternion = grasp_pose[1]\n\n# Move to grasp pose with z_approach for better grasp\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.05)\n\n# Open gripper first to ensure it's open before approaching\nopen_gripper()\n\n# Close gripper to grasp the nut\nclose_gripper()\n\n# Wait briefly for grasp to be secure (simulated by moving to insertion pose)\n# Now move to the insertion pose - nut center should align with block center\n# The nut's center is at a fixed transform from the handle grasp pose\n# We need to get the nut's center pose relative to the handle grasp pose\n\n# Get the nut's object pose to find its center\nnut_pose = get_object_pose('brown square nut')\nnut_position = nut_pose[0]\nnut_quaternion = nut_pose[1]\n\n# The nut center is at the object center, which we can use directly\n# Move to the nut center position with z_approach for insertion\ninsert_position = nut_position\ninsert_quaternion = nut_quaternion\n\n# Approach with z_approach to insert the nut onto the block\ngoto_pose(insert_position, insert_quaternion, z_approach=0.02)"
+  },
+  {
+    "pid": "c5ddb94e26f2",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.002,
+    "error": "",
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation as R\n\n# Step 1: Get the current pose of the brown square nut\nnut_pos, nut_quat = get_object_pose(\"brown square nut\")\n\n# Step 2: Get the grasp pose for the handle of the nut\ngrasp_pos, grasp_quat = sample_grasp_pose(\"extruded handle of the brown square nut\")\n\n# Step 3: Move to the grasp pose with a slight z_approach to safely approach the handle\ngoto_pose(grasp_pos, grasp_quat, z_approach=0.05)\n\n# Step 4: Close the gripper to grasp the nut\nclose_gripper()\n\n# Step 5: Move the nut to the target block. We need to align the nut's center with the block's peg.\n# First, get the pose of the brown square block (assuming the peg is at the object's center)\nblock_pos, block_quat = get_object_pose(\"brown square block\")\n\n# The nut's center is at nut_pos. We want to move the nut so that its center aligns with the block's peg.\n# Assuming the block's peg is at its center (block_pos), we need to translate the nut to block_pos.\n# The orientation of the nut should match the block's orientation to align properly.\ntarget_pos = block_pos\ntarget_quat = block_quat\n\n# Step 6: Move to the insertion pose with a z_approach to approach from above\ngoto_pose(target_pos, target_quat, z_approach=0.05)\n\n# Step 7: Close the gripper to insert the nut (assuming the nut is now aligned with the peg)\nclose_gripper()\n\n# Step 8: Move slightly down to ensure insertion\ngoto_pose(target_pos, target_quat, z_approach=-0.02)\n\n# Step 9: Open the gripper to release the nut\nopen_gripper()"
+  },
+  {
+    "pid": "8342c9b02e4a",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.003,
+    "error": "",
+    "code": "# Get the pose of the brown square nut's center\nnut_center_position, nut_center_quaternion = get_object_pose('white hollow center of the brown square nut')\n\n# Sample a grasp pose for the extruded handle of the brown square nut\ngrasp_position, grasp_quaternion = sample_grasp_pose('extruded handle of the brown square nut')\n\n# Move to the grasp pose with a z approach\ngoto_pose(grasp_position, grasp_quaternion, z_approach=0.1)\n\n# Close the gripper to grasp the nut\nclose_gripper()\n\n# Move to the nut's center pose\ngoto_pose(nut_center_position, nut_center_quaternion)\n\n# Open the gripper to release the nut\nopen_gripper()\n\n# Move back to the home position\ngoto_home_joint_position()"
+  },
+  {
+    "pid": "7a333ab97785",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen25-coder-7b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.1085,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the brown square nut\nnut_position, nut_quaternion_wxyz = get_object_pose('brown square nut')\n\n# Get the pose of the extruded handle of the brown square nut\nhandle_position, handle_quaternion_wxyz = get_object_pose('extruded handle of the brown square nut')\n\n# Calculate the rigid transform between the nut's center and the handle\nnut_center_to_handle = np.array(handle_position) - np.array(nut_position)\nnut_center_to_handle_quaternion = handle_quaternion_wxyz\n\n# Sample a grasp pose for the handle\ngrasp_position, grasp_quaternion_wxyz = sample_grasp_pose('extruded handle of the brown square nut')\n\n# Move to the grasp pose\ngoto_pose(grasp_position, grasp_quaternion_wxyz, z_approach=0.1)\n\n# Close the gripper to grasp the nut\nclose_gripper()\n\n# Move to the position of the brown square block\nblock_position, block_quaternion_wxyz = get_object_pose('brown square block')\ngoto_pose(block_position, block_quaternion_wxyz, z_approach=0.1)\n\n# Open the gripper to release the nut\nopen_gripper()\n\n# Move to the home joint position\ngoto_home_joint_position()"
+  },
+  {
+    "pid": "3bd536fcbb88",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen35-27b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.0715,
+    "error": "",
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation as R\n\n# Step 1: Get the pose of the target insertion point (brown square block)\n# We assume the block has a hole or surface where the nut should be inserted.\n# Since the exact query for the block's insertion point isn't specified, we'll use the block's center as a reference.\nblock_pos, block_quat = get_object_pose(\"brown square block\")\n\n# Step 2: Get the grasp pose for the handle of the brown square nut\nhandle_grasp_pos, handle_grasp_quat = sample_grasp_pose(\"extruded handle of the brown square nut\")\n\n# Step 3: Get the object center pose of the brown square nut (for reference)\nnut_center_pos, nut_center_quat = get_object_pose(\"white hollow center of the brown square nut\")\n\n# Step 4: Compute the rigid transform from the nut center to the handle grasp pose\n# This transform will be used to align the nut correctly when inserting it into the block.\n# We need to compute the relative transform from the nut center to the handle grasp pose.\n# Let's denote:\n#   T_nut_center: pose of the nut center in world frame\n#   T_handle_grasp: pose of the handle grasp in world frame\n# We want to find T_rel such that T_handle_grasp = T_nut_center * T_rel\n# Then, when we want to place the nut at the block, we can compute the desired handle grasp pose as:\n#   T_desired_handle_grasp = T_block * T_rel\n\n# Convert quaternions to rotation matrices\nR_nut_center = R.from_quat(nut_center_quat)\nR_handle_grasp = R.from_quat(handle_grasp_quat)\n\n# Compute the relative rotation from nut center to handle grasp\nR_rel = R_handle_grasp * R_nut_center.inv()\n\n# Compute the relative translation from nut center to handle grasp\n# T_handle_grasp = T_nut_center * T_rel\n# => T_rel = T_nut_center.inv() * T_handle_grasp\n# For translation: p_handle_grasp = R_nut_center * p_rel + p_nut_center\n# => p_rel = R_nut_center.inv() * (p_handle_grasp - p_nut_center)\np_rel = R_nut_center.inv().as_matrix() @ (handle_grasp_pos - nut_center_pos)\n\n# Step 5: Compute the desired handle grasp pose for insertion into the block\n# We assume the nut should be inserted such that its center aligns with the block's center.\n# So, T_desired_nut_center = T_block\n# Then, T_desired_handle_grasp = T_block * T_rel\nR_block = R.from_quat(block_quat)\nR_desired_handle_grasp = R_block * R_rel\np_desired_handle_grasp = R_block.as_matrix() @ p_rel + block_pos\n\n# Convert the desired handle grasp pose back to quaternion\ndesired_handle_grasp_quat = R_desired_handle_grasp.as_quat()\n# Ensure the quaternion is in wxyz format (scipy returns xyzw by default)\ndesired_handle_grasp_quat = np.roll(desired_handle_grasp_quat, 1)\n\n# Step 6: Move the robot to the handle grasp pose to pick up the nut\ngoto_pose(handle_grasp_pos, handle_grasp_quat, z_approach=0.05)\nclose_gripper()\n\n# Step 7: Move the robot to the desired handle grasp pose for insertion\ngoto_pose(p_desired_handle_grasp, desired_handle_grasp_quat, z_approach=0.05)\n\n# Step 8: Open the gripper to release the nut\nopen_gripper()\n\n# Step 9: Return the robot to home position\ngoto_home_joint_position()"
+  },
+  {
+    "pid": "dcf251c02bbf",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete",
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.096,
+    "error": "",
+    "code": "import numpy as np\n\ndef grasp_and_insert_nut():\n  \"\"\"\n  Grasps the brown square nut and inserts it onto the brown square block.\n  \"\"\"\n  # Get the pose of the brown square nut\n  nut_pose = get_object_pose(\"brown square nut\")\n  position, quaternion_wxyz = nut_pose\n\n  # Get a grasp pose for the extruded handle of the brown square nut\n  grasp_pose = sample_grasp_pose(\"extruded handle of the brown square nut\")\n  grasp_position, grasp_quaternion_wxyz = grasp_pose\n\n  # Calculate the rigid transform between the nut's handle and its center\n  # This is needed to correctly align the nut during insertion\n  # The problem description states that this transform is fixed, so we don't need to calculate it explicitly.\n\n  # Go to the grasp pose\n  goto_pose(grasp_position, grasp_quaternion_wxyz)\n\n  # Close the gripper\n  close_gripper()\n\n  # Move up to insert the nut\n  goto_pose(position, quaternion_wxyz, z_approach=0.1)\n\n  # Open the gripper\n  open_gripper()\n\n# Example usage\ngrasp_and_insert_nut()"
+  },
+  {
+    "pid": "acb91dfbfdf3",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete",
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.0,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the brown square nut's white hollow center\nnut_center_pos, nut_center_quat = get_object_pose(\"white hollow center of the brown square nut\")\n\n# Get the grasp pose for the extruded handle of the brown square nut\nhandle_grasp_pos, handle_grasp_quat = sample_grasp_pose(\"extruded handle of the brown square nut\")\n\n# Calculate the rigid transform between the nut's center and the handle grasp pose\n# Assuming the handle grasp pose is relative to the nut's center\n# We compute the transformation matrix from the nut's center to the handle grasp pose\n# This is done by converting the quaternions to rotation matrices and then computing the transformation\n\n# Convert quaternions to rotation matrices\ndef quat_to_rot(quat):\n    w, x, y, z = quat\n    return np.array([\n        [1 - 2*y**2 - 2*z**2, 2*x*y - 2*z*w, 2*x*z + 2*y*w],\n        [2*x*y + 2*z*w, 1 - 2*x**2 - 2*z**2, 2*y*z - 2*x*w],\n        [2*x*z - 2*y*w, 2*y*z + 2*x*w, 1 - 2*x**2 - 2*y**2]\n    ])\n\nnut_center_rot = quat_to_rot(nut_center_quat)\nhandle_grasp_rot = quat_to_rot(handle_grasp_quat)\n\n# Compute the transformation matrix from nut center to handle grasp\n# T = [R | t]\n#     [0 0 0 1]\nt = handle_grasp_pos - nut_center_pos\ntransformation = np.eye(4)\ntransformation[:3, :3] = handle_grasp_rot\ntransformation[:3, 3] = t\n\n# Apply the transformation to the nut's center to get the handle grasp pose in the nut's frame\n# This is not needed here, but the transformation is used to ensure the grasp is correct\n\n# Go to the handle grasp pose with a small approach distance\ngoto_pose(handle_grasp_pos, handle_grasp_quat, z_approach=0.02)\n\n# Close the gripper to grasp the nut\nclose_gripper()\n\n# Move to the target pose where the nut should be inserted onto the block\n# This would typically involve moving to the block's center or a suitable insertion point\n# For this example, we assume the target pose is the block's center\n# Replace with actual block center pose if needed\nblock_center_pos, block_center_quat = get_object_pose(\"brown square block\")\ngoto_pose(block_center_pos, block_center_quat, z_approach=0.02)\n\n# Open the gripper to release the nut\nopen_gripper()"
+  },
+  {
+    "pid": "b6a608c42e2c",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.041,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the brown square nut's center\nnut_center_position, nut_center_quaternion = get_object_pose(\"white hollow center of the brown square nut\")\n\n# Get the grasp pose of the extruded handle of the brown square nut\nhandle_position, handle_quaternion = sample_grasp_pose(\"extruded handle of the brown square nut\")\n\n# Calculate the transform from the nut's center to the handle\n# This is a fixed rigid transform, so we assume it's already accounted for in the handle grasp pose\n# If not, we would need to compute it based on the positions and quaternions\n\n# Move to the handle grasp pose\ngoto_pose(handle_position, handle_quaternion)\n\n# Close the gripper to grasp the nut\nclose_gripper()\n\n# Move to the nut's center pose (optional, if needed for insertion)\ngoto_pose(nut_center_position, nut_center_quaternion)\n\n# Open the gripper to release the nut\nopen_gripper()"
+  },
+  {
+    "pid": "692ff5246487",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete",
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.0735,
+    "error": "",
+    "code": "# Get the pose of the brown square nut\nnut_pose = get_object_pose(\"brown square nut\")\n\n# Get the grasp pose of the extruded handle of the brown square nut\nhandle_grasp_pose = sample_grasp_pose(\"extruded handle of the brown square nut\")\n\n# Apply the fixed rigid transform between the nut's center and the handle grasp pose\n# This is a placeholder for the actual transformation logic\n# You would need to calculate the transformation between the nut's center and the handle grasp pose\n# For example, if the nut's center is at (x, y, z) and the handle grasp pose is at (x', y', z'), then:\n# transform = np.array([[x', y', z'], [0, 0, 0], [0, 0, 0]])\n\n# Move the end-effector to the handle grasp pose\ngoto_pose(handle_grasp_pose[0], handle_grasp_pose[1])\n\n# Open the gripper\nopen_gripper()\n\n# Grasp the nut\n# This is a placeholder for the actual grasping logic\n# You would need to use the grasp pose and the nut's pose to perform the grasp\n# For example:\n# grasp_position = nut_pose[0]\n# grasp_quaternion = nut_pose[1]\n# goto_pose(grasp_position, grasp_quaternion)\n\n# Close the gripper\nclose_gripper()"
+  },
+  {
+    "pid": "72b308ae20c1",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "bad_value"
+    ],
+    "median_reward": 0.0,
+    "error": "ValueError: Invalid object name: brown square nut",
+    "code": "import numpy as np\n\n# Sample the grasp pose for the brown square nut\nnut_grasp_pose = sample_grasp_pose('brown square nut')\n\n# Extract the position and quaternion from the grasp pose\nnut_position, nut_quaternion = nut_grasp_pose\n\n# Open the gripper\nopen_gripper()\n\n# Go to the grasp pose of the nut\ngoto_pose(nut_position, nut_quaternion)\n\n# Close the gripper\nclose_gripper()\n\n# Sample the grasp pose for the extruded handle of the brown square nut\nhandle_grasp_pose = sample_grasp_pose('extruded handle of the brown square nut')\n\n# Extract the position and quaternion from the handle grasp pose\nhandle_position, handle_quaternion = handle_grasp_pose\n\n# Go to the handle grasp pose\ngoto_pose(handle_position, handle_quaternion)\n\n# Open the gripper\nopen_gripper()\n\n# Go to the position of the white hollow center of the brown square nut\nwhite_hollow_center_pose = get_object_pose('white hollow center of the brown square nut')\nwhite_hollow_center_position, white_hollow_center_quaternion = white_hollow_center_pose\n\n# Apply the rigid transform between the white hollow center and the handle\n# This assumes the handle is rigidly attached to the nut\n# The transform is obtained by subtracting the white hollow center position from the handle position\ntransform = np.eye(4)\ntransform[:3, 3] = handle_position - white_hollow_center_position\n\n# Apply the transform to the handle position\ntransformed_handle_position = np.dot(transform, np.hstack((handle_position, 1)))[:3]\n\n# Go to the transformed handle position\ngoto_pose(transformed_handle_position, handle_quaternion)\n\n# Close the gripper\nclose_gripper()\n\n# Sample the grasp pose for the brown square block\nblock_grasp_pose = sample_grasp_pose('brown square block')\n\n# Extract the position and quaternion from the block grasp pose\nblock_position, block_quaternion = block_grasp_pose\n\n# Open the gripper\nopen_gripper()\n\n# Go to the block grasp pose\ngoto_pose(block_position, block_quaternion)\n\n# Close the gripper\nclose_gripper()"
+  },
+  {
+    "pid": "203ec1356c6e",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.352,
+    "error": "",
+    "code": "goto_home_joint_position()\nposition, quaternion_wxyz = get_object_pose(\"extruded handle of the brown square nut\")\ngoto_pose(position, quaternion_wxyz, z_approach=0.1)\nclose_gripper()\nposition, quaternion_wxyz = get_object_pose(\"white hollow center of the brown square nut\")\ngoto_pose(position, quaternion_wxyz, z_approach=0.1)\nopen_gripper()\ngoto_pose(position, quaternion_wxyz, z_approach=0.1)\nclose_gripper()"
+  },
+  {
+    "pid": "57234b798b89",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 29,
+    "root_causes": [
+      "incomplete",
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.501,
+    "error": "",
+    "code": "import numpy as np\nfrom scipy.spatial.transform import Rotation as R\n\n# Get the pose of the brown square block (target)\nblock_position, block_quaternion = get_object_pose(\"brown square block\")\n\n# Sample the grasp pose for the extruded handle of the brown square nut\nnut_handle_position, nut_handle_quaternion = sample_grasp_pose(\"extruded handle of the brown square nut\")\n\n# Go to the grasp pose with a small z-approach\ngoto_pose(nut_handle_position, nut_handle_quaternion, z_approach=0.1)\n\n# Close the gripper to grasp the nut\nclose_gripper()\n\n# Get the center of the brown square nut\nnut_center_position, nut_center_quaternion = get_object_pose(\"white hollow center of the brown square nut\")\n\n# Compute the transform from the nut's center to the handle grasp pose\n# Convert quaternions to rotation matrices\nR_nut_center = R.from_quat(nut_center_quaternion).as_matrix()\nR_handle = R.from_quat(nut_handle_quaternion).as_matrix()\n\n# Compute the relative transform from nut center to handle\nT_nut_center_to_handle = np.eye(4)\nT_nut_center_to_handle[:3, :3] = R_nut_center.T @ R_handle\nT_nut_center_to_handle[:3, 3] = nut_handle_position - R_nut_center.T @ (R_nut_center @ nut_center_position)\n\n# Compute the target insertion pose by applying the relative transform to the block's pose\nR_block = R.from_quat(block_quaternion).as_matrix()\nT_block = np.eye(4)\nT_block[:3, :3] = R_block\nT_block[:3, 3] = block_position\n\nT_insertion = T_block @ T_nut_center_to_handle\n\n# Extract position and orientation from the insertion transform\ninsertion_position = T_insertion[:3, 3]\ninsertion_quaternion = R.from_matrix(T_insertion[:3, :3]).as_quat()\n\n# Go to the insertion pose with a small z-approach\ngoto_pose(insertion_position, insertion_quaternion, z_approach=0.1)\n\n# Insert the nut by moving to the final pose\ngoto_pose(insertion_position, insertion_quaternion)\n\n# Return to home position\ngoto_home_joint_position()"
+  },
+  {
+    "pid": "8a7b8a9113ba",
+    "task": "nut_assembly",
+    "tier": "S1",
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 28,
+    "root_causes": [
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.087,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the brown square block\nblock_position, block_quaternion = get_object_pose(\"brown square block\")\n\n# Get the grasp pose of the brown square nut\nnut_grasp_position, nut_grasp_quaternion = sample_grasp_pose(\"extruded handle of the brown square nut\")\n\n# Go to the grasp pose with a z-approach\ngoto_pose(nut_grasp_position, nut_grasp_quaternion, z_approach=0.02)\n\n# Close the gripper\nclose_gripper()\n\n# Get the pose of the nut\nnut_position, nut_quaternion = get_object_pose(\"white hollow center of the brown square nut\")\n\n# Calculate the offset between the grasp pose and the nut's center\noffset = nut_grasp_position - nut_position\n\n# Calculate the insertion pose\ninsertion_position = block_position + offset\ninsertion_quaternion = block_quaternion\n\n# Go to the insertion pose with a z-approach\ngoto_pose(insertion_position, insertion_quaternion, z_approach=0.02)\n\n# Open the gripper\nopen_gripper()\n\n# Return to home position\ngoto_home_joint_position()"
+  },
+  {
+    "pid": "7993b2d06474",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "gemma3-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "never_invoked"
+    ],
+    "median_reward": 0.0,
+    "error": "",
+    "code": "import numpy as np\n\ndef wipe_up_spill(spill_name: str) -> None:\n    \"\"\"Wipes up the spill using the sponge attached to the robot's gripper.\n\n    Args:\n        spill_name: The name of the spill to wipe up.\n    \"\"\"\n    spill_pose, _, _ = get_object_pose(spill_name)\n    \n    # Define the wiping area.  We'll wipe a small square around the spill center.\n    wipe_size = 0.1  # meters\n    min_x = spill_pose[0] - wipe_size / 2\n    max_x = spill_pose[0] + wipe_size / 2\n    min_y = spill_pose[1] - wipe_size / 2\n    max_y = spill_pose[1] + wipe_size / 2\n    \n    # Move to a position above the spill, centered on the spill's center.\n    target_position = np.array([spill_pose[0], spill_pose[1], 0.0])\n    \n    goto_pose(target_position, np.array([1, 0, 0, 0]))  # Move down to z=0.0\n    \n    # Wipe the spill\n    goto_pose(np.array([min_x, min_y, 0.0]), np.array([1, 0, 0, 0]))\n    goto_pose(np.array([max_x, min_y, 0.0]), np.array([1, 0, 0, 0]))\n    goto_pose(np.array([max_x, max_y, 0.0]), np.array([1, 0, 0, 0]))\n    goto_pose(np.array([min_x, max_y, 0.0]), np.array([1, 0, 0, 0]))"
+  },
+  {
+    "pid": "9c02bbf8000b",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen3-1.7b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.0,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the bounding box extent of the 'brown spill'\nspill_pose, _, spill_extent = get_object_pose(\"brown spill\", return_bbox_extent=True)\n\n# Calculate min and max x and y bounds\nmin_x = np.min(spill_extent[0])\nmax_x = np.max(spill_extent[0])\nmin_y = np.min(spill_extent[1])\nmax_y = np.max(spill_extent[1])\n\n# Define the wiping position (z = 0.0 m)\nwiping_position = np.array([0.0, 0.0, 0.0])\n\n# Define the downward-facing orientation (0, 0, 1, 0 wxyz)\nwiping_quaternion = np.array([0.0, 0.0, 1.0, 0.0])\n\n# Move to the wiping position\ngoto_pose(wiping_position, wiping_quaternion)\n\n# Perform the wiping motion\n# (This is a placeholder for the actual wiping logic, which would involve\n# moving the end-effector in a controlled manner to wipe the spill)\n# For demonstration, we'll just print a message\nprint(\"Wiping motion initiated.\")"
+  },
+  {
+    "pid": "143db90b314a",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen35-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "syntax"
+    ],
+    "median_reward": 0.0,
+    "error": "SyntaxError: unterminated string literal (detected at line 5)",
+    "code": "To wipe up the brown spill, I will first retrieve the bounding box extent of the spill to determine its spatial bounds. Then, I will plan a wiping motion that covers the spill area while maintaining the downward-facing orientation of the sponge. The wiping motion will be performed at z = 0.0 m.\n\nHere is the reasoning:\n1.  Get the pose and bbox extent of the 'brown spill'.\n2.  Define the wiping path: I'll move to the center of the spill's extent and then perform a small wiping motion (e.g., moving slightly in x and y directions) to cover the area. Since the goal is to \"wipe up\", a simple approach is to move to the center and then make a small circular or back-and-forth motion within the bounds. However, given the constraint to avoid large deltas, a simple sweep from one side to the other or a small oscillation around the center is safer. Let's choose a simple sweep: move to the center, then move slightly in the positive x direction and back, or just move to a point that covers the main area.\n3.  Actually, a more robust way for a spill is to move to the center and then perform a small wiping motion. Let's define the min and max x and y from the bbox extent. The center will be (min_x + extent_x/2, min_y + extent_y/2). Then I'll move to the center and then to a point slightly offset to ensure coverage, or just move to the center and assume the sponge is already positioned. But to be safe, I'll move to the center and then perform a small wiping motion (e.g., move to center + small offset, then back).\n4.  Wait, the problem says \"Use the spill extents to inform the min/max x and y bounds of wiping motions.\" This suggests I should define a path that covers the extent. A simple path is to move to the center and then move to the opposite corner of the extent? No, that might be too large. Let's move to the center and then perform a small wiping motion within the bounds.\n5.  Let's simplify: Move to the center of the spill. Then, move to a point slightly offset (e.g., +0.05m in x) and back to the center. This covers a small area. But if the spill is large, this might not be enough.\n6.  Alternative: Move to the center, then move to the point (min_x + extent_x/2, min_y + extent_y/2 + 0.05) and back? No.\n7.  Let's just move to the center of the spill and then perform a small wiping motion (e.g., move to center + (0.05, 0) and back). This is a safe, small motion. If the spill is larger, the user might need to adjust, but the instruction says to use the extents to inform the bounds. So I'll calculate the center and use a small offset relative to the center.\n8.  Actually, a better approach: Move to the center of the spill. Then, move to the point (center_x + extent_x/2, center_y + extent_y/2) and back? That's the opposite corner. That might be too large.\n9.  Let's stick to a small wiping motion: Move to the center, then move to (center_x + 0.05, center_y) and back. This is a safe, small motion. The extent is used to find the center.\n10. Wait, the problem says \"wipe up the 'brown spill'\". This implies covering the entire spill. So I should move to the center and then perform a motion that covers the extent. But the constraint says \"Avoid large wiping motions\". This is a contradiction if the spill is large.\n11. Re-reading: \"Use the spill extents to inform the min/max x and y bounds of wiping motions.\" This suggests I should define the bounds and then perform a motion within those bounds. Maybe a simple sweep from min_x to max_x at a fixed y? Or from min_y to max_y at a fixed x?\n12. Let's try a sweep: Move to (min_x, min_y), then move to (max_x, min_y), then move to (max_x, max_y), then move to (min_x, max_y). This is a large motion.\n13. Alternative: Move to the center, then move to (center_x + extent_x/2, center_y) and back. This is a small motion that covers half the spill.\n14. Given the constraint, I'll move to the center and then perform a small wiping motion (e.g., move to center + (0.05, 0) and back). This is safe and covers a small area. If the spill is larger, the user might need to adjust, but the instruction says to use the extents to inform the bounds. So I'll calculate the center and use a small offset relative to the center.\n15. Actually, let's move to the center and then move to the point (center_x + extent_x/2, center_y) and back. This is a small motion that covers half the spill.\n16. Wait, the problem says \"wipe up the 'brown spill'\". This implies covering the entire spill. So I should move to the center and then perform a motion that covers the extent. But the constraint says \"Avoid large wiping motions\". This is a contradiction if the spill is large.\n17. Let's assume the spill is small enough that a small motion is sufficient. I'll move to the center and then perform a small wiping motion (e.g., move to center + (0.05, 0) and back). This is safe and covers a small area.\n18. Actually, let's move to the center and then move to the point (center_x + extent_x/2, center_y) and back. This is a small motion that covers half the spill.\n19. Wait, the problem says \"wipe up the 'brown spill'\". This implies covering the entire spill. So I should move to the center and then perform a motion that covers the extent. But the constraint says \"Avoid large wiping motions\". This is a contradiction if the spill is large.\n20. Let's assume the spill is small enough that a small motion is sufficient. I'll move to the center and then perform a small wiping motion (e.g., move to center + (0.05, 0) and back). This is safe and covers a small area.\n21. Actually, let's move to the center and then move to the point (center_x + extent_x/2, center_y) and back. This is a small motion that covers half the spill.\n22. Wait, the problem says \"wipe up the 'brown spill'\". This implies covering the entire spill. So I should move to the center and then perform a motion that covers the extent. But the constraint says \"Avoid large wiping motions\". This is a contradiction if the spill is large.\n23. Let's assume the spill is small enough that a small motion is sufficient. I'll move to the center and then perform a small wiping motion (e.g., move to center + (0.05, 0) and back). This is safe and covers a small area.\n24. Actually, let's move to the center and then move to the point (center_x + extent_x/2, center_y) and back. This is a small motion that covers half the spill.\n25. Wait, the problem says \"wipe up the 'brown spill'\". This implies covering the entire spill. So I should move to the center and then perform a motion that covers the extent. But the constraint says \"Avoid large wiping motions\". This is a contradiction if the spill is large.\n26. Let's assume the spill is small enough that a small motion is sufficient. I'll move to the center and then perform a small wiping motion (e.g., move to center + (0.05, 0) and back). This is safe and covers a small area.\n27. Actually, let's move to the center and then move to the point (center_x + extent_x/2, center_y) and back. This is a small motion that covers half the spill.\n28. Wait, the problem says \"wipe up the 'brown spill'\". This implies covering the entire spill. So I should move to the center and then perform a motion that covers the extent. But the constraint says \"Avoid large wiping motions\". This is a contradiction if the spill is large.\n29. Let's assume the spill is small enough that a small motion is sufficient. I'll move to the center and then perform a small wiping motion (e.g., move to center + (0.05, 0) and back). This is safe and covers a small area.\n30. Actually, let's move to the center and then move to the point (center_x + extent_x/2, center_y) and back. This is a small motion that covers half the spill.\n31. Wait, the problem says \"wipe up the 'brown spill'\". This implies covering the entire spill. So I should move to the center and then perform a motion that covers the extent. But the constraint says \"Avoid large wiping motions\". This is a contradiction if the spill is large.\n32. Let's assume the spill is small enough that a small motion is sufficient. I'll move to the center and then perform a small wiping motion (e.g., move to center + (0.0"
+  },
+  {
+    "pid": "596af49dbfc0",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen25-coder-3b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.0,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the brown spill\nspill_pose, _, bbox_extent = get_object_pose('brown spill', return_bbox_extent=True)\n\n# Extract the bounding box extents\nx_extent, y_extent, _ = bbox_extent\n\n# Calculate the minimum and maximum x and y bounds for wiping\nmin_x = spill_pose[0] - x_extent / 2\nmax_x = spill_pose[0] + x_extent / 2\nmin_y = spill_pose[1] - y_extent / 2\nmax_y = spill_pose[1] + y_extent / 2\n\n# Define the wiping orientation (downward-facing)\nwiping_orientation = np.array([0, 0, 1, 0])\n\n# Define the wiping motion parameters\nz_approach = 0.01  # Approach height\nz_wipe = 0.0  # Wipe height\nz_offset = 0.01  # Offset from wipe height to approach height\n\n# Calculate the approach and wipe positions\napproach_position = np.array([spill_pose[0], spill_pose[1], z_approach])\nwipe_position = np.array([spill_pose[0], spill_pose[1], z_wipe])\n\n# Perform the wiping motion\ngoto_pose(approach_position, wiping_orientation)\ngoto_pose(wipe_position, wiping_orientation)\ngoto_pose(approach_position, wiping_orientation)"
+  },
+  {
+    "pid": "28da0e2b6638",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete",
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.09,
+    "error": "",
+    "code": "get_object_pose(\"brown spill\", return_bbox_extent=True)\nposition, quaternion, bbox_extent = get_object_pose(\"brown spill\", return_bbox_extent=True)\nmin_x = position[0] - bbox_extent[0] / 2\nmax_x = position[0] + bbox_extent[0] / 2\nmin_y = position[1] - bbox_extent[1] / 2\nmax_y = position[1] + bbox_extent[1] / 2\ngoto_pose(position, (0, 0, 1, 0))\nfor x in range(int(min_x), int(max_x) + 1):\n    for y in range(int(min_y), int(max_y) + 1):\n        goto_pose([x, y, 0.0], (0, 0, 1, 0))"
+  },
+  {
+    "pid": "c3db4fcecebf",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen3-8b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete",
+      "marginal"
+    ],
+    "median_reward": 0.235,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose and bounding box extent of the 'brown spill'\nposition, quaternion_wxyz, bbox_extent = get_object_pose(\"brown spill\", return_bbox_extent=True)\n\n# Extract min and max x, y bounds from the bounding box extent\nmin_x = position[0] - bbox_extent[0] / 2\nmax_x = position[0] + bbox_extent[0] / 2\nmin_y = position[1] - bbox_extent[1] / 2\nmax_y = position[1] + bbox_extent[1] / 2\n\n# Wiping height is at z = 0.0 m\nz = 0.0\n\n# Define a small step size for the wiping motion\nstep_size = 0.02\n\n# Move to the starting position for wiping\nstart_position = np.array([min_x, min_y, z])\nstart_quaternion = np.array([0, 0, 1, 0])  # Downward-facing orientation\ngoto_pose(start_position, start_quaternion)\n\n# Perform the wiping motion\ncurrent_x = min_x\nwhile current_x <= max_x:\n    current_position = np.array([current_x, min_y, z])\n    goto_pose(current_position, start_quaternion)\n    current_x += step_size\n\n# Move to the end position for wiping\nend_position = np.array([max_x, min_y, z])\ngoto_pose(end_position, start_quaternion)\n\n# Move to the end of the wiping motion\ncurrent_y = min_y\nwhile current_y <= max_y:\n    current_position = np.array([max_x, current_y, z])\n    goto_pose(current_position, start_quaternion)\n    current_y += step_size\n\n# Move to the final position\nfinal_position = np.array([max_x, max_y, z])\ngoto_pose(final_position, start_quaternion)"
+  },
+  {
+    "pid": "9aa8b5eb8b62",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen3-0.6b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "bad_index"
+    ],
+    "median_reward": 0.0,
+    "error": "IndexError: index 3 is out of bounds for axis 0 with size 3",
+    "code": "import numpy as np\n\n# Get the object pose\nobject_name = \"spill\"\nposition, quaternion_wxyz, _ = get_object_pose(object_name)\n\n# Set the gripper down orientation\ngripper_orientation = np.array([0, 0, 1, 0])\n\n# Calculate the spill extents\nposition_spill, quaternion_spill, _ = get_object_pose(object_name, return_bbox_extent=True)\n\n# Calculate min and max x and y bounds for wiping\nmin_x = position_spill[0] - position_spill[2] / 2\nmax_x = position_spill[0] + position_spill[2] / 2\nmin_y = position_spill[1] - position_spill[3] / 2\nmax_y = position_spill[1] + position_spill[3] / 2\n\n# Move the robot to the spill position\ngoto_pose(position_spill, quaternion_spill)"
+  },
+  {
+    "pid": "6a1443eea0cc",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen3-4b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete",
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.2,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose and bounding box extent of the spill\nposition, quaternion_wxyz, bbox_extent = get_object_pose(\"spill\", return_bbox_extent=True)\n\n# Extract min and max x and y bounds from the bounding box extent\nmin_x = position[0] - bbox_extent[0] / 2\nmax_x = position[0] + bbox_extent[0] / 2\nmin_y = position[1] - bbox_extent[1] / 2\nmax_y = position[1] + bbox_extent[1] / 2\n\n# Set the wiping height (z = 0.0 m)\nwiping_height = 0.0\n\n# Define the wiping path (simple rectangle)\nwiping_path = [\n    (min_x, min_y, wiping_height),\n    (max_x, min_y, wiping_height),\n    (max_x, max_y, wiping_height),\n    (min_x, max_y, wiping_height)\n]\n\n# Use the downward-facing orientation for wiping\nwiping_quaternion = np.array([0, 0, 1, 0])\n\n# Move to the starting position and perform wiping\nfor point in wiping_path:\n    goto_pose(point, wiping_quaternion)"
+  },
+  {
+    "pid": "b21323ef80f7",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-2b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "bad_value"
+    ],
+    "median_reward": 0.0,
+    "error": "ValueError: not enough values to unpack (expected 4, got 3)",
+    "code": "import numpy as np\n\n# Get the pose of the brown spill object\nspill_pose = get_object_pose(\"brown spill\")\nspill_position = spill_pose[0]\nspill_quaternion = spill_pose[1]\n\n# Get the extents of the spill to determine the wiping bounds\nspill_extent = get_object_pose(\"brown spill\", return_bbox_extent=True)\nmin_x, max_x, min_y, max_y = spill_extent[2] if spill_extent[2] is not None else (0, 0, 0, 0)\n\n# Define the wiping motion parameters\n# Wiping should be performed at z = 0.0 m\nz_height = 0.0\n\n# Use the sponge's orientation (downward facing: 0, 0, 1, 0 wxyz)\nwiping_orientation = np.array([0, 0, 1, 0])\n\n# Calculate the wiping motion bounds\n# The wiping motion should be within the spill's extent\nwiping_min_x = min_x\nwiping_max_x = max_x\nwiping_min_y = min_y\nwiping_max_y = max_y\n\n# Perform the wiping motion\n# Use the current pose of the gripper\n# The gripper is already at the spill's position\n# We will move the gripper to the center of the spill\n# and then wipe in a small area around the center\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n\n# Calculate the center of the spill\ncenter_x = (min_x + max_x) / 2\ncenter_y = (min_y + max_y) / 2\n\n# Move the gripper to the center of the spill\ngoto_pose(spill_position, wiping_orientation)\n\n# Wipe in a small area around the center\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n\n# Wipe in a small area around the center\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n\n# Wipe in a small area around the center\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between inverse kinematics solutions\n# We will use a small delta for the motion\n# The wiping motion should be small to avoid large delta between"
+  },
+  {
+    "pid": "eabe08645dd3",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "gemma3-27b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete",
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.19,
+    "error": "",
+    "code": "import numpy as np\n\ndef wipe_spill():\n    spill_position, spill_quaternion, spill_extent = get_object_pose(\"brown spill\", return_bbox_extent=True)\n    \n    # Calculate the boundaries for wiping\n    min_x = spill_position[0] - spill_extent[0] / 2.0\n    max_x = spill_position[0] + spill_extent[0] / 2.0\n    min_y = spill_position[1] - spill_extent[1] / 2.0\n    max_y = spill_position[1] + spill_extent[1] / 2.0\n    \n    # Define wiping path (simple back and forth)\n    wiping_positions = [\n        [min_x, min_y, 0.0],\n        [max_x, min_y, 0.0],\n        [max_x, max_y, 0.0],\n        [min_x, max_y, 0.0]\n    ]\n    \n    # Wiping orientation (downward facing)\n    wiping_quaternion = np.array([0.0, 0.0, 1.0, 0.0])\n    \n    # Perform wiping motions\n    for position in wiping_positions:\n        goto_pose(position, wiping_quaternion)\n        # Add a small delay to allow for wiping action (not available in API)\n        \nwipe_spill()  # Call the function to start wiping"
+  },
+  {
+    "pid": "202d7235339e",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen35-0.8b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.0,
+    "error": "ModuleNotFoundError: No module named 'franka_api'",
+    "code": "import numpy as np\nfrom franka_api import get_object_pose, goto_pose\n\n# Define the target object name based on the task description\n# Assuming the 'brown spill' is the object to be wiped\ntarget_object_name = 'brown_spill'\n\n# Get the pose of the object\npose = get_object_pose(target_object_name)\n\n# Extract the position, quaternion, and extent\nposition = pose[0]\nquaternion_wxyz = pose[1]\nbbox_extent = pose[2]\n\n# The task specifies the table surface height is exactly z = 0.0 m.\n# We need to wipe at this height, so the target position should be at z=0.\n# The gripper is already attached, so we can use the current position as the target.\n# However, since the object is likely at a different height than the gripper,\n# we need to adjust the position to the object's actual position.\n# But the task says \"A sponge is already attached to your gripper/end-effector\"\n# and \"wiping should be performed at that height (no extra offset)\".\n# This implies the sponge is at the end-effector, and we should wipe the object\n# that is currently at the end-effector's position.\n\n# Since the object is likely at a different height than the gripper,\n# we need to find the object's position.\n# The task mentions \"spill extents to inform the min/max x and y bounds of wiping motions\".\n# This suggests the object is at a specific location.\n\n# Let's assume the object is at the end-effector's current position for now,\n# but we need to be careful because the object might be at a different height.\n# However, the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's assume the object is at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's assume the object is at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's assume the object is at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's assume the object is at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's assume the object is at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's assume the object is at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's assume the object is at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's assume the object is at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's assume the object is at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's assume the object is at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's assume the object is at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at that height (no extra offset)\".\n# This implies the object is at the end-effector's position.\n\n# Let's try to get the object's position at the end-effector's current position.\n# If the object is at a different height, we might need to adjust the position.\n# But the task says \"wiping should be performed at"
+  },
+  {
+    "pid": "6455261487f0",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen35-2b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "no_op"
+    ],
+    "median_reward": 0.0,
+    "error": "ModuleNotFoundError: No module named 'franka_api'",
+    "code": "import numpy as np\nfrom franka_api import get_object_pose, goto_pose\n\n# Define the spill bounds based on the provided extents\nspill_min_x = -0.5\nspill_max_x = 0.5\nspill_min_y = -0.5\nspill_max_y = 0.5\n\n# Define the target position for the gripper (center of the spill)\ntarget_position = np.array([0.0, 0.0, 0.0])\n\n# Define the orientation for the sponge (downward facing)\n# Format: (x, y, z, w)\nsponge_orientation = np.array([0.0, 0.0, 1.0, 0.0])\n\n# Get the current pose of the object (spill)\n# We use the grasp pose quaternion as the gripper orientation since a sponge is attached\n# and we need to align the gripper down.\n# Note: The API doc says to disregard the returned quaternion and use (0,0,1,0) wxyz for placement.\n# However, to ensure the sponge is correctly oriented relative to the world frame,\n# we will use the orientation provided by the API if available, or default to downward.\n# Since the prompt says \"A sponge is already attached\", we assume the object is the spill.\n# We will use the returned quaternion if it's reliable, otherwise default to downward.\n# For this task, we'll assume the API returns a reliable pose or we can just use the default downward.\n# Let's use the default downward orientation as per the instruction \"use a downward-facing orientation (0,0,1,0 wxyz)\".\n# But to be safe and use the API's data if possible, we'll try to get the pose and use its orientation.\n# However, the doc says \"disregard it and use the grasp pose quaternion OR (0, 0, 1, 0) wxyz\".\n# Since we don't have the grasp pose explicitly, we'll use the default downward.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to ensure the sponge is correctly oriented, we'll use the orientation from the API if available.\n# Let's assume the API returns a reliable pose and use its orientation.\n# If not, we'll use the default downward.\n# For simplicity, we'll use the default downward orientation as per the instruction.\n# But to"
+  },
+  {
+    "pid": "bca76f283040",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen25-coder-1.5b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "never_invoked"
+    ],
+    "median_reward": 0.0,
+    "error": "",
+    "code": "import numpy as np\n\ndef wipe_spill():\n    # Get the pose of the spill\n    spill_pose, _, _ = get_object_pose('spill')\n    \n    # Get the spill extents\n    spill_extents = get_object_pose('spill', return_bbox_extent=True)\n    \n    # Calculate the min/max x and y bounds of wiping motions\n    min_x = spill_extents[0]\n    max_x = spill_extents[0] + spill_extents[1]\n    min_y = spill_extents[2]\n    max_y = spill_extents[2] + spill_extents[3]\n    \n    # Go to the center of the spill\n    center_x = (min_x + max_x) / 2\n    center_y = (min_y + max_y) / 2\n    goto_pose(np.array([center_x, center_y, 0.0]), np.array([0, 0, 1, 0]))\n    \n    # Wipe the spill\n    # You can implement the wiping logic here, e.g., using a loop to move the sponge in a circular path\n    # For simplicity, let's assume the sponge is moved in a straight line\n    for _ in range(10):  # 10 steps for demonstration\n        goto_pose(np.array([center_x, center_y, 0.0]), np.array([0, 0, 1, 0]))\n        # Add a delay or sleep to control the speed of the wiping\n        # time.sleep(0.1)"
+  },
+  {
+    "pid": "6a98c7c543d8",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen3-14b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "incomplete",
+      "marginal",
+      "no_op"
+    ],
+    "median_reward": 0.0,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the position and bounding box extent of the 'brown spill'\nspill_position, spill_quaternion, spill_bbox = get_object_pose('brown spill', return_bbox_extent=True)\n\n# Calculate the min and max x and y bounds for wiping\nx_min = spill_position[0] - spill_bbox[0] / 2\nx_max = spill_position[0] + spill_bbox[0] / 2\ny_min = spill_position[1] - spill_bbox[1] / 2\ny_max = spill_position[1] + spill_bbox[1] / 2\n\n# Set the wiping orientation (downward-facing)\nwiping_orientation = np.array([0.0, 0.0, 1.0, 0.0])\n\n# Move to the starting position for wiping (min x, min y)\nstart_position = np.array([x_min, y_min, 0.0])\ngoto_pose(start_position, wiping_orientation)\n\n# Move to the ending position for wiping (max x, max y)\nend_position = np.array([x_max, y_max, 0.0])\ngoto_pose(end_position, wiping_orientation)"
+  },
+  {
+    "pid": "182bce0f3411",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-8b"
+    ],
+    "n_episodes": 30,
+    "root_causes": [
+      "bad_value"
+    ],
+    "median_reward": 0.0,
+    "error": "ValueError: too many values to unpack (expected 2)",
+    "code": "position, quaternion, bbox_extent = get_object_pose('brown spill', return_bbox_extent=True)\nmin_x, min_y = position[0] - bbox_extent[0] / 2, position[1] - bbox_extent[1] / 2\nmax_x, max_y = position[0] + bbox_extent[0] / 2, position[1] + bbox_extent[1] / 2\nwiping_path = []\nfor x in [min_x, (min_x + max_x) / 2, max_x]:\n    for y in [min_y, (min_y + max_y) / 2, max_y]:\n        wiping_path.append([x, y, 0.0])\nfor x, y in wiping_path:\n    goto_pose(numpy.array([x, y, 0.0]), numpy.array([0, 0, 1, 0]))"
+  },
+  {
+    "pid": "885695a8c1ba",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen3vl-32b"
+    ],
+    "n_episodes": 23,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.59,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose and bounding box extent of the brown spill\nspill_pos, spill_quat, spill_extent = get_object_pose(\"brown spill\", return_bbox_extent=True)\n\n# Define the wiping height (table surface)\nwipe_z = 0.0\n\n# Calculate the min/max x and y bounds for wiping based on spill extent\n# Since the spill is centered at spill_pos, we use half the extent for bounds\nhalf_x_extent = spill_extent[0] / 2.0\nhalf_y_extent = spill_extent[1] / 2.0\n\nmin_x = spill_pos[0] - half_x_extent\nmax_x = spill_pos[0] + half_x_extent\nmin_y = spill_pos[1] - half_y_extent\nmax_y = spill_pos[1] + half_y_extent\n\n# Define the downward-facing orientation (0,0,1,0 wxyz)\ngripper_orientation = np.array([0.0, 0.0, 1.0, 0.0])\n\n# Plan a simple wiping pattern: left-to-right, top-to-bottom\n# We'll do a few passes to ensure coverage\nnum_passes = 3\nstep_size = 0.05  # small step size to avoid large IK deltas\n\n# Start at the top-left corner\ncurrent_x = min_x\ncurrent_y = max_y\n\n# Wipe in horizontal passes\nfor pass_num in range(num_passes):\n    # Move to start of pass (left edge at current y)\n    start_pos = np.array([current_x, current_y, wipe_z])\n    goto_pose(start_pos, gripper_orientation)\n\n    # Wipe left to right\n    x = current_x\n    while x <= max_x:\n        pos = np.array([x, current_y, wipe_z])\n        goto_pose(pos, gripper_orientation)\n        x += step_size\n\n    # Move down to next row (if not last pass)\n    if pass_num < num_passes - 1:\n        current_y -= step_size\n        # Move to the left edge of the next row\n        next_start = np.array([current_x, current_y, wipe_z])\n        goto_pose(next_start, gripper_orientation)"
+  },
+  {
+    "pid": "41168a8604cf",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "gemma3-12b"
+    ],
+    "n_episodes": 9,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.97,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the brown spill and its extent\nspill_position, spill_quaternion, spill_extent = get_object_pose(object_name='brown spill', return_bbox_extent=True)\n\n# Define the wiping height\nwiping_height = 0.0  # Table surface height\n\n# Calculate the wiping area bounds based on the spill extent\nmin_x = spill_position[0] - spill_extent[0] / 2.0\nmax_x = spill_position[0] + spill_extent[0] / 2.0\nmin_y = spill_position[1] - spill_extent[1] / 2.0\nmax_y = spill_position[1] + spill_extent[1] / 2.0\n\n# Define the wiping motion step size\nstep_size = 0.05  # Adjust as needed\n\n# Define the wiping orientation (downward facing)\nwiping_quaternion = np.array([0.0, 0.0, 1.0, 0.0])\n\n# Move to the starting position for wiping\nstart_position = np.array([min_x, min_y, wiping_height])\ngoto_pose(start_position, wiping_quaternion)\n\n# Perform wiping motions\ncurrent_x = min_x\ncurrent_y = min_y\nwhile current_x <= max_x:\n    current_position = np.array([current_x, current_y, wiping_height])\n    goto_pose(current_position, wiping_quaternion)\n    current_y += step_size\n    if current_y >= max_y:\n        current_y = min_y\n        current_x += step_size\n\n# Move to a safe position after wiping\nfinal_position = np.array([min_x, min_y, wiping_height])\ngoto_pose(final_position, wiping_quaternion)"
+  },
+  {
+    "pid": "d7d45f9310bc",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen35-9b"
+    ],
+    "n_episodes": 8,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.97,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose of the brown spill\nposition, quaternion, bbox_extent = get_object_pose(\"brown spill\", return_bbox_extent=True)\n\n# Extract min and max x and y from the bounding box extent\n# The bbox_extent is the full side length in the world frame\n# We assume the spill is roughly aligned with the table (z=0) and we need to cover its extent\n# Since we don't have the center of the spill directly from bbox_extent, we use the object's position as the center\n# and half the extent as the radius for each axis\nhalf_extent_x = bbox_extent[0] / 2.0\nhalf_extent_y = bbox_extent[1] / 2.0\n\n# Define the wiping area bounds\nmin_x = position[0] - half_extent_x\nmax_x = position[0] + half_extent_x\nmin_y = position[1] - half_extent_y\nmax_y = position[1] + half_extent_y\n\n# Wiping orientation: downward-facing (0, 0, 1, 0) wxyz\nwiping_quaternion = np.array([0.0, 0.0, 1.0, 0.0])\n\n# Define a series of poses to cover the spill area with small steps\n# We'll use a grid of points to ensure full coverage\nstep_size = 0.05  # 5 cm steps to avoid large IK deltas\nx_positions = np.arange(min_x, max_x + step_size, step_size)\ny_positions = np.arange(min_y, max_y + step_size, step_size)\n\n# Perform wiping motions\nfor x in x_positions:\n    for y in y_positions:\n        pose_position = np.array([x, y, 0.0])  # z=0.0 as specified\n        goto_pose(pose_position, wiping_quaternion)"
+  },
+  {
+    "pid": "66b818dc7474",
+    "task": "spill_wipe",
+    "tier": "S1",
+    "models": [
+      "qwen3-32b"
+    ],
+    "n_episodes": 1,
+    "root_causes": [
+      "incomplete"
+    ],
+    "median_reward": 0.99,
+    "error": "",
+    "code": "import numpy as np\n\n# Get the pose and bounding box extent of the 'brown spill'\nspill_position, _, spill_bbox_extent = get_object_pose(\"brown spill\", return_bbox_extent=True)\n\n# Extract min and max x and y bounds for wiping\nx_min = spill_position[0] - spill_bbox_extent[0] / 2\nx_max = spill_position[0] + spill_bbox_extent[0] / 2\ny_min = spill_position[1] - spill_bbox_extent[1] / 2\ny_max = spill_position[1] + spill_bbox_extent[1] / 2\n\n# Define the wiping orientation (downward-facing)\nwipe_orientation = np.array([0.0, 0.0, 1.0, 0.0])\n\n# Define a small step size for wiping motion\nstep_size = 0.02  # 2 cm\n\n# Move to the starting position (center of the spill)\nstart_position = np.array([x_min, y_min, 0.0])\ngoto_pose(start_position, wipe_orientation)\n\n# Wipe in a grid pattern across the spill\nfor x in np.arange(x_min, x_max, step_size):\n    for y in np.arange(y_min, y_max, step_size):\n        position = np.array([x, y, 0.0])\n        goto_pose(position, wipe_orientation)"
+  }
+]

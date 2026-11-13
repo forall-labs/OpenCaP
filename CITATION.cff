@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use OpenCaP, please cite it as below."
+title: "OpenCaP: How Open-Weight Models Fail at Writing Robot Code"
+authors:
+  - family-names: Pakdamansavoji
+    given-names: Sajjad
+year: 2026
+url: "https://forall-labs.github.io/OpenCaP/"
+repository-code: "https://github.com/forall-labs/OpenCaP"
+license: MIT
