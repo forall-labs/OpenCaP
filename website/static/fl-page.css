@@ -1,0 +1,101 @@
+/* Forall Labs project pages: the shared interactive layer.
+   The same file ships in every project repository (OpenCaP, AutoPolish, CALVIN-MAX);
+   edit it in one and copy it to the others. It builds on the tokens each page
+   defines in its own <style> (--bg, --accent, --line, --radius ...).
+
+   Parts: a hero with a live visual beside the title, the sticky section bar,
+   the compare slider, figure zoom, and the hover and press layer. */
+
+:root {
+  --ease-out: cubic-bezier(.2, .7, .2, 1); --header-h: 75px;
+  --wide-col: 1104px; /* the header's content width (1200 - 2 x 48), so figures share its left and right edges */
+}
+
+/* ---------- Hero: the title on the left, the project's own material on the right ---------- */
+.article > .article-head.hero { max-width: var(--wide-col); }
+.hero .hero-visual { margin: 0; min-width: 0; }
+@media (min-width: 1080px) {
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); column-gap: clamp(2.5rem, 4.5vw, 4.75rem); align-items: start; }
+  .hero > * { grid-column: 1; }
+  /* five text rows, then one row that takes whatever height the visual adds, so the text keeps its spacing */
+  .hero { grid-template-rows: repeat(5, auto) 1fr; }
+  .hero > .hero-visual { grid-column: 2; grid-row: 1 / -1; align-self: start; }
+  .hero .dek { max-width: 24ch; }
+}
+@media (max-width: 1079.98px) {
+  .hero > .kicker { order: 0; } .hero > .title-block { order: 1; } .hero > .hero-visual { order: 2; }
+  .hero > .standfirst { order: 3; } .hero > .byline { order: 4; } .hero > .actions { order: 5; }
+}
+
+/* one entrance, on load only */
+@media (prefers-reduced-motion: no-preference) {
+  [data-enter] > * { animation: fl-rise .8s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 70ms + 40ms); }
+  [data-enter] > .hero-visual { animation: fl-reveal 1.1s var(--ease-out) both; animation-delay: 160ms; }
+}
+[data-enter] > :nth-child(2) { --i: 1; } [data-enter] > :nth-child(3) { --i: 2; } [data-enter] > :nth-child(4) { --i: 3; }
+[data-enter] > :nth-child(5) { --i: 4; } [data-enter] > :nth-child(6) { --i: 5; } [data-enter] > :nth-child(7) { --i: 6; }
+@keyframes fl-rise { from { opacity: 0; transform: translateY(14px); } }
+@keyframes fl-reveal { from { opacity: 0; transform: translateY(20px) scale(.985); } }
+
+/* ---------- Section bar ---------- */
+.article > .toc { max-width: var(--wide-col); position: sticky; top: calc(var(--header-h) + 10px); z-index: 40; margin-top: var(--s-5); }
+.toc-inner {
+  display: flex; align-items: center; gap: 2px; overflow-x: auto; scrollbar-width: none; padding: 5px;
+  background: color-mix(in srgb, var(--bg-raised) 82%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: 0 6px 24px -14px color-mix(in srgb, var(--text) 40%, transparent);
+}
+.toc-inner::-webkit-scrollbar { display: none; }
+.toc-name { font-family: var(--serif); font-size: 1.05rem; letter-spacing: -0.015em; padding: 0 .9rem 0 .6rem; margin-right: .3rem; border-right: 1px solid var(--line); white-space: nowrap; }
+.toc a { flex: none; display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 8px; font-size: var(--t-small); font-weight: 500; color: var(--text-soft); text-decoration: none; white-space: nowrap; transition: color .15s, background-color .15s; }
+.toc a:hover { background: var(--bg-sunk); color: var(--text); }
+.toc a[aria-current="true"] { background: var(--accent-wash); color: var(--accent-deep); font-weight: 600; }
+.toc .toc-cite { margin-left: auto; }
+@media (max-width: 640px) { .toc-name { display: none; } }
+.article [id], .appendix[id] { scroll-margin-top: calc(var(--header-h) + 76px); }
+
+/* ---------- Compare slider: two images, one handle ---------- */
+.cmp { position: relative; overflow: hidden; border-radius: var(--radius); background: var(--bg-sunk); isolation: isolate; touch-action: pan-y; --pos: 50%; }
+.cmp img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+.cmp .cmp-b { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.cmp-label { position: absolute; top: 12px; z-index: 2; padding: 5px 10px; border-radius: 999px; font-size: var(--t-micro); font-weight: 600; color: #fff; background: rgba(20, 20, 19, .62); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); pointer-events: none; transition: opacity .2s; }
+.cmp-label.l { left: 12px; } .cmp-label.r { right: 12px; }
+.cmp input[type="range"] { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; -webkit-appearance: none; appearance: none; }
+.cmp-handle { position: absolute; top: 0; bottom: 0; left: var(--pos); z-index: 2; width: 0; pointer-events: none; }
+.cmp-handle::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .12); }
+.cmp-handle span { position: absolute; top: 50%; left: 0; width: 44px; height: 44px; transform: translate(-50%, -50%); border-radius: 50%; background: #fff; box-shadow: 0 4px 18px rgba(0, 0, 0, .25); display: grid; place-items: center; transition: transform .18s var(--ease-out); }
+.cmp-handle span::before { content: "\2039\00a0\203A"; font: 700 18px/1 var(--sans); color: #141413; letter-spacing: -1px; }
+.cmp:hover .cmp-handle span { transform: translate(-50%, -50%) scale(1.06); }
+.cmp input:focus-visible ~ .cmp-handle span { outline: 2px solid var(--accent); outline-offset: 3px; }
+.cmp.dragging .cmp-label { opacity: .35; }
+
+/* chips that pick what a hero or figure shows */
+.pick { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--s-2); }
+.pick button { appearance: none; display: inline-flex; align-items: center; gap: .45rem; min-height: 34px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-raised); color: var(--text-soft); font: 500 var(--t-micro)/1 var(--sans); cursor: pointer; transition: border-color .15s, color .15s, background-color .15s, transform .18s var(--ease-out); }
+.pick button:hover { border-color: var(--text-faint); color: var(--text); transform: translateY(-1px); }
+.pick button:active { transform: scale(.97); }
+.pick button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-wash); color: var(--text); font-weight: 600; }
+.pick button i { width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--accent)); flex: none; }
+
+/* ---------- Hover and press ---------- */
+.btn { transition: transform .18s var(--ease-out), background-color .15s, border-color .15s, color .15s, box-shadow .18s; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px -10px color-mix(in srgb, var(--text) 55%, transparent); }
+.btn:active { transform: translateY(0) scale(.98); box-shadow: none; }
+.btn[aria-disabled="true"]:hover { transform: none; box-shadow: none; }
+.thumb img, .g-img img, .cell .img img { transition: transform .5s var(--ease-out); }
+.thumb:hover img, .g-cell:hover .g-img img, .cell:hover .img img { transform: scale(1.03); }
+
+/* ---------- Figure zoom ---------- */
+.plate img[data-zoom] { cursor: zoom-in; }
+.zoom-dlg { padding: 0; border: 0; background: transparent; max-width: min(96vw, 1700px); max-height: 94vh; overflow: visible; }
+.zoom-dlg::backdrop { background: rgba(20, 20, 19, .72); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.zoom-dlg img { display: block; max-width: min(96vw, 1700px); max-height: 88vh; width: auto; height: auto; border-radius: var(--radius-sm); background: #fff; padding: clamp(.5rem, 1.5vw, 1.25rem); }
+.zoom-dlg form { position: absolute; top: -14px; right: -14px; }
+.zoom-dlg .btn { border-radius: 999px; width: 44px; height: 44px; padding: 0; justify-content: center; font-size: 1.2rem; }
+@media (prefers-reduced-motion: no-preference) { .zoom-dlg[open] { animation: fl-rise .35s var(--ease-out); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover, .pick button:hover { transform: none; }
+  .thumb:hover img, .g-cell:hover .g-img img, .cell:hover .img img { transform: none; }
+}
